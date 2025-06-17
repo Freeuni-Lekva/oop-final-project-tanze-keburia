@@ -15,4 +15,7 @@ public class UserDAO {
         }
         return false;
     }
+    public boolean userExists(String username) {
+        return accounts.containsKey(username);
+    }
 }
