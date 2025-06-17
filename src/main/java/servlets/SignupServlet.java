@@ -16,7 +16,7 @@ public class SignupServlet {
         ServletContext context = request.getServletContext();
         UserDAO userDAO = (UserDAO)context.getAttribute("users");
         if(userDAO.userExists(username)) {
-            response.sendRedirect("User with given username already exists");
+            response.sendRedirect("FailedSignUp.jsp");
         }
         else {
             User newUser = new User(username, password);

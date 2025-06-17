@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ad70705-2e7f-401a-a7b6-6a3dde677e02" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" afterDir="false" />
-    </list>
+    <list default="true" id="9ad70705-2e7f-401a-a7b6-6a3dde677e02" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +112,7 @@
       <workItem from="1750182068372" duration="2729000" />
       <workItem from="1750184838615" duration="1168000" />
       <workItem from="1750186059024" duration="1151000" />
-      <workItem from="1750187254371" duration="3315000" />
+      <workItem from="1750187254371" duration="3868000" />
     </task>
     <servers />
   </component>
