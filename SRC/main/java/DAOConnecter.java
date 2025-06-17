@@ -1,3 +1,5 @@
+package main.java;
+
 import java.sql.Connection;
 
 public class DAOConnecter {

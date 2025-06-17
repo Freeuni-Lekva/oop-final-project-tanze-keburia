@@ -1,3 +1,5 @@
+package main.java;
+
 import junit.framework.TestCase;
 
 public class UserTest extends TestCase {

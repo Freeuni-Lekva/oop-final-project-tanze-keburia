@@ -1,3 +1,5 @@
+package main.java;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,5 +12,8 @@ public class ContextListener implements ServletContextListener {
         UserDAO userDAO = new UserDAO(conn);
         ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("users", userDAO);
+    }
+    public void contextDestroyed(ServletContextEvent event) {
+
     }
 }

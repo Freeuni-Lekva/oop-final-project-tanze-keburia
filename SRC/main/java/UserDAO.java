@@ -1,3 +1,5 @@
+package main.java;
+
 import java.sql.Connection;
 import java.util.HashMap;
 
@@ -12,6 +14,7 @@ public class UserDAO {
     public boolean checkPassword(String userName, String password){
         if(accounts.containsKey(userName)){
             return accounts.get(userName).equals(password);
+
         }
         return false;
     }
