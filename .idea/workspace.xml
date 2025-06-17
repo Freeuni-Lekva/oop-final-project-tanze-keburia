@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" afterDir="false" />
-    </list>
+    <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +48,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging user__login",
+    "git-widget-placeholder": "user__login",
     "junie.onboarding.icon.badge.shown": "true",
     "last_directory_selection": "/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/listeners",
     "last_opened_file_path": "/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/target",
