@@ -1,3 +1,4 @@
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,14 +16,18 @@ public class UserDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         // Initialize H2 in-memory database
-        String url = "jdbc:mysql://localhost:3306/mysql";
-        String username = "root";
-        String password = "Bozartma";
-        DatabaseConnector.getInstance(url, username, password);
-        conn = DatabaseConnector.getConnection();
+      //  Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:3306/metro";
+        String username = "icosahedron";
+        String password = "Loko_kina1";
+        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
+        conn = dbc.getConnection();
+        assert(conn != null);
         // Create users table
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("CREATE TABLE IF NOT EXISTS users (" +
+            stmt.execute("DROP TABLE IF EXISTS users");
+            stmt.execute(
+                    "CREATE TABLE IF NOT EXISTS users (" +
                     "userName VARCHAR(50) PRIMARY KEY, " +
                     "passwordHash VARCHAR(60) NOT NULL)");
         }
@@ -40,12 +45,11 @@ public class UserDAOTest {
         userDao.add(u);
         assertTrue(userDao.userExists(u.getUserName()));
     }
-
-//    @Test
-//    public void testCheckPassword() throws NoSuchAlgorithmException {
-//        User user = new User("testuser", "password123");
-//        userDao.add(user);
-//        assertTrue(userDao.checkPassword("testuser", "password123"));
-//        assertFalse(userDao.checkPassword("testuser", "wrongpassword"));
-//    }
+    @Test
+    public void testCheckPassword() throws NoSuchAlgorithmException {
+        User user = new User("testuser", "password123");
+        userDao.add(user);
+        assertTrue(userDao.checkPassword("testuser", "password123"));
+        assertFalse(userDao.checkPassword("testuser", "wrongpassword"));
+    }
 }

@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ROOT" target="1.8" />
       <module name="src" target="24" />
     </bytecodeTargetLevel>
   </component>

@@ -1,33 +1,40 @@
+
+
 import java.sql.*;
 
 public class DatabaseConnector {
-    private static String dbUrl;
-    private static String dbUser;
-    private static String dbPassword;
+    private String dbUrl;
+    private String dbUser;
+    private String dbPassword;
     private static boolean created = false;
     private static DatabaseConnector dbc;
 
    private DatabaseConnector(String dbUrl, String dbUser, String dbPassword) throws ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        dbc.dbUrl = dbUrl;
-        dbc.dbUser = dbUser;
-        dbc.dbPassword = dbPassword;
-        created = true;
+
+       if(dbc == null) {
+           Class.forName("com.mysql.cj.jdbc.Driver");
+           dbc = this;
+           dbc.dbUrl = dbUrl;
+           dbc.dbUser = dbUser;
+           dbc.dbPassword = dbPassword;
+           created = true;
+       }
     }
 
     public static DatabaseConnector getInstance(String dbUrl, String dbUser, String dbPassword) throws ClassNotFoundException {
-       if (created) return dbc;
-       return (new DatabaseConnector(dbUrl, dbUser, dbPassword).dbc);
+       DatabaseConnector dbc = new DatabaseConnector(dbUrl, dbUser, dbPassword);
+       return dbc;
     }
 
 
     public static Connection getConnection() throws SQLException {
         try {
-            Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            Connection connection = DriverManager.getConnection(dbc.dbUrl, dbc.dbUser, dbc.dbPassword);
             return connection;
         } catch (SQLException e) {
             throw e;
         }
+
     }
 
 
