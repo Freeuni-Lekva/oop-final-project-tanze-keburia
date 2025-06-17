@@ -13,12 +13,10 @@ public class UserDAO {
         String sql = "INSERT INTO users (userName, passwordHash) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, u.getUserName());
-            stmt.setString(2, Hasher.hashPassword(u.getPassword()));
+            stmt.setString(2, u.getPassword());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -29,10 +27,13 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String storedHash = rs.getString("passwordHash");
-                return storedHash.equals(password);
+                return storedHash.equals(Hasher.hashPassword(password));
             }
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
