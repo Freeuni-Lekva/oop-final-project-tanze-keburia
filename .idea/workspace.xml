@@ -4,44 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ad70705-2e7f-401a-a7b6-6a3dde677e02" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/target/tomcat/logs/access_log.2025-06-17" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/oop-final-project-tanze-keburia.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/ContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ContextListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/DAOConnecter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/DAOConnecter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/SessionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SessionListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/UserDAOtest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserDAOtest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/java/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/main/webapp/loginFailed.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/loginFailed.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/ContextListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/LoginServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/SessionListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/SignupServlet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/UserDAO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/UserDAOtest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/classes/UserTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/tomcat/conf/logging.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/tomcat/conf/logging.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/tomcat/conf/tomcat-users.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/tomcat/conf/tomcat-users.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/tomcat/conf/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/tomcat/conf/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SRC/target/tomcat/logs/access_log.2025-06-17" beforeDir="false" />
+    <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/usedName.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/signup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SRC/main/webapp/usedName.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/SRC/main/webapp/usedName.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/SESSIONS.ser" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/SESSIONS.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -72,35 +46,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.UserDAOtest.executor": "Run",
-    "JUnit.UserTest.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven. [tomcat7:run].executor": "Run",
-    "Maven.ROOT [clean].executor": "Run",
-    "Maven.ROOT [tomcat7:run].executor": "Run",
-    "Maven.SRC [tomcat7:run].executor": "Run",
-    "Maven.src [tomcat7:run].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "user__login",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_directory_selection": "/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/listeners",
-    "last_opened_file_path": "/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/target",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.UserDAOtest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [tomcat7:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ROOT [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ROOT [tomcat7:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.SRC [tomcat7:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.src [tomcat7:run].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;user__login&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/listeners&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/target&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
