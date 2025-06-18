@@ -1,6 +1,20 @@
+<<<<<<<< HEAD:src/main/java/classes/UserDAOTest.java
 import classes.DataBases.DatabaseConnector;
 import classes.User.User;
 import classes.User.UserDAO;
+========
+<<<<<<<< HEAD:src/main/java/database/UserDAOTest.java
+package database;
+
+import classes.User;
+========
+package tests;
+
+import classes.DatabaseConnector;
+import classes.User;
+import classes.UserDAO;
+>>>>>>>> 6f594cb85381d40863ae333ff9a68bf1cb77fe35:src/main/java/tests/UserDAOTest.java
+>>>>>>>> df1a6eb3c0b7ed44c13ce04e76d91a2b760b57ed:src/main/java/database/UserDAOTest.java
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,9 +33,15 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+<<<<<<<< HEAD:src/main/java/database/UserDAOTest.java
+        String url = "jdbc:mysql://localhost:3306/metro";
+        String username = "icosahedron";
+        String password = "Loko_kina1";
+========
         String url = "jdbc:mysql://localhost:3306/mysql";
         String username = "root";
         String password = "Akkdzidzi100!";
+>>>>>>>> 6f594cb85381d40863ae333ff9a68bf1cb77fe35:src/main/java/tests/UserDAOTest.java
         DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
         conn = dbc.getConnection();
         assert(conn != null);
