@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/main/java/classes/DataBases/DatabaseConnector.java
-package classes.DataBases;
-========
 package database;
->>>>>>>> df1a6eb3c0b7ed44c13ce04e76d91a2b760b57ed:src/main/java/database/DatabaseConnector.java
 
 import java.sql.*;
 

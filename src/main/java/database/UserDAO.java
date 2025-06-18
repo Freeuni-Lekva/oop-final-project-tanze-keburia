@@ -1,13 +1,7 @@
-<<<<<<<< HEAD:src/main/java/classes/User/UserDAO.java
-package classes.User;
-
-import classes.Hasher;
-========
 package database;
 
 import classes.Hasher;
-import classes.User;
->>>>>>>> df1a6eb3c0b7ed44c13ce04e76d91a2b760b57ed:src/main/java/database/UserDAO.java
+import classes.User.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
