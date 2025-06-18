@@ -1,3 +1,4 @@
+package classes;
 
 import junit.framework.TestCase;
 import org.junit.Test;

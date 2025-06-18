@@ -1,3 +1,4 @@
+package classes;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
