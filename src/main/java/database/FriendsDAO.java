@@ -11,7 +11,6 @@ public class FriendsDAO {
         try (Connection connection = dbConnector.getConnection();
              Statement stmt = connection.createStatement()) {
 
-            // Create friends table if it doesn't exist
             stmt.execute("CREATE TABLE IF NOT EXISTS friends (" +
                     "user_a VARCHAR(255), " +
                     "user_b VARCHAR(255), " +
@@ -26,7 +25,6 @@ public class FriendsDAO {
         if(username == null || friendUsername == null || username.equals(friendUsername)) {
             throw new IllegalArgumentException("Invalid usernames");
         }
-        // Ensure consistent ordering to avoid duplicates
         String user1 = username.compareTo(friendUsername) < 0 ? username : friendUsername;
         String user2 = username.compareTo(friendUsername) < 0 ? friendUsername : username;
 
@@ -47,7 +45,6 @@ public class FriendsDAO {
             throw new IllegalArgumentException("Invalid usernames");
         }
 
-        // Ensure consistent ordering
         String user1 = a.compareTo(b) < 0 ? a : b;
         String user2 = a.compareTo(b) < 0 ? b : a;
 
@@ -71,7 +68,6 @@ public class FriendsDAO {
         List<String> friends = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()) {
 
-            // Find friends where the user is user_a
             try (PreparedStatement ps = connection.prepareStatement(
                     "SELECT user_b FROM friends WHERE user_a = ?")) {
                 ps.setString(1, username);
@@ -82,7 +78,6 @@ public class FriendsDAO {
                 }
             }
 
-            // Find friends where the user is user_b
             try (PreparedStatement ps = connection.prepareStatement(
                     "SELECT user_a FROM friends WHERE user_b = ?")) {
                 ps.setString(1, username);

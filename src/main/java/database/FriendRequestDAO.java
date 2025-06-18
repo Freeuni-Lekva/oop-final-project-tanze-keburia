@@ -32,12 +32,10 @@ public class FriendRequestDAO {
             throw new IllegalArgumentException("Invalid sender or receiver");
         }
 
-        // Check if users are already friends
         if (areAlreadyFriends(sender, receiver)) {
             throw new IllegalStateException("Users are already friends");
         }
 
-        // Check if request already exists
         if (requestExists(sender, receiver)) {
             throw new IllegalStateException("Friend request already exists");
         }
