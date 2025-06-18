@@ -26,7 +26,12 @@ public class ContextListener implements ServletContextListener {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        UserDAO userDAO = new UserDAO(conn);
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO(conn);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("users", userDAO);
     }

@@ -1,7 +1,10 @@
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:40 +0400] "GET / HTTP/1.1" 200 390 http-bio-8083-exec-1 600
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:41 +0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8083-exec-3 2
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:22 +0400] "POST /LoginServlet HTTP/1.1" 302 - http-bio-8083-exec-5 229
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:23 +0400] "GET /loginFailed.jsp HTTP/1.1" 200 496 http-bio-8083-exec-7 148
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:24 +0400] "GET /signup.jsp HTTP/1.1" 200 419 http-bio-8083-exec-8 200
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:27 +0400] "POST /SignupServlet HTTP/1.1" 302 - http-bio-8083-exec-9 18
-0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:27 +0400] "GET /index.jsp HTTP/1.1" 404 969 http-bio-8083-exec-10 2
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:49 +0400] "GET / HTTP/1.1" 200 376 http-bio-8083-exec-1 364
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:51 +0400] "GET /signup.jsp HTTP/1.1" 200 400 http-bio-8083-exec-3 39
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:53 +0400] "POST /SignupServlet HTTP/1.1" 302 - http-bio-8083-exec-4 16
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:53 +0400] "GET /index.jsp HTTP/1.1" 200 97 http-bio-8083-exec-5 18
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:58 +0400] "POST /LoginServlet HTTP/1.1" 302 - http-bio-8083-exec-6 7
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:24:58 +0400] "GET /index.jsp HTTP/1.1" 200 97 http-bio-8083-exec-7 1
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:23 +0400] "GET / HTTP/1.1" 200 376 http-bio-8083-exec-1 33
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:25 +0400] "GET /signup.jsp HTTP/1.1" 200 400 http-bio-8083-exec-3 14
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:27 +0400] "POST /SignupServlet HTTP/1.1" 302 - http-bio-8083-exec-4 32
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:27:27 +0400] "GET /index.jsp HTTP/1.1" 200 97 http-bio-8083-exec-5 3
