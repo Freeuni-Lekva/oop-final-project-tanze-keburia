@@ -1,9 +1,9 @@
-C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\DatabaseConnector.java
 C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\Hasher.java
-C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\User.java
-C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\UserDAO.java
-C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\UserDAOTest.java
+C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\User\User.java
 C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\classes\UserTest.java
+C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\database\DatabaseConnector.java
+C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\database\UserDAO.java
+C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\database\UserDAOTest.java
 C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\listeners\ContextListener.java
 C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\listeners\SessionListener.java
 C:\Users\Ako\IdeaProjects\oop-final-project-tanze-keburia\src\main\java\servlets\LoginServlet.java

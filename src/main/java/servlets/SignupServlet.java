@@ -1,6 +1,6 @@
 package servlets;
 
-import classes.User;
+import classes.User.User;
 import database.UserDAO;
 
 import javax.servlet.ServletContext;

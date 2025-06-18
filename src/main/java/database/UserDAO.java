@@ -1,7 +1,7 @@
 package database;
 
 import classes.Hasher;
-import classes.User;
+import classes.User.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;

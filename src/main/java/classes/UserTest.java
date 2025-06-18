@@ -1,7 +1,6 @@
-package tests;
+package classes;
 
-import classes.Hasher;
-import classes.User;
+import classes.User.User;
 import junit.framework.TestCase;
 import org.junit.Test;
 
