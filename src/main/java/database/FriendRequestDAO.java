@@ -1,12 +1,13 @@
 package database;
 
+import java.sql.Connection;
 import java.util.*;
 
 
 public class FriendRequestDAO {
 
     private Map<String, List<String>> requests = new HashMap<>();
-
+    public FriendRequestDAO(Connection conn) {}
     public List<String> getRequestList(String a) {
         if(requests.containsKey(a)) return requests.get(a);
 

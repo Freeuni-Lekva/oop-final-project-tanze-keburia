@@ -19,9 +19,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         ServletContext context = getServletContext();
         UserDAO userDAO = (UserDAO)context.getAttribute("users");
-        HttpSession session = request.getSession();
-        session.setAttribute("username", username);
+
         if(userDAO.userExists(username) && userDAO.checkPassword(username, password)){
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
             response.sendRedirect("homepage.jsp");
         } else {
             response.sendRedirect("loginFailed.jsp");

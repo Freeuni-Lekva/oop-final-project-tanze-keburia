@@ -1,11 +1,12 @@
 package database;
 
+import java.sql.Connection;
 import java.util.*;
 
 public class FriendsDAO {
 
     private Map<String, List<String>> friends = new HashMap<>();
-
+    public FriendsDAO(Connection conn){}
     public void addFriends(String a, String b) {
 
         if(!friends.containsKey(a)) {
