@@ -1,8 +1,12 @@
-package classes;
+package tests;
 
+import classes.DatabaseConnector;
+import classes.User;
+import classes.UserDAO;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,7 +23,7 @@ public class UserDAOTest {
     public static void setUpClass() throws Exception {
         String url = "jdbc:mysql://localhost:3306/mysql";
         String username = "root";
-        String password = "Bozartma";
+        String password = "Akkdzidzi100!";
         DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
         conn = dbc.getConnection();
         assert(conn != null);

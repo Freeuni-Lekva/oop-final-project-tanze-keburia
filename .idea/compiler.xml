@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="src (2)" />
-        <module name="SRC" />
+        <module name="src" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
