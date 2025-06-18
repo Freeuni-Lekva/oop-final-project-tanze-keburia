@@ -96,3 +96,10 @@
 0:0:0:0:0:0:0:1 - - [18/Jun/2025:18:08:12 +0400] "GET /loginFailed.jsp HTTP/1.1" 200 480 http-bio-8083-exec-9 49
 0:0:0:0:0:0:0:1 - - [18/Jun/2025:18:08:15 +0400] "POST /LoginServlet HTTP/1.1" 302 - http-bio-8083-exec-10 7
 0:0:0:0:0:0:0:1 - - [18/Jun/2025:18:08:15 +0400] "GET /index.jsp HTTP/1.1" 200 52 http-bio-8083-exec-10 2
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:17 +0400] "GET / HTTP/1.1" 200 390 http-bio-8083-exec-1 494
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:17 +0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8083-exec-3 3
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:23 +0400] "POST /LoginServlet HTTP/1.1" 302 - http-bio-8083-exec-4 68
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:24 +0400] "GET /loginFailed.jsp HTTP/1.1" 200 496 http-bio-8083-exec-5 118
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:28 +0400] "POST /LoginServlet HTTP/1.1" 302 - http-bio-8083-exec-6 6
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:28 +0400] "GET /loginFailed.jsp HTTP/1.1" 200 496 http-bio-8083-exec-7 2
+0:0:0:0:0:0:0:1 - - [18/Jun/2025:20:59:32 +0400] "GET /signup.jsp HTTP/1.1" 200 419 http-bio-8083-exec-8 243
