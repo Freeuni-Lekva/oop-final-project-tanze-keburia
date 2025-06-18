@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/UserDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAOTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/UserDAOTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/listeners/SessionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listeners/SessionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/DatabaseConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/Hasher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/Hasher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/listeners/ContextListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/listeners/ContextListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlets/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/servlets/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlets/SignupServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/servlets/SignupServlet.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,21 +27,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "icosahedron31"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;icosahedron31&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Freeuni-Lekva/oop-final-project-tanze-keburia.git",
-    "accountId": "8e41a3e0-5fc8-4cda-b5bc-55e772867706"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Freeuni-Lekva/oop-final-project-tanze-keburia.git&quot;,
+    &quot;accountId&quot;: &quot;8e41a3e0-5fc8-4cda-b5bc-55e772867706&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2ygcPt99aOsnE6ZFZacUA4IydMl" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -60,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "web-dev",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,17 +89,6 @@
       <command value="mvn tomcat7:run" />
     </option>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -112,6 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1750259637056</updated>
       <workItem from="1750259640139" duration="8956000" />
+      <workItem from="1750269372336" duration="3517000" />
     </task>
     <servers />
   </component>
@@ -122,8 +116,8 @@
     <SUITE FILE_PATH="coverage/oop_final_project_tanze_keburia$UserDAOTest.ic" NAME="UserDAOTest Coverage Results" MODIFIED="1750266452434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>classes.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/oop_final_project_tanze_keburia$UserTest.ic" NAME="UserTest Coverage Results" MODIFIED="1750266480006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
-      <FILTER>classes.*</FILTER>
+    <SUITE FILE_PATH="coverage/oop_final_project_tanze_keburia$UserTest.ic" NAME="UserTest Coverage Results" MODIFIED="1750270058366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>tests.*</FILTER>
     </SUITE>
   </component>
 </project>
