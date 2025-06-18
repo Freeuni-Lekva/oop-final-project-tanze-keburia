@@ -7,6 +7,7 @@ public class FriendsDAO {
     private Map<String, List<String>> friends = new HashMap<>();
 
     public void addFriends(String a, String b) {
+
         if(!friends.containsKey(a)) {
             friends.put(a, new ArrayList<>());
         }
