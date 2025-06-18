@@ -1,4 +1,7 @@
-package classes;
+package database;
+
+import classes.Hasher;
+import classes.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -26,10 +29,7 @@ public class UserDAO {
             stmt.setString(2, u.getPassword());
             stmt.executeUpdate();
             stmt.close();
-            System.out.println(u.getPassword());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {e.printStackTrace();}
     }
 
     public boolean checkPassword(String username, String password) {
@@ -41,12 +41,7 @@ public class UserDAO {
                 String storedHash = rs.getString("passwordHash");
                 return storedHash.equals(Hasher.hashPassword(password));
             }
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (SQLException e) {e.printStackTrace();} catch (NoSuchAlgorithmException e) {throw new RuntimeException(e);}
         return false;
     }
 
@@ -57,9 +52,7 @@ public class UserDAO {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        } catch (SQLException e) {e.printStackTrace();}
+        return false;
     }
 }
