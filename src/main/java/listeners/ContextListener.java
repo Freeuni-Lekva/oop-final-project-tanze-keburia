@@ -1,6 +1,6 @@
 package listeners;
-import classes.DatabaseConnector;
-import classes.UserDAO;
+import database.DatabaseConnector;
+import database.UserDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -15,8 +15,8 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
         try {
-            dbc = DatabaseConnector.getInstance("jdbc:mysql://localhost:3306/g",
-                    "root", "gzobava2005");
+            dbc = DatabaseConnector.getInstance("jdbc:mysql://localhost:3306/metropolis_db",
+                    "root", "Akkdzidzi100!");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
