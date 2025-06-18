@@ -7,10 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ROOT" />
+        <module name="SRC" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="SRC" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
