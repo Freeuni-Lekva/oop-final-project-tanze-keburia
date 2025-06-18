@@ -1,6 +1,6 @@
 package listeners;
-import classes.DatabaseConnector;
-import classes.UserDAO;
+import classes.DataBases.DatabaseConnector;
+import classes.User.UserDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

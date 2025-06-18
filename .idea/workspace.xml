@@ -5,28 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05d1a90c-fe34-40a2-8ef0-69833530260b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tests/UserDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tests/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/Bases/DatabaseConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/User/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/User/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/listeners/ContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listeners/ContextListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/classes/DatabaseConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/DatabaseConnector.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/UserDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAOTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classes/UserDAOTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/listeners/ContextListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/listeners/ContextListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/logs/access_log.2025-06-18" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/logs/access_log.2025-06-18" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/SESSIONS.ser" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/SESSIONS.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tests/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tests/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tests/UserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,6 +41,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JUnit.UserDAOTest.executor": "Coverage",
+    "JUnit.UserTest.executor": "Coverage",
     "Maven.src [tomcat7:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -65,12 +65,12 @@
       <module name="src" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserDAOTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="UserDAOTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -80,7 +80,7 @@
       <module name="src" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -119,11 +119,19 @@
       <workItem from="1750258609960" duration="348000" />
       <workItem from="1750258969432" duration="252000" />
       <workItem from="1750259230876" duration="2571000" />
-      <workItem from="1750266426092" duration="839000" />
+      <workItem from="1750266426092" duration="1895000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/oop_final_project_tanze_keburia$UserTest.ic" NAME="UserTest Coverage Results" MODIFIED="1750267310430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>tests.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/oop_final_project_tanze_keburia$UserDAOTest.ic" NAME="UserDAOTest Coverage Results" MODIFIED="1750267294479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>tests.*</FILTER>
+    </SUITE>
   </component>
 </project>

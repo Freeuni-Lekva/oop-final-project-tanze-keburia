@@ -1,8 +1,6 @@
-package tests;
-
-import classes.DatabaseConnector;
-import classes.User;
-import classes.UserDAO;
+import classes.DataBases.DatabaseConnector;
+import classes.User.User;
+import classes.User.UserDAO;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,8 +30,8 @@ public class UserDAOTest {
             stmt.execute("DROP TABLE IF EXISTS users");
             stmt.execute(
                     "CREATE TABLE IF NOT EXISTS users (" +
-                    "userName VARCHAR(50) PRIMARY KEY, " +
-                    "passwordHash VARCHAR(60) NOT NULL)");
+                            "userName VARCHAR(50) PRIMARY KEY, " +
+                            "passwordHash VARCHAR(60) NOT NULL)");
         }
     }
 
