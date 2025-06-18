@@ -10,5 +10,8 @@
         <module name="SRC" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="src (2)" target="24" />
+    </bytecodeTargetLevel>
   </component>
 </project>

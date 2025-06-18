@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.junit.Assert.*;
@@ -33,7 +34,7 @@ public class UserDAOTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         userDao = new UserDAO(conn);
     }
 
