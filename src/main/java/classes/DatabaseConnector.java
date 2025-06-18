@@ -6,7 +6,6 @@ public class DatabaseConnector {
     private String dbUrl;
     private String dbUser;
     private String dbPassword;
-    private static boolean created = false;
     private static DatabaseConnector dbc;
 
    private DatabaseConnector(String dbUrl, String dbUser, String dbPassword) throws ClassNotFoundException {
@@ -17,7 +16,6 @@ public class DatabaseConnector {
            dbc.dbUrl = dbUrl;
            dbc.dbUser = dbUser;
            dbc.dbPassword = dbPassword;
-           created = true;
        }
     }
 
