@@ -13,11 +13,7 @@
 </head>
 <body>
 <h2>Create a New Account</h2>
-<form action="SignupServlet" method="post">
-    Username: <input type="text" name="username" required /><br/>
-    Password: <input type="password" name="password" required /><br/>
-    <input type="submit" value="Sign Up" />
-</form>
+<jsp:include page = "signupForm.jspf" />
 <p><a href="login.jsp">Back to Log in</a></p>
 </body>
 </html>
