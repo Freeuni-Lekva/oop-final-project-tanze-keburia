@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05d1a90c-fe34-40a2-8ef0-69833530260b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/DatabaseConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/Bases/DatabaseConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/User/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/User/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/listeners/ContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listeners/ContextListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlets/SignupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tests/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tests/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tests/UserTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="05d1a90c-fe34-40a2-8ef0-69833530260b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -55,6 +46,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn tomcat7:run" />
@@ -119,7 +115,7 @@
       <workItem from="1750258609960" duration="348000" />
       <workItem from="1750258969432" duration="252000" />
       <workItem from="1750259230876" duration="2571000" />
-      <workItem from="1750266426092" duration="1895000" />
+      <workItem from="1750266426092" duration="3051000" />
     </task>
     <servers />
   </component>
