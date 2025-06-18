@@ -10,7 +10,7 @@ public class UserDAO {
         this.conn = conn;
     }
 
-    public void add(User u) {
+    public void addUser(User u) {
         String sql = "INSERT INTO users (userName, passwordHash) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, u.getUserName());

@@ -1,6 +1,5 @@
 package servlets;
 
-import classes.DAOConnecter;
 import classes.UserDAO;
 
 import javax.servlet.ServletContext;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
+
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     @Override

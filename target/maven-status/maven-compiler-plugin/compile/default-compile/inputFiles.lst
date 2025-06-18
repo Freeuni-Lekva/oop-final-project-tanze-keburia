@@ -1,7 +1,8 @@
-/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/DAOConnecter.java
+/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/DatabaseConnector.java
+/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/Hasher.java
 /home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/User.java
 /home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/UserDAO.java
-/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/UserDAOtest.java
+/home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/UserDAOTest.java
 /home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/classes/UserTest.java
 /home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/listeners/ContextListener.java
 /home/tarash-dolaberidze/IdeaProjects/oop-final-project-tanze-keburia/src/main/java/listeners/SessionListener.java

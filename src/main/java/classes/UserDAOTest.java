@@ -43,13 +43,13 @@ public class UserDAOTest {
     public void testAddingUser() throws NoSuchAlgorithmException {
         u = new User("mzare", "1234");
         assertFalse(userDao.userExists(u.getUserName()));
-        userDao.add(u);
+        userDao.addUser(u);
         assertTrue(userDao.userExists(u.getUserName()));
     }
     @Test
     public void testCheckPassword() throws NoSuchAlgorithmException {
         User user = new User("testuser", "password123");
-        userDao.add(user);
+        userDao.addUser(user);
         assertTrue(userDao.checkPassword("testuser", "password123"));
         assertFalse(userDao.checkPassword("testuser", "wrongpassword"));
     }

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 @WebServlet("/SignupServlet")
 public class SignupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +23,12 @@ public class SignupServlet extends HttpServlet {
             response.sendRedirect("usedName.jsp");
         }
         else {
-            User newUser = new User(username, password);
+            User newUser = null;
+            try {
+                newUser = new User(username, password);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
             userDAO.addUser(newUser);
             response.sendRedirect("index.jsp");
         }
