@@ -1,6 +1,4 @@
-package classes.User;
-
-import classes.Hasher;
+package classes;
 
 import java.security.NoSuchAlgorithmException;
 
