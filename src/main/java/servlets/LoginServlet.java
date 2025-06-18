@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
         if(userDAO.userExists(username) && userDAO.checkPassword(username, password)){
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("homepage.jsp");
         } else {
             response.sendRedirect("loginFailed.jsp");
         }

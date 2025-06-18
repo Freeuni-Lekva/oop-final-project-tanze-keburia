@@ -30,7 +30,7 @@ public class SignupServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
             userDAO.addUser(newUser);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("homepage.jsp");
         }
     }
 }
