@@ -6,16 +6,27 @@ import java.sql.*;
 public class UserDAO {
     private Connection conn;
 
-    public UserDAO(Connection conn) {
+    public UserDAO(Connection conn) throws SQLException {
         this.conn = conn;
+        String sql = "DROP TABLE IF EXISTS users";
+        Statement stmt = conn.createStatement();
+        stmt.execute(sql);
+        sql =
+                "CREATE TABLE IF NOT EXISTS users (" +
+                        "userName VARCHAR(50) PRIMARY KEY, " +
+                        "passwordHash VARCHAR(60) NOT NULL)";
+        stmt.execute(sql);
+        stmt.close();
     }
 
     public void addUser(User u) {
-        String sql = "INSERT INTO users (userName, passwordHash) VALUES (?, ?)";
+        String sql =  "INSERT INTO users (userName, passwordHash) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, u.getUserName());
             stmt.setString(2, u.getPassword());
             stmt.executeUpdate();
+            stmt.close();
+            System.out.println(u.getPassword());
         } catch (SQLException e) {
             e.printStackTrace();
         }

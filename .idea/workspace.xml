@@ -4,8 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05d1a90c-fe34-40a2-8ef0-69833530260b" name="Changes" comment="">
+    <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SRC.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classes/UserDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/listeners/ContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listeners/ContextListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/listeners/SessionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/listeners/SessionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/DatabaseConnector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/Hasher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserDAOTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/classes/UserTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/listeners/ContextListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/listeners/SessionListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlets/LoginServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlets/SignupServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/logs/access_log.2025-06-18" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/SESSIONS.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/index_jsp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/loginFailed_jsp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/loginFailed_jsp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/login_jsp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/login_jsp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/signup_jsp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/signup_jsp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/usedName_jsp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/tomcat/work/Tomcat/localhost/_/org/apache/jsp/usedName_jsp.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,47 +54,92 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="2yY0W2pLD7WILmly2MLiFzDKUWf" />
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "icosahedron31"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Freeuni-Lekva/oop-final-project-tanze-keburia.git",
+    "accountId": "8e41a3e0-5fc8-4cda-b5bc-55e772867706"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2ygcPt99aOsnE6ZFZacUA4IydMl" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.ROOT [clean].executor": "Run",
+    "Maven.ROOT [tomcat7:run].executor": "Run",
+    "Maven.SRC [tomcat7:run].executor": "Run",
+    "Maven.src [clean].executor": "Run",
+    "Maven.src [compile].executor": "Run",
+    "Maven.src [tomcat7:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
+    "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn compile" />
+      <command value="mvn clean" />
+      <command value="mvn tomcat7:run" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="05d1a90c-fe34-40a2-8ef0-69833530260b" name="Changes" comment="" />
-      <created>1749996231506</created>
+      <changelist id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="" />
+      <created>1750259637056</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1749996231506</updated>
-      <workItem from="1749996232573" duration="47000" />
-      <workItem from="1750257460365" duration="1107000" />
-      <workItem from="1750258609960" duration="348000" />
+      <updated>1750259637056</updated>
+      <workItem from="1750259640139" duration="4170000" />
     </task>
     <servers />
   </component>

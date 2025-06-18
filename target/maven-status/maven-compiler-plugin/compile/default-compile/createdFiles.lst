@@ -1,9 +1,10 @@
-classes/UserTest.class
-listeners/ContextListener.class
 classes/Hasher.class
+main/java/listeners/SessionListener.class
+classes/UserDAOTest.class
 servlets/SignupServlet.class
-listeners/SessionListener.class
 classes/User.class
 classes/UserDAO.class
 servlets/LoginServlet.class
+classes/UserTest.class
+listeners/ContextListener.class
 classes/DatabaseConnector.class
