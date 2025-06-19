@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ROOT" />
         <module name="SRC" />
+        <module name="src" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
