@@ -3,7 +3,6 @@ package database;
 import classes.User;
 
 
-import classes.User;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,9 +23,9 @@ public class UserDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 
-        String url = "jdbc:mysql://localhost:3306/metro";
-        String username = "icosahedron";
-        String password = "Loko_kina1";
+        String url = "jdbc:mysql://localhost:3306/mysql";
+        String username = "root";
+        String password = "Bozartma";
 
         DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
         conn = dbc.getConnection();
@@ -53,6 +52,8 @@ public class UserDAOTest {
         userDao.addUser(u);
         assertTrue(userDao.userExists(u.getUserName()));
     }
+
+
     @Test
     public void testCheckPassword() throws NoSuchAlgorithmException {
         User user = new User("testuser", "password123");
