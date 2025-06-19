@@ -9,5 +9,6 @@
 <%-- <%=request.getParameter("username")%>   amas davwert rorame(ro shegvedzleba gatestva)--%>
 <p>The username you chose is already taken. Please choose another one.</p>
 <jsp:include page = "signupForm.jspf" />
+<a href="login.jsp">Back to log in</a>
 </body>
 </html>
