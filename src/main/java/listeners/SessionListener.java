@@ -1,4 +1,4 @@
-package main.java.listeners;
+package listeners;
 
 public class SessionListener {
 }

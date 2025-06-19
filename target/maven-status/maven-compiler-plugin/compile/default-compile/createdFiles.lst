@@ -1,10 +1,10 @@
+database\DatabaseConnector.class
 listeners\ContextListener.class
-classes\UserTest.class
-classes\DatabaseConnector.class
+database\UserDAOTest.class
+listeners\SessionListener.class
 servlets\LoginServlet.class
-classes\UserDAO.class
+tests\UserTest.class
 classes\User.class
-main\java\listeners\SessionListener.class
 classes\Hasher.class
-classes\UserDAOTest.class
+database\UserDAO.class
 servlets\SignupServlet.class
