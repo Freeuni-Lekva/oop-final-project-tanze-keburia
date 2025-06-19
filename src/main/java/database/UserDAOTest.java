@@ -1,17 +1,13 @@
-<<<<<<<< HEAD:src/main/java/database/UserDAOTest.java
 package database;
 
 import classes.User;
-========
-package tests;
 
-import classes.DatabaseConnector;
+
 import classes.User;
-import classes.UserDAO;
->>>>>>>> 6f594cb85381d40863ae333ff9a68bf1cb77fe35:src/main/java/tests/UserDAOTest.java
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -27,15 +23,11 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-<<<<<<<< HEAD:src/main/java/database/UserDAOTest.java
+
         String url = "jdbc:mysql://localhost:3306/metro";
         String username = "icosahedron";
         String password = "Loko_kina1";
-========
-        String url = "jdbc:mysql://localhost:3306/mysql";
-        String username = "root";
-        String password = "Akkdzidzi100!";
->>>>>>>> 6f594cb85381d40863ae333ff9a68bf1cb77fe35:src/main/java/tests/UserDAOTest.java
+
         DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
         conn = dbc.getConnection();
         assert(conn != null);
@@ -44,8 +36,8 @@ public class UserDAOTest {
             stmt.execute("DROP TABLE IF EXISTS users");
             stmt.execute(
                     "CREATE TABLE IF NOT EXISTS users (" +
-                    "userName VARCHAR(50) PRIMARY KEY, " +
-                    "passwordHash VARCHAR(60) NOT NULL)");
+                            "userName VARCHAR(50) PRIMARY KEY, " +
+                            "passwordHash VARCHAR(60) NOT NULL)");
         }
     }
 
