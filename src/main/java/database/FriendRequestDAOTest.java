@@ -1,9 +1,9 @@
 package database;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,22 +12,21 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
-
 public class FriendRequestDAOTest {
-    private static DatabaseConnector dbConnector;
+    private static Connection conn;
     private static FriendsDAO friendsDAO;
     private FriendRequestDAO requestDAO;
 
     @BeforeClass
     public static void setupDatabase() throws Exception {
-        dbConnector = DatabaseConnector.getInstance(
+        DatabaseConnector dbConnector = DatabaseConnector.getInstance(
                 "jdbc:mysql://localhost:3306/mysql",
                 "root",
                 "Bozartma");
+        conn = dbConnector.getConnection();
 
-        try (Connection connection = dbConnector.getConnection();
-             Statement stmt = connection.createStatement()) {
+        // Set up test tables
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS friends");
             stmt.execute("DROP TABLE IF EXISTS requests");
 
@@ -45,34 +44,37 @@ public class FriendRequestDAOTest {
                     "CHECK (sender <> receiver))");
         }
 
-        friendsDAO = new FriendsDAO(dbConnector);
+        friendsDAO = new FriendsDAO(conn);
     }
 
     @Before
     public void setup() {
-        requestDAO = new FriendRequestDAO(dbConnector, friendsDAO);
+        requestDAO = new FriendRequestDAO(conn, friendsDAO);
+    }
+
+    @AfterClass
+    public static void tearDown() throws SQLException {
+        if (conn != null && !conn.isClosed()) {
+            conn.close();
+        }
     }
 
     @Test
-    public void testCreateFriendRequest()  {
+    public void testCreateFriendRequest() {
         requestDAO.createRequest("Alice", "Bob");
         requestDAO.createRequest("Charlie", "Bob");
 
         List<String> requests = requestDAO.getRequestList("Bob");
 
         assertEquals(2, requests.size());
-
         assertTrue(requests.contains("Alice"));
         assertTrue(requests.contains("Charlie"));
-
     }
 
     @Test
-    public void testRemoveFriendRequest()  {
+    public void testRemoveFriendRequest() {
         List<String> requests = requestDAO.getRequestList("Bob");
-
         assertEquals(2, requests.size());
-
         assertTrue(requests.contains("Alice"));
         assertTrue(requests.contains("Charlie"));
 
@@ -86,7 +88,4 @@ public class FriendRequestDAOTest {
         assertEquals(0, requests.size());
         assertFalse(requests.contains("Charlie"));
     }
-
-
-
 }

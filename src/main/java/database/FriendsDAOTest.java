@@ -14,19 +14,19 @@ import static org.junit.Assert.*;
 
 public class FriendsDAOTest {
 
-    private static DatabaseConnector dbConnector;
+    private static Connection conn;
     private FriendsDAO friendsDAO;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        // Initialize with test database credentials
-        dbConnector = DatabaseConnector.getInstance(
-                "jdbc:mysql://localhost:3306/mysql",
-                "root",
-                "Bozartma");
-
-        try (Connection connection = dbConnector.getConnection();
-             Statement stmt = connection.createStatement()) {
+        String url = "jdbc:mysql://localhost:3306/mysql";
+        String username = "root";
+        String password = "Bozartma";
+        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
+        conn = dbc.getConnection();
+        assert(conn != null);
+        // Create users table
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS friends");
             stmt.execute("CREATE TABLE friends (" +
                     "user_a VARCHAR(255), " +
@@ -38,7 +38,7 @@ public class FriendsDAOTest {
 
     @Before
     public void setUp() throws SQLException {
-        friendsDAO = new FriendsDAO(dbConnector);
+        friendsDAO = new FriendsDAO(conn);
     }
 
     @Test
@@ -69,7 +69,5 @@ public class FriendsDAOTest {
         assertEquals(0, aliceFriends.size());
         assertEquals(0, bobFriends.size());
     }
-
-
 
 }

@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsDAO {
-    private DatabaseConnector dbConnector;
-    public FriendsDAO(DatabaseConnector dbConnector) {
-        this.dbConnector = dbConnector;
-        try (Connection connection = dbConnector.getConnection();
-             Statement stmt = connection.createStatement()) {
+    private Connection conn;
 
+    public FriendsDAO(Connection conn) {
+        this.conn = conn;
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("CREATE TABLE IF NOT EXISTS friends (" +
                     "user_a VARCHAR(255), " +
                     "user_b VARCHAR(255), " +
@@ -28,9 +27,8 @@ public class FriendsDAO {
         String user1 = username.compareTo(friendUsername) < 0 ? username : friendUsername;
         String user2 = username.compareTo(friendUsername) < 0 ? friendUsername : username;
 
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(
-                     "INSERT INTO friends (user_a, user_b) VALUES (?, ?)")) {
+        try (PreparedStatement ps = conn.prepareStatement(
+                "INSERT INTO friends (user_a, user_b) VALUES (?, ?)")) {
 
             ps.setString(1, user1);
             ps.setString(2, user2);
@@ -48,9 +46,8 @@ public class FriendsDAO {
         String user1 = a.compareTo(b) < 0 ? a : b;
         String user2 = a.compareTo(b) < 0 ? b : a;
 
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(
-                     "DELETE FROM friends WHERE user_a = ? AND user_b = ?")) {
+        try (PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM friends WHERE user_a = ? AND user_b = ?")) {
 
             ps.setString(1, user1);
             ps.setString(2, user2);
@@ -66,9 +63,8 @@ public class FriendsDAO {
         }
 
         List<String> friends = new ArrayList<>();
-        try (Connection connection = dbConnector.getConnection()) {
-
-            try (PreparedStatement ps = connection.prepareStatement(
+        try {
+            try (PreparedStatement ps = conn.prepareStatement(
                     "SELECT user_b FROM friends WHERE user_a = ?")) {
                 ps.setString(1, username);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -78,7 +74,7 @@ public class FriendsDAO {
                 }
             }
 
-            try (PreparedStatement ps = connection.prepareStatement(
+            try (PreparedStatement ps = conn.prepareStatement(
                     "SELECT user_a FROM friends WHERE user_b = ?")) {
                 ps.setString(1, username);
                 try (ResultSet rs = ps.executeQuery()) {

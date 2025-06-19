@@ -1,4 +1,3 @@
-
 package database;
 
 import java.sql.*;
@@ -6,15 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendRequestDAO {
-    private final DatabaseConnector dbConnector;
+    private final Connection conn;
     private final FriendsDAO friendsDAO;
 
-    public FriendRequestDAO(DatabaseConnector dbConnector, FriendsDAO friendsDAO) {
-        this.dbConnector = dbConnector;
+    public FriendRequestDAO(Connection conn, FriendsDAO friendsDAO) {
+        this.conn = conn;
         this.friendsDAO = friendsDAO;
-        try (Connection connection = dbConnector.getConnection();
-             Statement stmt = connection.createStatement()) {
-
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (" +
                     "sender VARCHAR(255) NOT NULL, " +
                     "receiver VARCHAR(255) NOT NULL, " +
@@ -25,7 +22,6 @@ public class FriendRequestDAO {
             throw new RuntimeException("Failed to initialize requests database", e);
         }
     }
-
 
     public void createRequest(String sender, String receiver) {
         if (sender == null || receiver == null || sender.equals(receiver)) {
@@ -40,10 +36,8 @@ public class FriendRequestDAO {
             throw new IllegalStateException("Friend request already exists");
         }
 
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(
-                     "INSERT INTO requests (sender, receiver) VALUES (?, ?)")) {
-
+        try (PreparedStatement ps = conn.prepareStatement(
+                "INSERT INTO requests (sender, receiver) VALUES (?, ?)")) {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             ps.executeUpdate();
@@ -58,10 +52,8 @@ public class FriendRequestDAO {
     }
 
     private boolean requestExists(String sender, String receiver) {
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(
-                     "SELECT 1 FROM requests WHERE sender = ? AND receiver = ?")) {
-
+        try (PreparedStatement ps = conn.prepareStatement(
+                "SELECT 1 FROM requests WHERE sender = ? AND receiver = ?")) {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             try (ResultSet rs = ps.executeQuery()) {
@@ -77,10 +69,8 @@ public class FriendRequestDAO {
             throw new IllegalArgumentException("Invalid sender or receiver");
         }
 
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(
-                     "DELETE FROM requests WHERE sender = ? AND receiver = ?")) {
-
+        try (PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM requests WHERE sender = ? AND receiver = ?")) {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             ps.executeUpdate();
@@ -95,13 +85,11 @@ public class FriendRequestDAO {
         }
 
         List<String> requests = new ArrayList<>();
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement ps = connection.prepareStatement(
-                     "SELECT sender FROM requests WHERE receiver = ? " +
-                             "AND sender NOT IN (SELECT user_b FROM friends WHERE user_a = ? UNION " +
-                             "SELECT user_a FROM friends WHERE user_b = ?) " +
-                             "ORDER BY created_at DESC")) {
-
+        try (PreparedStatement ps = conn.prepareStatement(
+                "SELECT sender FROM requests WHERE receiver = ? " +
+                        "AND sender NOT IN (SELECT user_b FROM friends WHERE user_a = ? UNION " +
+                        "SELECT user_a FROM friends WHERE user_b = ?) " +
+                        "ORDER BY created_at DESC")) {
             ps.setString(1, username);
             ps.setString(2, username);
             ps.setString(3, username);

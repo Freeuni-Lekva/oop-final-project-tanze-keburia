@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="" />
+    <list default="true" id="74469f52-516a-4282-aff6-2e6cb16c1220" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendRequestDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendRequestDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendRequestDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendRequestDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendsDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendsDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendsDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/UserDAOTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -171,9 +178,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FriendRequestDAOTest" />
-        <item itemvalue="JUnit.FriendRequestDAOTest.testCreateFriendRequest" />
         <item itemvalue="JUnit.FriendRequestDAOTest.testRemoveFriendRequest" />
         <item itemvalue="JUnit.FriendsDAOTest" />
+        <item itemvalue="JUnit.FriendRequestDAOTest.testCreateFriendRequest" />
         <item itemvalue="JUnit.FriendsDAOTest.testAddFriends" />
       </list>
     </recent_temporary>
@@ -197,7 +204,7 @@
       <workItem from="1750259640139" duration="4170000" />
       <workItem from="1750266670950" duration="835000" />
       <workItem from="1750267524036" duration="1902000" />
-      <workItem from="1750269807356" duration="9885000" />
+      <workItem from="1750269807356" duration="12475000" />
     </task>
     <servers />
   </component>

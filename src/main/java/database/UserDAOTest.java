@@ -53,6 +53,7 @@ public class UserDAOTest {
         assertTrue(userDao.userExists(u.getUserName()));
     }
 
+
     @Test
     public void testCheckPassword() throws NoSuchAlgorithmException {
         User user = new User("testuser", "password123");
