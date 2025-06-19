@@ -18,8 +18,7 @@ public class SearchServlet extends HttpServlet {
         ServletContext context = request.getServletContext();
         UserDAO userDAO = (UserDAO) context.getAttribute("users");
         if(userDAO.userExists(username)){
-
-            request.getRequestDispatcher("profile.jsp?username=" + username).forward(request, response);
+            response.sendRedirect("profile.jsp?username=" + username);
         }
         else {
             response.sendRedirect("noUserFound.jsp");
