@@ -18,7 +18,7 @@ public class AddServlet extends HttpServlet {
         HttpSession session = request.getSession();
         ServletContext servletContext = getServletContext();
         String senderId = session.getAttribute("username").toString();
-        FriendRequestDAO friendRequestDAO = (FriendRequestDAO)servletContext.getAttribute("friendsRequestDAO");
+        FriendRequestDAO friendRequestDAO = (FriendRequestDAO)servletContext.getAttribute("friendRequests");
         friendRequestDAO.addRequest(senderId, receiverId);
         response.sendRedirect("profile.jsp?username=" + receiverId);
     }

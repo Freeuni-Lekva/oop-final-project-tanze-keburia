@@ -13,12 +13,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         ServletContext context = request.getServletContext();
         UserDAO userDAO = (UserDAO) context.getAttribute("users");
         if(userDAO.userExists(username)){
-            response.sendRedirect("profile.jsp?username=" + username);
+            request.setAttribute("foundUser", username);
+            request.getRequestDispatcher("searchResult.jsp").forward(request, response);
         }
         else {
             response.sendRedirect("noUserFound.jsp");
