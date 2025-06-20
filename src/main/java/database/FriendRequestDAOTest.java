@@ -78,12 +78,12 @@ public class FriendRequestDAOTest {
         assertTrue(requests.contains("Alice"));
         assertTrue(requests.contains("Charlie"));
 
-        requestDAO.deleteRequest("Alice", "Bob");
+        requestDAO.removeRequest("Alice", "Bob");
         requests = requestDAO.getRequestList("Bob");
         assertEquals(1, requests.size());
         assertTrue(requests.contains("Charlie"));
 
-        requestDAO.deleteRequest("Charlie", "Bob");
+        requestDAO.removeRequest("Charlie", "Bob");
         requests = requestDAO.getRequestList("Bob");
         assertEquals(0, requests.size());
         assertFalse(requests.contains("Charlie"));
