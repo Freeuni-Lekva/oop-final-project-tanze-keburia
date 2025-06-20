@@ -17,12 +17,11 @@ public class FriendRequestReponse extends HttpServlet {
         String receiver = request.getParameter("receiver");
         String status =  request.getParameter("status");
         ServletContext context = getServletContext();
-        FriendsDAO friendsDAO = (FriendsDAO)context.getAttribute("friendsDAO");
-        FriendRequestDAO friendRequestDAO = (FriendRequestDAO)context.getAttribute("friendRequestDAO");
+        FriendsDAO friendsDAO = (FriendsDAO)context.getAttribute("friends");
+        FriendRequestDAO friendRequestDAO = (FriendRequestDAO)context.getAttribute("friendRequests");
         friendRequestDAO.removeRequest(sender, receiver);
         if(status.equals("accept")){
             friendsDAO.addFriends(sender, receiver);
-            friendsDAO.addFriends(receiver, sender);
         }
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer);

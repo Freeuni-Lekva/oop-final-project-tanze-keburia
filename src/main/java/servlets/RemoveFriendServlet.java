@@ -17,7 +17,7 @@ public class RemoveFriendServlet extends HttpServlet {
         HttpSession session = request.getSession();
         ServletContext servletContext = getServletContext();
         String senderId = session.getAttribute("username").toString();
-        FriendsDAO friendsDAO = (FriendsDAO)servletContext.getAttribute("friendsDAO");
+        FriendsDAO friendsDAO = (FriendsDAO)servletContext.getAttribute("friends");
         friendsDAO.removeFriends(senderId, receiverId);
         response.sendRedirect("profile.jsp?username=" + receiverId);
     }

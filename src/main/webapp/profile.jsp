@@ -49,13 +49,18 @@
     <input type="hidden" name="receiverUsername" value="<%= profileUser %>" />
     <input type="submit" value="Remove Friend" />
 </form>
-<% } else if (!requestAlreadySent) { %>
+<% } else if (requestAlreadySent) { %>
+<form method="post" action="FriendRequestResponse">
+    <input type="hidden" name="receiver" value="<%= profileUser %>" />
+    <input type="hidden" name="sender" value="<%= currentUser %>" />
+    <input type="hidden" name="status" value="cancel" />
+    <input type="submit" value="Cancel Request" />
+</form>
+<% } else { %>
 <form method="post" action="AddServlet">
     <input type="hidden" name="receiverUsername" value="<%= profileUser %>" />
     <input type="submit" value="Add Friend" />
 </form>
-<% } else { %>
-<p>Friend request already sent.</p>
 <% } %>
 
 <h3><%= profileUser %>'s Friends</h3>
