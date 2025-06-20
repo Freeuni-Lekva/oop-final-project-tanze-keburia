@@ -1,10 +1,14 @@
-database\DatabaseConnector.class
+database\FriendRequestDAO.class
 listeners\ContextListener.class
 database\UserDAOTest.class
 listeners\SessionListener.class
 servlets\LoginServlet.class
+database\UserDAO.class
+database\DatabaseConnector.class
 tests\UserTest.class
 classes\User.class
+database\FriendRequestDAOTest.class
+database\FriendsDAO.class
+database\FriendsDAOTest.class
 classes\Hasher.class
-database\UserDAO.class
 servlets\SignupServlet.class

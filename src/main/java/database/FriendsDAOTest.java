@@ -19,10 +19,10 @@ public class FriendsDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/mysql";
-        String username = "root";
-        String password = "Bozartma";
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
+        String url = DatabaseConnectionPull.getUrl();
+        String userName = DatabaseConnectionPull.getUserName();
+        String password = DatabaseConnectionPull.getPassword();
+        DatabaseConnector dbc = DatabaseConnector.getInstance(url, userName, password);
         conn = dbc.getConnection();
         assert(conn != null);
         // Create users table

@@ -22,15 +22,13 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        String url = DatabaseConnectionPull.getUrl();
+        String userName = DatabaseConnectionPull.getUserName();
+        String password = DatabaseConnectionPull.getPassword();
 
-        String url = "jdbc:mysql://localhost:3306/mysql";
-        String username = "root";
-        String password = "Bozartma";
-
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
+        DatabaseConnector dbc = DatabaseConnector.getInstance(url, userName, password);
         conn = dbc.getConnection();
         assert(conn != null);
-        // Create users table
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS users");
             stmt.execute(
@@ -44,6 +42,7 @@ public class UserDAOTest {
     public void setUp() throws SQLException {
         userDao = new UserDAO(conn);
     }
+
 
     @Test
     public void testAddingUser() throws NoSuchAlgorithmException {
