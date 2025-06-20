@@ -1,5 +1,7 @@
 package listeners;
 import database.DatabaseConnector;
+import database.FriendRequestDAO;
+import database.FriendsDAO;
 import database.UserDAO;
 
 import javax.servlet.ServletContext;
@@ -12,6 +14,9 @@ import java.sql.SQLException;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
+
+
+
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
         try {
@@ -27,13 +32,19 @@ public class ContextListener implements ServletContextListener {
             throw new RuntimeException(e);
         }
         UserDAO userDAO = null;
+        FriendsDAO friendsDAO = null;
+        FriendRequestDAO friendRequestDAO = null;
         try {
             userDAO = new UserDAO(conn);
+            friendsDAO = new FriendsDAO(conn);
+            friendRequestDAO = new FriendRequestDAO(conn);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("users", userDAO);
+        servletContext.setAttribute("friends", friendsDAO);
+        servletContext.setAttribute("friendRequests", friendRequestDAO);
     }
     public void contextDestroyed(ServletContextEvent event) {
 
