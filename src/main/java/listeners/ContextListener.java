@@ -37,7 +37,7 @@ public class ContextListener implements ServletContextListener {
         try {
             userDAO = new UserDAO(conn);
             friendsDAO = new FriendsDAO(conn);
-            friendRequestDAO = new FriendRequestDAO(conn);
+            friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

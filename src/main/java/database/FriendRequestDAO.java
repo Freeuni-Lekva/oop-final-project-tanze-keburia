@@ -64,7 +64,7 @@ public class FriendRequestDAO {
         }
     }
 
-    public void deleteRequest(String sender, String receiver) {
+    public void removeRequest(String sender, String receiver) {
         if (sender == null || receiver == null || sender.equals(receiver)) {
             throw new IllegalArgumentException("Invalid sender or receiver");
         }
