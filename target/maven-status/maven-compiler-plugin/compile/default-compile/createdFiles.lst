@@ -1,9 +1,0 @@
-servlets/SignupServlet.class
-classes/UserDAOtest.class
-listeners/SessionListener.class
-classes/User.class
-classes/UserDAO.class
-servlets/LoginServlet.class
-classes/DAOConnecter.class
-classes/UserTest.class
-listeners/ContextListener.class
