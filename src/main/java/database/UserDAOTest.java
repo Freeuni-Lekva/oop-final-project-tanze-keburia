@@ -1,3 +1,4 @@
+
 package database;
 
 import classes.User;
@@ -35,8 +36,8 @@ public class UserDAOTest {
             stmt.execute("DROP TABLE IF EXISTS users");
             stmt.execute(
                     "CREATE TABLE IF NOT EXISTS users (" +
-                            "userName VARCHAR(50) PRIMARY KEY, " +
-                            "passwordHash VARCHAR(60) NOT NULL)");
+                    "userName VARCHAR(50) PRIMARY KEY, " +
+                    "passwordHash VARCHAR(60) NOT NULL)");
         }
     }
 

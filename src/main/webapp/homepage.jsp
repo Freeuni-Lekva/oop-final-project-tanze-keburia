@@ -31,8 +31,8 @@
 <h2>Welcome, <%= username %>!</h2>
 
 <h3>Search for a User</h3>
-<form method="get" action="searchServlet">
-    <input type="text" name="target" placeholder="Enter username" required />
+<form method="get" action="SearchServlet">
+    <input type="text" name="username" placeholder="Enter username" required />
     <input type="submit" value="Search" />
 </form>
 
