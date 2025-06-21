@@ -21,4 +21,5 @@ public interface QuizDAO {
     and contents of target modification
      */
     void modifyQuiz(Quiz newQuiz);
+    int getNumQuizes();
 }
