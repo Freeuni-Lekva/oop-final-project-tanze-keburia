@@ -62,7 +62,6 @@
     <% } %>
 </ul>
 <% } %>
-
 <p><a href="homepage.jsp">Back to Home</a></p>
 
 </body>

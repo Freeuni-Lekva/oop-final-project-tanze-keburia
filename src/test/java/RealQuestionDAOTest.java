@@ -1,6 +1,6 @@
-import classes.Question;
+import classes.RealQuestion;
 
-import database.QuestionDAO;
+import database.RealQuestionDAO;
 import org.junit.*;
 import java.sql.*;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
-public class QuestionDAOTest {
+public class RealQuestionDAOTest {
 
     private static Connection conn;
-    private QuestionDAO questionDAO;
+    private RealQuestionDAO questionDAO;
 
     @BeforeClass
     public static void init() throws Exception {
@@ -20,7 +20,7 @@ public class QuestionDAOTest {
 
     @Before
     public void clearTableAndInit() throws SQLException {
-        questionDAO = new QuestionDAO(conn);
+        questionDAO = new RealQuestionDAO(conn);
 
         Statement stmt = conn.createStatement();
         stmt.execute("DELETE FROM questions");
@@ -30,18 +30,18 @@ public class QuestionDAOTest {
 
     @Test
     public void testAddGet() {
-        questionDAO = new QuestionDAO(conn);
-        Question q1 = new Question("What is the capital of Georgia?", "Tbilisi", "1", "1");
-        Question q2 = new Question("Who has the most Ballon d'ors?", "Lionel Messi", "2", "1");
-        Question q3 = new Question("Who was the youngest president of USA?", "Kennedy", "1", "2");
+        questionDAO = new RealQuestionDAO(conn);
+        RealQuestion q1 = new RealQuestion("What is the capital of Georgia?", "Tbilisi", "1", "1");
+        RealQuestion q2 = new RealQuestion("Who has the most Ballon d'ors?", "Lionel Messi", "2", "1");
+        RealQuestion q3 = new RealQuestion("Who was the youngest president of USA?", "Kennedy", "1", "2");
 
         questionDAO.addQuestion(q1);
         questionDAO.addQuestion(q2);
         questionDAO.addQuestion(q3);
 
 
-        List<Question> result1 = questionDAO.getQuestions("1");
-        List<Question> result2 = questionDAO.getQuestions("2");
+        List<RealQuestion> result1 = questionDAO.getQuestions("1");
+        List<RealQuestion> result2 = questionDAO.getQuestions("2");
 
         assertEquals(2, result1.size());
         assertEquals(1, result2.size());
@@ -59,13 +59,13 @@ public class QuestionDAOTest {
 
     @Test
     public void testEdit() throws SQLException {
-        Question initial = new Question("Old Question", "Wrong answer", "5", "1" );
+        RealQuestion initial = new RealQuestion("Old Question", "Wrong answer", "5", "1" );
         questionDAO.addQuestion(initial);
 
-        Question updated = new Question("New Question", "Correct answer", "5", "1" );
+        RealQuestion updated = new RealQuestion("New Question", "Correct answer", "5", "1" );
         questionDAO.editQuestion(updated);
 
-        List<Question> result = questionDAO.getQuestions("1");
+        List<RealQuestion> result = questionDAO.getQuestions("1");
 
         assertEquals(1, result.size());
         assertEquals(updated.getDescription(), result.get(0).getDescription());
@@ -74,26 +74,26 @@ public class QuestionDAOTest {
 
     @Test
     public void testDelete() throws SQLException {
-        Question question1 = new Question("Snikersi sjobs tu baunti?", "Snikersi", "2", "3" );
+        RealQuestion question1 = new RealQuestion("Snikersi sjobs tu baunti?", "Snikersi", "2", "3" );
         questionDAO.addQuestion(question1);
 
         questionDAO.deleteQuestion(question1);
 
-        List<Question> result1 = questionDAO.getQuestions("3");
+        List<RealQuestion> result1 = questionDAO.getQuestions("3");
         assertTrue(result1.isEmpty());
 
-        Question question2 = new Question("Xinkali sjobs tu mwvadi?", "Xinkali", "3", "3");
-        Question question3 = new Question("Vanilis nayini sjobs tu shokoladis?", "Shokoladis", "4", "3");
+        RealQuestion question2 = new RealQuestion("Xinkali sjobs tu mwvadi?", "Xinkali", "3", "3");
+        RealQuestion question3 = new RealQuestion("Vanilis nayini sjobs tu shokoladis?", "Shokoladis", "4", "3");
 
         questionDAO.addQuestion(question2);
         questionDAO.addQuestion(question3);
 
-        List<Question> result2 = questionDAO.getQuestions("3");
+        List<RealQuestion> result2 = questionDAO.getQuestions("3");
         assertEquals(2, result2.size());
 
         questionDAO.deleteQuestion(question2);
 
-        List<Question> result3 = questionDAO.getQuestions("3");
+        List<RealQuestion> result3 = questionDAO.getQuestions("3");
         assertEquals(1, result3.size());
 
     }

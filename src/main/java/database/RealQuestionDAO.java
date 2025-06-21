@@ -1,18 +1,19 @@
 package database;
 
-import classes.Question;
+import classes.RealQuestion;
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDAO {
+public class RealQuestionDAO {
 
     private final Connection connection;
 
-    public QuestionDAO(Connection connection) {
+    public RealQuestionDAO(Connection connection) {
         this.connection = connection;
-        try(Statement statement= connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS questions (" +
                     "question_description VARCHAR(1000), " +
                     "question_answer VARCHAR(255), " +
@@ -24,8 +25,8 @@ public class QuestionDAO {
         }
     }
 
-    public void addQuestion(Question question) {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(
+    public void addQuestion(RealQuestion question) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO questions (question_description, question_answer, question_number, quiz_number) VALUES (?, ?, ?, ?)"
         )) {
             preparedStatement.setString(1, question.getDescription());
@@ -38,12 +39,12 @@ public class QuestionDAO {
         }
     }
 
-    public void deleteQuestion(Question question) {
-        if(question == null) {
+    public void deleteQuestion(RealQuestion question) {
+        if (question == null) {
             throw new IllegalArgumentException("Question cannot be null");
         }
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "DELETE FROM questions WHERE question_number = ? AND quiz_number = ?"
         )) {
             preparedStatement.setString(1, question.getQuestionNumber());
@@ -55,21 +56,21 @@ public class QuestionDAO {
 
     }
 
-    public List<Question> getQuestions(String quizNumber) {
-        List<Question> questions = new ArrayList<>();
+    public List<RealQuestion> getQuestions(String quizNumber) {
+        List<RealQuestion> questions = new ArrayList<>();
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "SELECT * FROM questions WHERE quiz_number = ? ORDER BY question_number"
         )) {
             preparedStatement.setString(1, quizNumber);
-            try(ResultSet resultSet = preparedStatement.executeQuery()) {
-                while(resultSet.next()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
                     String description = resultSet.getString("question_description");
                     String answer = resultSet.getString("question_answer");
                     String questionNumber = resultSet.getString("question_number");
                     String quizNum = resultSet.getString("quiz_number");
 
-                    questions.add(new Question(description, answer, questionNumber, quizNum));
+                    questions.add(new RealQuestion(description, answer, questionNumber, quizNum));
                 }
             }
         } catch (SQLException e) {
@@ -79,12 +80,12 @@ public class QuestionDAO {
         return questions;
     }
 
-    public void editQuestion(Question question) {
-        if(question == null) {
+    public void editQuestion(RealQuestion question) {
+        if (question == null) {
             throw new IllegalArgumentException("Question cannot be null");
         }
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "UPDATE questions SET question_description = ?, question_answer = ? " +
                         "WHERE question_number = ? AND quiz_number = ?"
         )) {
@@ -98,5 +99,22 @@ public class QuestionDAO {
         }
     }
 
-
 }
+
+
+//import java.util.List;
+//
+//public interface QuestionDAO {
+//    List<RealQuestion> getAllQuestions();
+//    List<RealQuestion> getQuiz(int quizID);
+//
+//    /**
+//     * initialize table
+//     * this should create table and drop previous if it exists
+//     */
+//    void initialize();
+//    void addQuestion(RealQuestion question);
+//    void removeQuestion(RealQuestion question);
+//    void modifyQuestion(RealQuestion question);
+//
+//}

@@ -24,7 +24,9 @@ Thumbs.db
 # Compiled output (e.g., from manual `javac` or IntelliJ)
 /out/
 
+
 # Optional: IntelliJ local run configs and metadata
 .idea/.name
 .idea/usage.statistics.xml
 .idea/shelf/
+
