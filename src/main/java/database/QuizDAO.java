@@ -1,4 +1,6 @@
-package classes;
+package database;
+
+import classes.Quiz;
 
 import java.util.List;
 
