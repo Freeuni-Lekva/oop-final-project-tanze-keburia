@@ -4,11 +4,11 @@ public class MockQuestion implements Question {
     private String question;
     private String answer;
     private double mark;
-    private int quizId;
-    private int id;
+    private String quizId;
+    private String id;
     public MockQuestion(String question, String answer, String quizID, String id){
-        this.quizId = Integer.parseInt(quizID);
-        this.id = Integer.parseInt(id);
+        this.quizId = quizID;
+        this.id = id;
     }
     public String getStatement() {
         return question;
@@ -19,10 +19,10 @@ public class MockQuestion implements Question {
     public double getPoints() {
         return mark;
     }
-    public int getQuizID() {
+    public String getQuizID() {
         return quizId;
     }
-    public int getID() {
+    public String getID() {
         return id;
     }
     public void setStatement(String question) {
@@ -35,7 +35,7 @@ public class MockQuestion implements Question {
         this.mark = mark;
     }
     public boolean equals(Question question){
-        if(question.getID() == this.id){
+        if(question.getID().equals(this.id)){
             return true;
         }
         return false;

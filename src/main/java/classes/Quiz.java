@@ -5,7 +5,7 @@ import java.util.Date;
 public interface Quiz {
 
     String getName();
-    int getID();
+    String getID();
     String getAuthor();
 
     int getNumQuestions();

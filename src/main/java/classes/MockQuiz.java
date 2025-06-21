@@ -3,7 +3,7 @@ package classes;
 import java.util.Date;
 
 public class MockQuiz implements Quiz{
-    private int id;
+    private String id;
     private String author;
     private String name;
     private String topic;
@@ -11,7 +11,7 @@ public class MockQuiz implements Quiz{
     private Date creationDate;
     private int timeLimit;
     private String type;
-    public MockQuiz(String author, Date created, int id, String type){
+    public MockQuiz(String author, Date created, String id, String type){
         this.id = id;
         this.author = author;
         this.creationDate = created;
@@ -31,7 +31,7 @@ public class MockQuiz implements Quiz{
         this.timeLimit = timeLimit;
     }
 
-    public int getID() {
+    public String getID() {
         return id;
     }
 

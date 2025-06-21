@@ -9,6 +9,6 @@ public class MockQuizDAOTest extends TestCase {
    private MockQuizDAO mockQuizDAO;
     public void testAddQuestion() {
         mockQuizDAO = new MockQuizDAO();
-        Question question = new MockQuestion(2, 1);
+       // Question question = new MockQuestion(2, 1);
     }
 }

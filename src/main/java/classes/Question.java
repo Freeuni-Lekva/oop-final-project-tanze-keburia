@@ -3,8 +3,8 @@ package classes;
 public interface Question {
     String getStatement();
     String getAnswer();
-    int getQuizID();
-    int getID();
+    String getQuizID();
+    String getID();
     /*
     number of points you get when you answer question correctly;
      */

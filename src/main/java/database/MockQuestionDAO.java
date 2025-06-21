@@ -36,16 +36,16 @@ public class MockQuestionDAO implements QuestionDAO {
     public List<Question> getAllQuestions() {
         return new ArrayList<>(this.questions);
     }
-    public List<Question> getQuiz(int quizID) {
+    public List<Question> getQuiz(String quizID) {
         ArrayList<Question> res = new ArrayList<>();
         for(Question q: questions) {
-            if(q.getQuizID() == quizID) {
+            if(q.getQuizID().equals(quizID)) {
                 res.add(q);
             }
         }
         return res;
     }
-    public Question getQuestion(int questionID) {
+    public Question getQuestion(String questionID) {
         for(Question q: questions) {
             if(q.getID() == questionID) {
                 return q;
