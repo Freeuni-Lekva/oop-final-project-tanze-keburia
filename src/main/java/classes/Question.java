@@ -2,7 +2,7 @@ package classes;
 
 public interface Question {
     /*
-    Question(int quizId, int id);
+    Question(String description, String answer, String quizId, String id);
      */
     String getStatement();
     String getAnswer();

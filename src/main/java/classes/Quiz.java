@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface Quiz {
     /*
-    Quiz(String authror, Date date, int id, String type);
+    Quiz(String author, Date date, String id, String type);
      */
     String getName();
     int getID();
