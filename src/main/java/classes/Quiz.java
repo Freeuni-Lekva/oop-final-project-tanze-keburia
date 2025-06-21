@@ -12,14 +12,17 @@ public interface Quiz {
 
     String getTopic();
     /*
+    @method getCreationDate
     returns the date when quiz was created
      */
     Date getCreationDate();
     /*
+    @method getTimeLimit
     returns time limit for the quiz, infinity if there is no time limit
      */
     int getTimeLimit();
     /*
+    @method getType
     type of the quiz: Fill in Blank, multiple choices or other
      */
     String getType();

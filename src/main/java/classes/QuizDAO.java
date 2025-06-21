@@ -7,6 +7,11 @@ public interface QuizDAO {
     List<Quiz> getAllbyTopic(String topic);
     List<Quiz> getAllbyAuthor(String author);
     List<Quiz> getAllByType(String type);
+    /**
+     * initialize
+    this should create table and drop previous if it existed
+    */
+    void initialize();
     void addQuiz(Quiz quiz);
     void removeQuiz(Quiz quiz);
     /*
