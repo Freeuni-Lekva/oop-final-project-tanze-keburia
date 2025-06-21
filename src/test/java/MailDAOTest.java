@@ -1,6 +1,6 @@
 import classes.Mail;
+import database.DatabaseConnectionPull;
 import database.DatabaseConnector;
-import database.FriendRequestDAO;
 import database.MailDAO;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,11 +21,12 @@ public class MailDAOTest {
     private static MailDAO mailDAO;
     @BeforeClass
     public static void setUpClass() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/g";
-        String username = "root";
-        String password = "gzobava2005";
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
-        conn = dbc.getConnection();
+        DatabaseConnector.getInstance(
+                DatabaseConnectionPull.url,
+                DatabaseConnectionPull.username,
+                DatabaseConnectionPull.password
+        );
+        conn = DatabaseConnector.getConnection();
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS mails");
             stmt.execute("CREATE TABLE mails (" +

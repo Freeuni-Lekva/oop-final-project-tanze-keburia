@@ -1,3 +1,4 @@
+import database.DatabaseConnectionPull;
 import database.DatabaseConnector;
 import database.FriendsDAO;
 import org.junit.Before;
@@ -19,11 +20,12 @@ public class FriendsDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        String url = DatabaseConnectionPull.getUrl();
-        String userName = DatabaseConnectionPull.getUserName();
-        String password = DatabaseConnectionPull.getPassword();
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, userName, password);
-        conn = dbc.getConnection();
+        DatabaseConnector.getInstance(
+                DatabaseConnectionPull.url,
+                DatabaseConnectionPull.username,
+                DatabaseConnectionPull.password
+        );
+        conn = DatabaseConnector.getConnection();
         assert(conn != null);
         // Create users table
         try (Statement stmt = conn.createStatement()) {

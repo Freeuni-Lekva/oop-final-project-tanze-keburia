@@ -22,12 +22,12 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        String url = DatabaseConnectionPull.getUrl();
-        String userName = DatabaseConnectionPull.getUserName();
-        String password = DatabaseConnectionPull.getPassword();
-
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, userName, password);
-        conn = dbc.getConnection();
+        DatabaseConnector.getInstance(
+                DatabaseConnectionPull.url,
+                DatabaseConnectionPull.username,
+                DatabaseConnectionPull.password
+        );
+        conn = DatabaseConnector.getConnection();
         assert(conn != null);
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS users");
