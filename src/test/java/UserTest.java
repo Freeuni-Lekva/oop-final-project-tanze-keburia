@@ -1,5 +1,3 @@
-package test;
-
 import classes.Hasher;
 import classes.User;
 import junit.framework.TestCase;

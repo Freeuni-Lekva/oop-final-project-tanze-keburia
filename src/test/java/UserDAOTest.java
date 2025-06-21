@@ -1,9 +1,8 @@
-
-package database;
-
 import classes.User;
 
 
+import database.DatabaseConnector;
+import database.UserDAO;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

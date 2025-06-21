@@ -1,5 +1,6 @@
-package database;
-
+import database.DatabaseConnector;
+import database.FriendRequestDAO;
+import database.FriendsDAO;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,9 +21,9 @@ public class FriendRequestDAOTest {
     @BeforeClass
     public static void setupDatabase() throws Exception {
         DatabaseConnector dbConnector = DatabaseConnector.getInstance(
-                "jdbc:mysql://localhost:3306/mysql",
-                "root",
-                "Bozartma");
+                "jdbc:mysql://localhost:3306/metro",
+                "icosahedron",
+                "Loko_kina1");
         conn = dbConnector.getConnection();
 
         // Set up test tables

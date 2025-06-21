@@ -1,21 +1,30 @@
-# Maven target directory
+# Maven build directory
 /target/
 
-# IDEs
+# IntelliJ IDEA
 *.iml
 .idea/
 *.ipr
 *.iws
+.idea/workspace.xml
 
-# OS files
+# VS Code (optional, in case someone uses it)
+/.vscode/
+
+# OS-generated files
 .DS_Store
 Thumbs.db
 
 # Logs
 *.log
 
-# Env
+# Environment files
 .env
 
+# Compiled output (e.g., from manual `javac` or IntelliJ)
+/out/
 
-.idea/workspace.xml
+# Optional: IntelliJ local run configs and metadata
+.idea/.name
+.idea/usage.statistics.xml
+.idea/shelf/
