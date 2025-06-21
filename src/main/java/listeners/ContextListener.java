@@ -1,8 +1,5 @@
 package listeners;
-import database.DatabaseConnector;
-import database.FriendRequestDAO;
-import database.FriendsDAO;
-import database.UserDAO;
+import database.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -34,10 +31,13 @@ public class ContextListener implements ServletContextListener {
         UserDAO userDAO = null;
         FriendsDAO friendsDAO = null;
         FriendRequestDAO friendRequestDAO = null;
+        QuizDAO quizDAO = null;
+        QuestionDAO questionDAO = null;
         try {
             userDAO = new UserDAO(conn);
             friendsDAO = new FriendsDAO(conn);
             friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

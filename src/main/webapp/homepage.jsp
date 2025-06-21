@@ -41,4 +41,4 @@
 
 </body>
 </html>
-
+<jsp:include page = "addQuizButton.jspf"/>
