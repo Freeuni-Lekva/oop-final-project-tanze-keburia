@@ -7,10 +7,10 @@ public interface Quiz {
     Quiz(String author, Date date, String id, String type);
      */
     String getName();
-    int getID();
+    String getID();
     String getAuthor();
 
-    int getNumQuestions();
+    String getNumQuestions();
 
     String getTopic();
     /*

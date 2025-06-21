@@ -22,5 +22,5 @@ public interface QuizDAO {
      */
     void modifyQuiz(Quiz newQuiz);
     int getNumQuizes();
-    Quiz getQuiz(int id);
+    Quiz getQuiz(String id);
 }

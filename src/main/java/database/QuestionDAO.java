@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface QuestionDAO {
     List<Question> getAllQuestions();
-    List<Question> getQuiz(int quizID);
+    List<Question> getQuiz(String quizID);
 
     /**
      * initialize table
@@ -17,5 +17,5 @@ public interface QuestionDAO {
     void removeQuestion(Question question);
     void modifyQuestion(Question question);
 
-    Question getQuestion(int id);
+    Question getQuestion(String id);
 }
