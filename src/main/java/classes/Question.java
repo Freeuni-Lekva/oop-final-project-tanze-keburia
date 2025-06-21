@@ -1,6 +1,9 @@
 package classes;
 
 public interface Question {
+    /*
+    Question(int quizId, int id);
+     */
     String getStatement();
     String getAnswer();
     int getQuizID();
@@ -13,4 +16,5 @@ public interface Question {
     void setStatement(String statement);
     void setAnswer(String answer);
     void setPoints(double points);
+
 }

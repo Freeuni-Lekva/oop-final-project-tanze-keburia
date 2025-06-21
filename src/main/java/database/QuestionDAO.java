@@ -16,4 +16,6 @@ public interface QuestionDAO {
     void addQuestion(Question question);
     void removeQuestion(Question question);
     void modifyQuestion(Question question);
+
+    Question getQuestion(int id);
 }

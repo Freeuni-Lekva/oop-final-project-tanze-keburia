@@ -3,7 +3,9 @@ package classes;
 import java.util.Date;
 
 public interface Quiz {
-
+    /*
+    Quiz(String authror, Date date, int id, String type);
+     */
     String getName();
     int getID();
     String getAuthor();
