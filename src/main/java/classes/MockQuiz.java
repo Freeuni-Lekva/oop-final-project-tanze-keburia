@@ -11,7 +11,7 @@ public class MockQuiz implements Quiz{
     private Date creationDate;
     private int timeLimit;
     private String type;
-    public MockQuiz(int id, String author, Date created, String type){
+    public MockQuiz(String author, Date created, int id, String type){
         this.id = id;
         this.author = author;
         this.creationDate = created;

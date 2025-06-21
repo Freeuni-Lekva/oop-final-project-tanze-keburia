@@ -6,9 +6,9 @@ public class MockQuestion implements Question {
     private double mark;
     private int quizId;
     private int id;
-    public MockQuestion(int quizID, int id){
-        this.quizId = quizID;
-        this.id = id;
+    public MockQuestion(String question, String answer, String quizID, String id){
+        this.quizId = Integer.parseInt(quizID);
+        this.id = Integer.parseInt(id);
     }
     public String getStatement() {
         return question;
