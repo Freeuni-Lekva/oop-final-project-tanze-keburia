@@ -1,6 +1,5 @@
-import database.DatabaseConnector;
-import database.FriendRequestDAO;
-import database.FriendsDAO;
+package database;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,10 +19,10 @@ public class FriendRequestDAOTest {
 
     @BeforeClass
     public static void setupDatabase() throws Exception {
-        DatabaseConnector dbConnector = DatabaseConnector.getInstance(
-                "jdbc:mysql://localhost:3306/metro",
-                "icosahedron",
-                "Loko_kina1");
+        String url = DatabaseConnectionPull.getUrl();
+        String userName = DatabaseConnectionPull.getUserName();
+        String password = DatabaseConnectionPull.getPassword();
+        DatabaseConnector dbConnector = DatabaseConnector.getInstance(url, userName, password);
         conn = dbConnector.getConnection();
 
         // Set up test tables
@@ -74,17 +73,18 @@ public class FriendRequestDAOTest {
 
     @Test
     public void testRemoveFriendRequest() {
+
         List<String> requests = requestDAO.getRequestList("Bob");
         assertEquals(2, requests.size());
         assertTrue(requests.contains("Alice"));
         assertTrue(requests.contains("Charlie"));
 
-        requestDAO.removeRequest("Alice", "Bob");
+        requestDAO.deleteRequest("Alice", "Bob");
         requests = requestDAO.getRequestList("Bob");
         assertEquals(1, requests.size());
         assertTrue(requests.contains("Charlie"));
 
-        requestDAO.removeRequest("Charlie", "Bob");
+        requestDAO.deleteRequest("Charlie", "Bob");
         requests = requestDAO.getRequestList("Bob");
         assertEquals(0, requests.size());
         assertFalse(requests.contains("Charlie"));
