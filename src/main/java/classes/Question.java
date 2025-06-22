@@ -1,10 +1,13 @@
 package classes;
 
 public interface Question {
+    /*
+    Question(String description, String answer, String quizId, String id);
+     */
     String getStatement();
     String getAnswer();
-    int getQuizID();
-    int getID();
+    String getQuizID();
+    String getID();
     /*
     number of points you get when you answer question correctly;
      */
@@ -13,4 +16,5 @@ public interface Question {
     void setStatement(String statement);
     void setAnswer(String answer);
     void setPoints(double points);
+
 }

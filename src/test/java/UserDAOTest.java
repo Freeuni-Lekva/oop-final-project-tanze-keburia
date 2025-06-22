@@ -23,7 +23,6 @@ public class UserDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 
-=======
         String url = "jdbc:mysql://localhost:3306/mysql";
         String username = "root";
         String password = "Bozartma";
