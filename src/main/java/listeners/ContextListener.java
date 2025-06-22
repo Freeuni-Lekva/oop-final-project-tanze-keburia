@@ -37,7 +37,8 @@ public class ContextListener implements ServletContextListener {
             userDAO = new UserDAO(conn);
             friendsDAO = new FriendsDAO(conn);
             friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
-
+            quizDAO = new MockQuizDAO(conn);
+            questionDAO = new MockQuestionDAO(conn);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -45,6 +46,12 @@ public class ContextListener implements ServletContextListener {
         servletContext.setAttribute("users", userDAO);
         servletContext.setAttribute("friends", friendsDAO);
         servletContext.setAttribute("friendRequests", friendRequestDAO);
+        servletContext.setAttribute("quizzes", quizDAO);
+        servletContext.setAttribute("questions", questionDAO);
+        Integer numQuizes = 0;
+        Integer numQuestions = 0;
+        servletContext.setAttribute("numQuizzes", numQuizes);
+        servletContext.setAttribute("numQuestions", numQuestions);
     }
     public void contextDestroyed(ServletContextEvent event) {
 

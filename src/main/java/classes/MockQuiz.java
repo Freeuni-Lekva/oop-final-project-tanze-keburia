@@ -16,6 +16,7 @@ public class MockQuiz implements Quiz{
         this.author = author;
         this.creationDate = created;
         this.type = type;
+        timeLimit = (int)1e9;
     }
     public void setName(String name) {
         this.name = name;
