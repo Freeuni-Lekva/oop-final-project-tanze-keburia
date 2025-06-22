@@ -47,7 +47,7 @@ public class MockQuestionDAO implements QuestionDAO {
     }
     public Question getQuestion(String questionID) {
         for(Question q: questions) {
-            if(q.getID() == questionID) {
+            if(q.getID().equals(questionID)) {
                 return q;
             }
         }

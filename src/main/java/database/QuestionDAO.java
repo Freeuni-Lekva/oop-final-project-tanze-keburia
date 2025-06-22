@@ -12,7 +12,7 @@ public interface QuestionDAO {
      * initialize table
      * this should create table and drop previous if it exists
      */
-    Question getQuestion(String questionID);
+  //  Question getQuestion(String questionID);
     void initialize();
     void addQuestion(Question question);
     void removeQuestion(Question question);

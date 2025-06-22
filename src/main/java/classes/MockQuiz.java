@@ -11,11 +11,13 @@ public class MockQuiz implements Quiz{
     private Date creationDate;
     private int timeLimit;
     private String type;
-    public MockQuiz(String author, Date created, String id, String type){
+    private boolean visible;
+    public MockQuiz(String author, Date created, String id,  String type, String name){
         this.id = id;
         this.author = author;
         this.creationDate = created;
         this.type = type;
+        this.name = name;
         timeLimit = (int)1e9;
     }
     public void setName(String name) {
@@ -56,5 +58,8 @@ public class MockQuiz implements Quiz{
     }
     public String getType() {
         return type;
+    }
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

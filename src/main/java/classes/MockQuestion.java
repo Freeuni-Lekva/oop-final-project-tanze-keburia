@@ -9,6 +9,8 @@ public class MockQuestion implements Question {
     public MockQuestion(String question, String answer, String quizID, String id){
         this.quizId = quizID;
         this.id = id;
+        this.question = question;
+        this.answer = answer;
     }
     public String getStatement() {
         return question;

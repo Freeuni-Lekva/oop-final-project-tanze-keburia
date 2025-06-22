@@ -1,3 +1,0 @@
-<form action = "AddQuiz", method = "post">
-    <input type = "submit", value = "Add quiz"/>
-</form>

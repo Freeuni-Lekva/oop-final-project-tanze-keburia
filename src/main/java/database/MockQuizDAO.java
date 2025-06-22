@@ -34,8 +34,13 @@ public class MockQuizDAO implements QuizDAO{
             }
         }
     }
-    public int getNumQuizzes(){
-        return quizzes.size();
+    public Quiz getQuiz(String id) {
+        for(Quiz q : quizzes) {
+            if(q.getID().equals(id)) {
+                return q;
+            }
+        }
+        return null;
     }
     public List<Quiz> getAll() {
         return new ArrayList<>(quizzes);
