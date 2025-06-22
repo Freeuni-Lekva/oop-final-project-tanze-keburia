@@ -11,7 +11,7 @@ public interface Quiz {
     String getID();
     String getAuthor();
 
-    String getNumQuestions();
+    int getNumQuestions();
 
     String getTopic();
     /*
