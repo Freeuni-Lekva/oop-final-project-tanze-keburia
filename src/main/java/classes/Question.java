@@ -1,6 +1,9 @@
 package classes;
 
 public interface Question {
+    /*
+    Question(String description, String answer, String quizId, String id);
+     */
     String getStatement();
     String getAnswer();
     String getQuizID();

@@ -3,12 +3,15 @@ package classes;
 import java.util.Date;
 
 public interface Quiz {
-
+    /*
+    visible is false when initializing
+    Quiz(String author, Date date, String id, String type, String name);
+     */
     String getName();
     String getID();
     String getAuthor();
 
-    int getNumQuestions();
+    String getNumQuestions();
 
     String getTopic();
     /*
@@ -27,7 +30,7 @@ public interface Quiz {
      */
     String getType();
 
-
+    void setVisible();
 
     void setNumQuestions(int numQuestions);
     void setTopic(String topic);
