@@ -22,11 +22,7 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        String url = DatabaseConnectionPull.getUrl();
-        String userName = DatabaseConnectionPull.getUserName();
-        String password = DatabaseConnectionPull.getPassword();
-
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, userName, password);
+        DatabaseConnector dbc = DatabaseConnector.getInstance();
         conn = dbc.getConnection();
         assert(conn != null);
         try (Statement stmt = conn.createStatement()) {

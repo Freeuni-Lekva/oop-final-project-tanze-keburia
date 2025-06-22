@@ -19,10 +19,7 @@ public class FriendRequestDAOTest {
 
     @BeforeClass
     public static void setupDatabase() throws Exception {
-        String url = DatabaseConnectionPull.getUrl();
-        String userName = DatabaseConnectionPull.getUserName();
-        String password = DatabaseConnectionPull.getPassword();
-        DatabaseConnector dbConnector = DatabaseConnector.getInstance(url, userName, password);
+        DatabaseConnector dbConnector = DatabaseConnector.getInstance();
         conn = dbConnector.getConnection();
 
         // Set up test tables

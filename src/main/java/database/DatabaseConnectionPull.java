@@ -1,22 +1,26 @@
 package database;
 
-public class DatabaseConnectionPull {
-    private static String url;
-    private static String userName;
-    private static String password;
+public final class DatabaseConnectionPull {
+    private static String url = "jdbc:mysql://localhost:3306/mysql";
+    private static String userName = "root";
+    private static String password = "Bozartma";
 
-    public DatabaseConnectionPull(String url, String userName, String password) {
-        this.url = url;
-        this.userName = userName;
-        this.password = password;
+    private DatabaseConnectionPull() {}
+
+    public static void initialize(String url, String userName, String password) {
+        DatabaseConnectionPull.url = url;
+        DatabaseConnectionPull.userName = userName;
+        DatabaseConnectionPull.password = password;
     }
 
     public static String getUrl() {
         return url;
     }
+
     public static String getUserName() {
         return userName;
     }
+
     public static String getPassword() {
         return password;
     }

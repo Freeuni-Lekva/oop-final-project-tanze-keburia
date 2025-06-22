@@ -15,14 +15,7 @@ import java.sql.SQLException;
 public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
-        try {
-            String url = DatabaseConnectionPull.getUrl();
-            String userName = DatabaseConnectionPull.getUserName();
-            String password = DatabaseConnectionPull.getPassword();
-            dbc = DatabaseConnector.getInstance(url, userName, password);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        dbc = DatabaseConnector.getInstance();
         Connection conn = null;
         try {
             conn = dbc.getConnection();
