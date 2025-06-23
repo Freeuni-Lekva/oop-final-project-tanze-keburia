@@ -21,6 +21,7 @@
     QuizDAO quizzes = (QuizDAO)context.getAttribute("quizzes");
     List<Question>questions = questionDAO.getQuiz(quizID);
     Quiz quiz = quizzes.getQuiz(quizID);
+    String quizName=quiz.getName();
     String questionPage = TypePageMapper.getPageForType(quiz.getType());
 %>
 <html>
@@ -28,7 +29,7 @@
     <title>Configure Quiz</title>
 </head>
 <body>
-<h1><%= quiz.getName()%></h1>
+<h1><%= quizName%></h1>
 <%
     if(questions.isEmpty()) {%>
     <p>No questions yet</p>
@@ -37,20 +38,31 @@
     <ul>
     <%
         for(Question q : questions) {
+            String questionURL = questionPage + "?id=" + q.getID() + "&quizID=" + quizID;
             %>
         <li>
-            <a href="<%=questionPage%>?id=<%=q.getID()%>&quizID=<%=quizID%>">View
+            <a href="<%=questionURL%>">View
             </a>
+            <form action = "DeleteQuestion" method = "post" style="display:inline;">
+                <input type="hidden" name="questionID" value ="<%=q.getID()%>">
+                <input type="submit" value = "Delete Question">
+            </form>
         </li>
         <%}
         %>
         </ul>
 <%}
 %>
-<form action = "AddQuestion" method="post">
+<form action = "AddQuestion" method="post" style="display:inline;">
     <input type="hidden" name="type" value="<%=quiz.getType()%>">
-    <input type="hidden" name="quizID" value="<%=quiz.getID()%>">
+    <input type="hidden" name="quizID" value="<%=quizID%>">
     <input type="submit" value="Add question">
+</form>
+<form action = "SetTimeLimit" method="post" >
+    <input type="hidden" name="quizID" value="<%=quizID%>">
+    <label for="timeLimit">Time Limit (minutes):</label>
+    <input type="text" name="timeLimit">
+    <input type="submit" value = "set">
 </form>
 </body>
 </html>

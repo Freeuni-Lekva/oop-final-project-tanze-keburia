@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @WebServlet("/StartMakingQuiz")
 public class StartMakingQuiz extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = getServletContext();
         HttpSession session = request.getSession();
         if (session == null || session.getAttribute("username") == null) {

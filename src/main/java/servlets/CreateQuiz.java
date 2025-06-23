@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebServlet("/CreateQuiz")
 public class CreateQuiz extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.sendRedirect("createQuiz.jsp");
     }
 }

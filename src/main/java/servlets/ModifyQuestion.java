@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @WebServlet("/ModifyQuestion")
 public class ModifyQuestion extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String questionId = request.getParameter("questionID");
         System.out.println(questionId);
         String quizId = request.getParameter("quizID");

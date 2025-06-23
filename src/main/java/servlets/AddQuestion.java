@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @WebServlet("/AddQuestion")
 public class AddQuestion extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String type =  request.getParameter("type");
         String jsp =  TypePageMapper.getPageForType(type);
         String quizID = request.getParameter("quizID");
