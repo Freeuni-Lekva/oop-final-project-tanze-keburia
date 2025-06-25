@@ -17,11 +17,8 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
         try {
-            dbc = DatabaseConnector.getInstance(
-                    DatabaseConnectionPull.url,
-                    DatabaseConnectionPull.username,
-                    DatabaseConnectionPull.password
-            );
+            dbc = DatabaseConnector.getInstance("jdbc:mysql://localhost:3306/metro",
+                    "icosahedron", "Loko_kina1");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -34,12 +31,17 @@ public class ContextListener implements ServletContextListener {
         UserDAO userDAO = null;
         FriendsDAO friendsDAO = null;
         FriendRequestDAO friendRequestDAO = null;
-        MailDAO mailDAO = null;
+        QuizDAO quizDAO = null;
+        QuestionDAO questionDAO = null;
         try {
             userDAO = new UserDAO(conn);
             friendsDAO = new FriendsDAO(conn);
             friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
-            mailDAO = new MailDAO(conn);
+            quizDAO = new MockQuizDAO(conn);
+            questionDAO = new MockQuestionDAO(conn);
+            questionDAO.initialize();
+            quizDAO.initialize();
+         //   System.out.println(1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -47,7 +49,12 @@ public class ContextListener implements ServletContextListener {
         servletContext.setAttribute("users", userDAO);
         servletContext.setAttribute("friends", friendsDAO);
         servletContext.setAttribute("friendRequests", friendRequestDAO);
-        servletContext.setAttribute("mail", mailDAO);
+        servletContext.setAttribute("quizzes", quizDAO);
+        servletContext.setAttribute("questions", questionDAO);
+        Integer numQuizes = 0;
+        Integer numQuestions = 0;
+        servletContext.setAttribute("numQuizzes", numQuizes);
+        servletContext.setAttribute("numQuestions", numQuestions);
     }
     public void contextDestroyed(ServletContextEvent event) {
 
