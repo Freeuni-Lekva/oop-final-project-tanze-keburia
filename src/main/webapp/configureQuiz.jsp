@@ -44,6 +44,7 @@
             <a href="<%=questionURL%>">View
             </a>
             <form action = "DeleteQuestion" method = "post" style="display:inline;">
+                <input type = "hidden" name ="quizID" value ="<%=quizID%>">
                 <input type="hidden" name="questionID" value ="<%=q.getID()%>">
                 <input type="submit" value = "Delete Question">
             </form>

@@ -13,6 +13,11 @@ import java.io.IOException;
 @WebServlet("/CreateQuiz")
 public class CreateQuiz extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if(session == null || session.getAttribute("username") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         response.sendRedirect("createQuiz.jsp");
     }
 }
