@@ -25,14 +25,13 @@ public class SetTimeLimit extends HttpServlet {
         String timeLimit = request.getParameter("timeLimit");
         ServletContext context = getServletContext();
         QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
-        if(!OwnershipChecker.checkOwnership(quizDAO, request, response, quizId)){
+        if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizId)){
             return;
         }
         if(timeLimit == null || timeLimit.isEmpty()){
             return;
         }
         int x = Integer.parseInt(timeLimit);
-        x *= 60;
         Quiz quiz = quizDAO.getQuiz(quizId);
         quiz.setTimeLimit(x);
         quizDAO.modifyQuiz(quiz);

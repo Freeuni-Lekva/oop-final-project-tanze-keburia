@@ -29,8 +29,8 @@ public class ModifyQuestion extends HttpServlet {
         String statement = request.getParameter("statement");
         ServletContext context = getServletContext();
         QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
-        QuizDAO quizDAO = (QuizDAO) context.getAttribute("quiz");
-        if(!OwnershipChecker.checkOwnership(quizDAO, request, response, quizId)) {
+        QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
+        if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizId)) {
             return;
         }
         Question question = questionDAO.getQuestion(questionId);

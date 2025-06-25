@@ -5,7 +5,8 @@
 <%@ page import="database.QuizDAO" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="mapper.TypePageMapper" %><%--
+<%@ page import="mapper.TypePageMapper" %>
+<%@ page import="mapper.Topics" %><%--
   Created by IntelliJ IDEA.
   User: tarash-dolaberidze
   Date: 6/22/25
@@ -22,7 +23,15 @@
     List<Question>questions = questionDAO.getQuiz(quizID);
     Quiz quiz = quizzes.getQuiz(quizID);
     String quizName=quiz.getName();
-    String questionPage = TypePageMapper.getPageForType(quiz.getType());
+    String questionPage = TypePageMapper.fromName(quiz.getType()).getJspPage();
+    int timeLimit = quiz.getTimeLimit();
+    String timeLimitMessage = "";
+    if(timeLimit >= 1000000000) {
+        timeLimitMessage = "There is no current limit";
+    }
+    else {
+        timeLimitMessage = "Current time limit is " + timeLimit + "seconds";
+    }
 %>
 <html>
 <head>
@@ -59,11 +68,34 @@
     <input type="hidden" name="quizID" value="<%=quizID%>">
     <input type="submit" value="Add question">
 </form>
+<p>
+    <%=timeLimitMessage%>
+</p>
 <form action = "SetTimeLimit" method="post" >
     <input type="hidden" name="quizID" value="<%=quizID%>">
-    <label for="timeLimit">Time Limit (minutes):</label>
+    <label for="timeLimit">Time Limit (seconds):</label>
     <input type="text" name="timeLimit">
     <input type="submit" value = "set">
 </form>
+<label for="topic">Choose Topic:</label>
+<select id="topicDropdown" name="topicSelect">
+    <% for(Topics t : Topics.values()) { %>
+    <option value="<%= t.name() %>"><%= t.name().replace('_', ' ') %></option>
+    <% } %>
+</select>
+
+<!-- Your form with hidden input -->
+<form action="PublishQuiz" method="post">
+    <input type="hidden" name="topic" id="topicHiddenInput">
+    <input type="hidden" name="quizID" value="<%= quizID %>">
+    <button type="submit">Publish Quiz</button>
+</form>
+
+<script>
+    document.getElementById('publishQuizForm').addEventListener('submit', function() {
+        var selectedTopic = document.getElementById('topicDropdown').value;
+        document.getElementById('topicHiddenInput').value = selectedTopic;
+    });
+</script>
 </body>
 </html>

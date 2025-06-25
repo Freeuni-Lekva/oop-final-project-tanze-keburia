@@ -28,13 +28,13 @@ public class AddQuestion extends HttpServlet {
            return;
         }
         String type =  request.getParameter("type");
-        String jsp =  TypePageMapper.getPageForType(type);
+        String jsp =  TypePageMapper.fromName(type).getJspPage();
         String quizID = request.getParameter("quizID");
         if(quizID == null || type == null || jsp == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
             return;
         }
-        System.out.println(quizID);
+
         String id = UUID.randomUUID().toString();
         Question question = new MockQuestion("", "", quizID, id);
         ServletContext context = getServletContext();
@@ -44,12 +44,12 @@ public class AddQuestion extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Initialization error");
             return;
         }
-        if(!OwnershipChecker.checkOwnership(quizDAO, request, response, quizID)){
+
+        if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
             return;
         }
         questionDAO.addQuestion(question);
         System.out.println(question.getStatement());
-        context.setAttribute("questions", questionDAO);
         response.sendRedirect(jsp+"?id="+id+"&quizID="+quizID);
     }
 }

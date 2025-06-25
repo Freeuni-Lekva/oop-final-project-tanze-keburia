@@ -28,7 +28,7 @@ public class DeleteQuestion extends HttpServlet {
         ServletContext servletContext = getServletContext();
         QuizDAO quizDAO = (QuizDAO) servletContext.getAttribute("quizzes");
         QuestionDAO questionDAO = (QuestionDAO) servletContext.getAttribute("questions");
-        if(!OwnershipChecker.checkOwnership(quizDAO, request, response, quizID)){
+        if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
             return;
         }
         Question q = questionDAO.getQuestion(id);
