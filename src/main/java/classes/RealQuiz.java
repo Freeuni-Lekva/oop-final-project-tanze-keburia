@@ -2,76 +2,88 @@ package classes;
 
 import java.util.Date;
 
-public class RealQuiz {
-    private String quizName;
-    private String index;
-    private Date date;
+public class RealQuiz implements Quiz {
     private String author;
+    private Date date;
+    private String id;
     private String type;
-    private int questionQuantity;
+    private String name;
+    private int numQuestions;
     private String topic;
     private int timeLimit;
     private boolean visible;
 
-    public RealQuiz(String author, Date date, String index, String type, String quizName) {
-        this.quizName = quizName;
-        this.index = index;
-        this.date = date;
+    public RealQuiz(String author, Date date, String id, String type, String name) {
         this.author = author;
+        this.date = date;
+        this.id = id;
         this.type = type;
+        this.name = name;
         this.visible = false;
     }
 
+    @Override
     public String getName() {
-        return quizName;
+        return name;
     }
 
+    @Override
     public String getID() {
-        return index;
+        return id;
     }
 
+    @Override
     public String getAuthor() {
         return author;
     }
 
-    public String getNumQuestions(){
-        return String.valueOf(questionQuantity);
+    @Override
+    public int getNumQuestions() {
+        return numQuestions;
     }
 
-    public String getTopic(){
+    @Override
+    public String getTopic() {
         return topic;
     }
 
-    public Date getCreationDate(){
+    @Override
+    public Date getCreationDate() {
         return date;
     }
 
-    public int getTimeLimit(){
+    @Override
+    public int getTimeLimit() {
         return timeLimit;
     }
 
-    public String getType(){
+    @Override
+    public String getType() {
         return type;
     }
 
-    public void setVisible(boolean param){
-        visible = param;
+    @Override
+    public void setVisible(boolean param) {
+        this.visible = param;
     }
 
-    public void setNumQuestions(int numQuestions){
-        this.questionQuantity = numQuestions;
+    @Override
+    public void setNumQuestions(int numQuestions) {
+        this.numQuestions = numQuestions;
     }
 
-    public void setTopic(String topic){
+    @Override
+    public void setTopic(String topic) {
         this.topic = topic;
     }
 
-    public void setTimeLimit(int timeLimit){
+    @Override
+    public void setTimeLimit(int timeLimit) {
         this.timeLimit = timeLimit;
     }
 
-    public void setName(String newName){
-        this.quizName = newName;
+    @Override
+    public void setName(String newName) {
+        this.name = newName;
     }
-
 }

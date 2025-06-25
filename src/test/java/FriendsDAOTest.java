@@ -34,7 +34,7 @@ public class FriendsDAOTest {
     }
 
     @Before
-    public void setUp() throws SQLException {
+    public void setUp(){
         friendsDAO = new FriendsDAO(conn);
     }
 
