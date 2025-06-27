@@ -1,3 +1,4 @@
+import database.DatabaseConnectionPull;
 import database.DatabaseConnector;
 import database.FriendsDAO;
 import org.junit.Before;
@@ -19,11 +20,12 @@ public class FriendsDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/mysql";
-        String username = "root";
-        String password = "Bozartma";
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
-        conn = dbc.getConnection();
+        DatabaseConnector.getInstance(
+                DatabaseConnectionPull.url,
+                DatabaseConnectionPull.username,
+                DatabaseConnectionPull.password
+        );
+        conn = DatabaseConnector.getConnection();
         assert(conn != null);
         // Create users table
         try (Statement stmt = conn.createStatement()) {

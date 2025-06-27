@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 public class MockQuizDAOTest extends TestCase {
    private MockQuizDAO mockQuizDAO;
     public void testAddQuestion() {
-        mockQuizDAO = new MockQuizDAO();
+        mockQuizDAO = new MockQuizDAO(null);
        // Question question = new MockQuestion(2, 1);
     }
 }
