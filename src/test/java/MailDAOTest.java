@@ -35,7 +35,9 @@ public class MailDAOTest {
                     "receiver VARCHAR(255) NOT NULL, " +
                     "subject VARCHAR(255), " +
                     "content TEXT NOT NULL, " +
-                    "sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+                    "sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    "receiver_deleted BOOLEAN DEFAULT FALSE, " +
+                    "sender_deleted BOOLEAN DEFAULT FALSE)");
         }
 
         mailDAO = new MailDAO(conn);
@@ -85,6 +87,25 @@ public class MailDAOTest {
     }
 
     @Test
+    public void testDeleteMail() {
+        Mail mail1 = new Mail(0, "alice", "bob", "hello", "hi bob", null);
+        Mail mail2 = new Mail(0, "alice", "bob", "second", "another message", null);
+
+        mailDAO.sendMail(mail1);
+        mailDAO.sendMail(mail2);
+
+        List<Mail> inboxBefore = mailDAO.getInbox("bob");
+        assertEquals(2, inboxBefore.size());
+
+        int idToDelete = inboxBefore.get(0).getId();
+        mailDAO.deleteMail(idToDelete, "bob");
+
+        List<Mail> inboxAfter = mailDAO.getInbox("bob");
+        assertEquals(1, inboxAfter.size());
+        assertTrue(inboxAfter.stream().noneMatch(m -> m.getId() == idToDelete));
+    }
+
+    @Test
     public void testMailGetters() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
         Mail mail = new Mail(42, "alice", "bob", "hello", "hi bob", now);
@@ -95,6 +116,20 @@ public class MailDAOTest {
         assertEquals("hello", mail.getSubject());
         assertEquals("hi bob", mail.getContent());
         assertEquals(now, mail.getTimestamp());
+    }
+    @Test
+    public void testDeleteSentMail() {
+        Mail mail = new Mail(0, "davit", "mari", "update", "see you soon", null);
+        mailDAO.sendMail(mail);
+
+        List<Mail> sentBefore = mailDAO.getSent("davit");
+        assertEquals(1, sentBefore.size());
+
+        int mailId = sentBefore.get(0).getId();
+        mailDAO.deleteSentMail(mailId, "davit");
+
+        List<Mail> sentAfter = mailDAO.getSent("davit");
+        assertTrue(sentAfter.isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
