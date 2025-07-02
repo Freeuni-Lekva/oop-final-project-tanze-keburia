@@ -10,8 +10,10 @@ public class MailDAO {
     private Connection conn;
     public MailDAO(Connection conn) {
         this.conn = conn;
-        try(Statement stmt = conn.createStatement()){
-            //stmt.execute("DROP TABLE IF EXISTS mails");
+    }
+
+    public void initialize() {
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("CREATE TABLE IF NOT EXISTS mails (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "sender VARCHAR(255) NOT NULL, " +
@@ -22,9 +24,10 @@ public class MailDAO {
                     "receiver_deleted BOOLEAN DEFAULT FALSE, " +
                     "sender_deleted BOOLEAN DEFAULT FALSE)");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to initialize mails table", e);
         }
     }
+
     public void sendMail(Mail mail){
     if(mail == null ||mail.getSender() == null || mail.getReceiver() == null || mail.getSubject() == null || mail.getContent() == null){
         throw new IllegalArgumentException("Invalid mail fields");

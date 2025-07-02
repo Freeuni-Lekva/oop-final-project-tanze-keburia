@@ -27,20 +27,8 @@ public class MailDAOTest {
                 DatabaseConnectionPull.password
         );
         conn = DatabaseConnector.getConnection();
-        try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS mails");
-            stmt.execute("CREATE TABLE mails (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "sender VARCHAR(255) NOT NULL, " +
-                    "receiver VARCHAR(255) NOT NULL, " +
-                    "subject VARCHAR(255), " +
-                    "content TEXT NOT NULL, " +
-                    "sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-                    "receiver_deleted BOOLEAN DEFAULT FALSE, " +
-                    "sender_deleted BOOLEAN DEFAULT FALSE)");
-        }
-
         mailDAO = new MailDAO(conn);
+        mailDAO.initialize();
     }
 
     @AfterClass
