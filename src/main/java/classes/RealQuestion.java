@@ -1,50 +1,72 @@
 package classes;
 
 
-public class RealQuestion {
+import java.util.Objects;
 
-    private final String description;
-    private final String answer;
-    private final String questionNumber;
-    private final String quizNumber;
+public class RealQuestion implements Question {
 
-    public RealQuestion(String description, String answer, String questionNumber, String quizNumber) {
-        this.description = description;
+    private String statement;
+    private String answer;
+    private String questionID;
+    private String quizID;
+    private String points;
+
+    public RealQuestion(String statement, String answer, String questionID, String quizID, String points) {
+        this.statement = statement;
         this.answer = answer;
-        this.questionNumber = questionNumber;
-        this.quizNumber = quizNumber;
+        this.questionID =  questionID;
+        this.quizID = quizID;
+        this.points = points;
     }
 
-    public String getDescription() {
-        return description;
+    public String getStatement() {
+        return statement;
     }
 
     public String getAnswer() {
         return answer;
     }
 
-    public String getQuestionNumber() {
-        return questionNumber;
+    public int getID() {
+        return Integer.parseInt(questionID);
     }
 
-    public String getQuizNumber() {
-        return quizNumber;
+    public int getQuizID() {
+        return Integer.parseInt(quizID);
     }
 
+    public double getPoints() {
+        return Double.parseDouble(points);
+    }
+
+    public void setStatement(String statement) {
+        this.statement = statement;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setPoints(double points) {
+        this.points = Double.toString(points);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof RealQuestion)) return false;
+        RealQuestion realQuestion = (RealQuestion) o;
+
+        return Objects.equals(statement, realQuestion.statement)
+                && Objects.equals(answer, realQuestion.answer)
+                && Objects.equals(questionID, realQuestion.questionID)
+                && Objects.equals(quizID, realQuestion.quizID)
+                && Objects.equals(points, realQuestion.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(statement, answer, questionID, quizID, points);
+    }
 }
 
-//public interface Question {
-//    String getStatement();
-//    String getAnswer();
-//    int getQuizID();
-//    int getID();
-//    /*
-//    number of points you get when you answer question correctly;
-//     */
-//    double getPoints();
-//
-//    void setStatement(String statement);
-//    void setAnswer(String answer);
-//    void setPoints(double points);
-//
-//}

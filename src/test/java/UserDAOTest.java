@@ -1,5 +1,5 @@
 import classes.User;
-
+import database.UserDAO;
 
 import database.DatabaseConnector;
 import database.UserDAO;
@@ -23,10 +23,9 @@ public class UserDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 
-=======
-        String url = "jdbc:mysql://localhost:3306/mysql";
+        String url = "jdbc:mysql://localhost:3306/metropolis_db";
         String username = "root";
-        String password = "Bozartma";
+        String password = "Akkdzidzi100!";
 
 
         DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);

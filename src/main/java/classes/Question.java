@@ -13,5 +13,4 @@ public interface Question {
     void setStatement(String statement);
     void setAnswer(String answer);
     void setPoints(double points);
-
 }
