@@ -121,4 +121,15 @@ public class RealQuestionDAOTest {
 
     }
 
+
+    @Test
+    public void testGetQuestion() throws SQLException {
+        Question input = new RealQuestion("2 + 2 = ?", "4", "69", "102", "1.0");
+        questionDAO.addQuestion(input);
+
+        Question result = questionDAO.getQuestion("69");
+
+        assert(result.equals(input));
+    }
+
 }

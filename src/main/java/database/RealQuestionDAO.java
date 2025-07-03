@@ -132,6 +132,33 @@ public class RealQuestionDAO {
         return new ArrayList<>(questions);
     }
 
+    public Question getQuestion(String questionID) {
+        if(questionID == null || questionID.isEmpty()) {
+            throw new IllegalArgumentException("Question ID cannot be null or empty");
+        }
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT * FROM questions WHERE question_id = ?"
+        )) {
+            preparedStatement.setString(1, questionID);
+
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    String statement = resultSet.getString("question_statement");
+                    String answer = resultSet.getString("question_answer");
+                    String quizID = resultSet.getString("quiz_id");
+                    String points = resultSet.getString("question_points");
+
+                    return new RealQuestion(statement, answer, questionID, quizID, points);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get question", e);
+        }
+
+        return null;
+
+    }
 
 }
 
