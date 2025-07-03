@@ -14,8 +14,13 @@ import java.io.IOException;
 @WebServlet("/AddServlet")
 public class AddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String receiverId = request.getParameter("receiverUsername");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if(session == null || session.getAttribute("username") == null){
+            response.sendRedirect("login.jsp");
+            return;
+        }
         ServletContext servletContext = getServletContext();
         String senderId = session.getAttribute("username").toString();
         FriendRequestDAO friendRequestDAO = (FriendRequestDAO)servletContext.getAttribute("friendRequests");

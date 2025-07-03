@@ -1,3 +1,5 @@
+
+import database.DatabaseConnectionPool;
 import database.DatabaseConnector;
 import database.FriendRequestDAO;
 import database.FriendsDAO;
@@ -20,11 +22,12 @@ public class FriendRequestDAOTest {
 
     @BeforeClass
     public static void setupDatabase() throws Exception {
-        DatabaseConnector dbConnector = DatabaseConnector.getInstance(
-                "jdbc:mysql://localhost:3306/metro",
-                "icosahedron",
-                "Loko_kina1");
-        conn = dbConnector.getConnection();
+        DatabaseConnector.getInstance(
+                DatabaseConnectionPool.url,
+                DatabaseConnectionPool.username,
+                DatabaseConnectionPool.password
+        );
+        conn = DatabaseConnector.getConnection();
 
         // Set up test tables
         try (Statement stmt = conn.createStatement()) {
@@ -74,6 +77,7 @@ public class FriendRequestDAOTest {
 
     @Test
     public void testRemoveFriendRequest() {
+
         List<String> requests = requestDAO.getRequestList("Bob");
         assertEquals(2, requests.size());
         assertTrue(requests.contains("Alice"));

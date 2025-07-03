@@ -14,6 +14,9 @@ public class RealQuestionDAO {
 
     public RealQuestionDAO(Connection connection) {
         this.connection = connection;
+    }
+
+    public void initialize() {
         try (Statement statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS questions (" +
                     "question_statement VARCHAR(1000), " +
