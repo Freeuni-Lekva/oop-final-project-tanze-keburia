@@ -108,9 +108,7 @@ public class RealQuestionDAO implements QuestionDAO{
     }
 
     @Override
-    public Question getQuestion(String id) {
-        return null;
-    }
+
 
 
     public List<Question> getAllQuestions() {
