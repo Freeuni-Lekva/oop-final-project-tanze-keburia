@@ -28,6 +28,7 @@ public class UserDAOTest {
         String password = "Akkdzidzi100!";
 
 
+
         DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
         conn = dbc.getConnection();
         assert(conn != null);
