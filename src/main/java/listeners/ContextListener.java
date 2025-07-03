@@ -1,7 +1,6 @@
-package listeners;
-import database.DatabaseConnectionPull;
-import database.DatabaseConnector;
-import database.UserDAO;
+
+import database.*;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -15,21 +14,55 @@ import java.sql.SQLException;
 public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
-        dbc = DatabaseConnector.getInstance();
+
+        try {
+            dbc = DatabaseConnector.getInstance(DatabaseConnectionPool.getUrl(), DatabaseConnectionPool.getUserName(),
+                    DatabaseConnectionPool.getPassword());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         Connection conn = null;
         try {
             conn = dbc.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        MailDAO mailDAO = null;
         UserDAO userDAO = null;
+
+        FriendsDAO friendsDAO = null;
+        FriendRequestDAO friendRequestDAO = null;
+        QuizDAO quizDAO = null;
+        QuestionDAO questionDAO = null;
         try {
             userDAO = new UserDAO(conn);
+            mailDAO = new MailDAO(conn);
+            mailDAO.initialize();
+            friendsDAO = new FriendsDAO(conn);
+            friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
+            quizDAO = new MockQuizDAO(conn);
+            questionDAO = new RealQuestionDAO(conn);
+            questionDAO.initialize();
+            quizDAO.initialize();
+         //   System.out.println(1);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("users", userDAO);
+
+        servletContext.setAttribute("friends", friendsDAO);
+        servletContext.setAttribute("friendRequests", friendRequestDAO);
+        servletContext.setAttribute("quizzes", quizDAO);
+        servletContext.setAttribute("questions", questionDAO);
+        servletContext.setAttribute("mails", mailDAO);
+        Integer numQuizes = 0;
+        Integer numQuestions = 0;
+        servletContext.setAttribute("numQuizzes", numQuizes);
+        servletContext.setAttribute("numQuestions", numQuestions);
+
     }
     public void contextDestroyed(ServletContextEvent event) {
 

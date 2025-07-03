@@ -1,7 +1,7 @@
 package database;
 
 import classes.User;
-
+import database.UserDAO;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,7 +22,16 @@ public class UserDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        DatabaseConnector dbc = DatabaseConnector.getInstance();
+
+
+        String url = "jdbc:mysql://localhost:3306/metropolis_db";
+        String username = "root";
+        String password = "Akkdzidzi100!";
+
+
+
+        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
+
         conn = dbc.getConnection();
         assert(conn != null);
         try (Statement stmt = conn.createStatement()) {
