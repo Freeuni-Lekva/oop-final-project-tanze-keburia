@@ -41,7 +41,7 @@ public class ContextListener implements ServletContextListener {
             friendsDAO = new FriendsDAO(conn);
             friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
             quizDAO = new MockQuizDAO(conn);
-            questionDAO = new MockQuestionDAO(conn);
+            questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
             quizDAO.initialize();
          //   System.out.println(1);

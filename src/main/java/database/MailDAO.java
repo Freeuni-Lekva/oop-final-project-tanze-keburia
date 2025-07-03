@@ -14,7 +14,7 @@ public class MailDAO {
 
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("CREATE TABLE IF  EXISTS mails (" +
+            stmt.execute("CREATE TABLE IF NOT EXISTS mails (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "sender VARCHAR(255) NOT NULL, " +
                     "receiver VARCHAR(255) NOT NULL, " +
