@@ -1,4 +1,4 @@
-import database.DatabaseConnectionPull;
+import database.DatabaseConnectionPool;
 import database.DatabaseConnector;
 import database.FriendsDAO;
 import org.junit.Before;
@@ -21,9 +21,9 @@ public class FriendsDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         DatabaseConnector.getInstance(
-                DatabaseConnectionPull.url,
-                DatabaseConnectionPull.username,
-                DatabaseConnectionPull.password
+                DatabaseConnectionPool.url,
+                DatabaseConnectionPool.username,
+                DatabaseConnectionPool.password
         );
         conn = DatabaseConnector.getConnection();
         assert(conn != null);

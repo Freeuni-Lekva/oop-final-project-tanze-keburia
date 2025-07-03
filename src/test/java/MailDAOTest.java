@@ -1,5 +1,5 @@
 import classes.Mail;
-import database.DatabaseConnectionPull;
+import database.DatabaseConnectionPool;
 import database.DatabaseConnector;
 import database.MailDAO;
 import org.junit.AfterClass;
@@ -22,9 +22,9 @@ public class MailDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         DatabaseConnector.getInstance(
-                DatabaseConnectionPull.url,
-                DatabaseConnectionPull.username,
-                DatabaseConnectionPull.password
+                DatabaseConnectionPool.url,
+                DatabaseConnectionPool.username,
+                DatabaseConnectionPool.password
         );
         conn = DatabaseConnector.getConnection();
         mailDAO = new MailDAO(conn);

@@ -1,5 +1,5 @@
 
-import database.DatabaseConnectionPull;
+import database.DatabaseConnectionPool;
 import database.DatabaseConnector;
 import database.FriendRequestDAO;
 import database.FriendsDAO;
@@ -23,9 +23,9 @@ public class FriendRequestDAOTest {
     @BeforeClass
     public static void setupDatabase() throws Exception {
         DatabaseConnector.getInstance(
-                DatabaseConnectionPull.url,
-                DatabaseConnectionPull.username,
-                DatabaseConnectionPull.password
+                DatabaseConnectionPool.url,
+                DatabaseConnectionPool.username,
+                DatabaseConnectionPool.password
         );
         conn = DatabaseConnector.getConnection();
 
