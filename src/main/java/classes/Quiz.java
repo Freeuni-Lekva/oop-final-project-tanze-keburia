@@ -9,6 +9,7 @@ public interface Quiz {
      */
     String getName();
     String getID();
+
     String getAuthor();
 
     int getNumQuestions();
@@ -30,7 +31,9 @@ public interface Quiz {
      */
     String getType();
 
+
     void setVisible();
+
 
     void setNumQuestions(int numQuestions);
     void setTopic(String topic);
