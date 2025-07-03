@@ -41,8 +41,8 @@ public class RealQuestionDAOTest {
         questionDAO.addQuestion(q2);
         questionDAO.addQuestion(q3);
 
-        List<Question> result1 = questionDAO.getQuiz(1);
-        List<Question> result2 = questionDAO.getQuiz(2);
+        List<Question> result1 = questionDAO.getQuiz("1");
+        List<Question> result2 = questionDAO.getQuiz("2");
 
         assertEquals(2, result1.size());
         assertEquals(1, result2.size());
@@ -65,7 +65,7 @@ public class RealQuestionDAOTest {
         Question updated = new RealQuestion("New Question", "Correct answer", "5", "1", "2.5");
         questionDAO.modifyQuestion(updated);
 
-        List<Question> result = questionDAO.getQuiz(1);
+        List<Question> result = questionDAO.getQuiz("1");
 
         assertEquals(1, result.size());
         System.out.println(result.get(0).getStatement());
@@ -81,7 +81,7 @@ public class RealQuestionDAOTest {
 
         questionDAO.removeQuestion(question1);
 
-        List<Question> result1 = questionDAO.getQuiz(3);
+        List<Question> result1 = questionDAO.getQuiz("3");
         assertTrue(result1.isEmpty());
 
         RealQuestion question2 = new RealQuestion("Xinkali sjobs tu mwvadi?", "Xinkali", "3", "3", "10.0");
@@ -90,12 +90,12 @@ public class RealQuestionDAOTest {
         questionDAO.addQuestion(question2);
         questionDAO.addQuestion(question3);
 
-        List<Question> result2 = questionDAO.getQuiz(3);
+        List<Question> result2 = questionDAO.getQuiz("3");
         assertEquals(2, result2.size());
 
         questionDAO.removeQuestion(question2);
 
-        List<Question> result3 = questionDAO.getQuiz(3);
+        List<Question> result3 = questionDAO.getQuiz("3");
         assertEquals(1, result3.size());
 
     }

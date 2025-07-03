@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RealQuestionDAO {
+public class RealQuestionDAO implements QuestionDAO{
 
     private final Connection connection;
 
@@ -62,13 +62,13 @@ public class RealQuestionDAO {
 
     }
 
-    public List<Question> getQuiz(int quizID) {
+    public List<Question> getQuiz(String quizID) {
         List<RealQuestion> questions = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "SELECT * FROM questions WHERE quiz_id = ? ORDER BY question_id"
         )) {
-            preparedStatement.setString(1, Integer.toString(quizID));
+            preparedStatement.setString(1, quizID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     String statement = resultSet.getString("question_statement");
@@ -105,6 +105,11 @@ public class RealQuestionDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to edit question", e);
         }
+    }
+
+    @Override
+    public Question getQuestion(String id) {
+        return null;
     }
 
 
