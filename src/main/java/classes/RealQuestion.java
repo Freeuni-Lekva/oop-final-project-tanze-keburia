@@ -27,12 +27,12 @@ public class RealQuestion implements Question {
         return answer;
     }
 
-    public int getID() {
-        return Integer.parseInt(questionID);
+    public String getID() {
+        return questionID;
     }
 
-    public int getQuizID() {
-        return Integer.parseInt(quizID);
+    public String getQuizID() {
+        return quizID;
     }
 
     public double getPoints() {

@@ -33,8 +33,8 @@ public class RealQuestionDAO {
         )) {
             preparedStatement.setString(1, question.getStatement());
             preparedStatement.setString(2, question.getAnswer());
-            preparedStatement.setString(3, Integer.toString(question.getID()));
-            preparedStatement.setString(4, Integer.toString(question.getQuizID()));
+            preparedStatement.setString(3, question.getID());
+            preparedStatement.setString(4, question.getQuizID());
             preparedStatement.setString(5, Double.toString(question.getPoints()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -50,8 +50,8 @@ public class RealQuestionDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "DELETE FROM questions WHERE question_id = ? AND quiz_id = ?"
         )) {
-            preparedStatement.setString(1, Integer.toString(question.getID()));
-            preparedStatement.setString(2, Integer.toString(question.getQuizID()));
+            preparedStatement.setString(1, question.getID());
+            preparedStatement.setString(2, question.getQuizID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to delete question", e);
@@ -95,8 +95,8 @@ public class RealQuestionDAO {
             preparedStatement.setString(1, question.getStatement());
             preparedStatement.setString(2, question.getAnswer());
             preparedStatement.setString(3, Double.toString(question.getPoints()));
-            preparedStatement.setString(4, Integer.toString(question.getID()));
-            preparedStatement.setString(5, Integer.toString(question.getQuizID()));
+            preparedStatement.setString(4, question.getID());
+            preparedStatement.setString(5, question.getQuizID());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
