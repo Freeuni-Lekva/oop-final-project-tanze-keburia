@@ -20,12 +20,14 @@ public class FriendsDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+
         DatabaseConnector.getInstance(
                 DatabaseConnectionPool.url,
                 DatabaseConnectionPool.username,
                 DatabaseConnectionPool.password
         );
         conn = DatabaseConnector.getConnection();
+
         assert(conn != null);
         // Create users table
         try (Statement stmt = conn.createStatement()) {
@@ -39,7 +41,7 @@ public class FriendsDAOTest {
     }
 
     @Before
-    public void setUp() throws SQLException {
+    public void setUp(){
         friendsDAO = new FriendsDAO(conn);
     }
 

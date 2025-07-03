@@ -1,5 +1,6 @@
-package listeners;
+
 import database.*;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -11,17 +12,16 @@ import java.sql.SQLException;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
-
-
-
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
+
         try {
             dbc = DatabaseConnector.getInstance(DatabaseConnectionPool.getUrl(), DatabaseConnectionPool.getUserName(),
                     DatabaseConnectionPool.getPassword());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         Connection conn = null;
         try {
             conn = dbc.getConnection();
@@ -30,6 +30,7 @@ public class ContextListener implements ServletContextListener {
         }
         MailDAO mailDAO = null;
         UserDAO userDAO = null;
+
         FriendsDAO friendsDAO = null;
         FriendRequestDAO friendRequestDAO = null;
         QuizDAO quizDAO = null;
@@ -45,11 +46,13 @@ public class ContextListener implements ServletContextListener {
             questionDAO.initialize();
             quizDAO.initialize();
          //   System.out.println(1);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         ServletContext servletContext = event.getServletContext();
         servletContext.setAttribute("users", userDAO);
+
         servletContext.setAttribute("friends", friendsDAO);
         servletContext.setAttribute("friendRequests", friendRequestDAO);
         servletContext.setAttribute("quizzes", quizDAO);
@@ -59,6 +62,7 @@ public class ContextListener implements ServletContextListener {
         Integer numQuestions = 0;
         servletContext.setAttribute("numQuizzes", numQuizes);
         servletContext.setAttribute("numQuestions", numQuestions);
+
     }
     public void contextDestroyed(ServletContextEvent event) {
 

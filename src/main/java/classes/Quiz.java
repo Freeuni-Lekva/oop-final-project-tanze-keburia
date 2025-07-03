@@ -30,7 +30,9 @@ public interface Quiz {
      */
     String getType();
 
+
     void setVisible(boolean visible);
+
 
     void setNumQuestions(int numQuestions);
     void setTopic(String topic);

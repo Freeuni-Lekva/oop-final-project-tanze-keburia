@@ -1,8 +1,10 @@
 
+
 import database.DatabaseConnectionPool;
 import database.DatabaseConnector;
 import database.FriendRequestDAO;
 import database.FriendsDAO;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,12 +24,14 @@ public class FriendRequestDAOTest {
 
     @BeforeClass
     public static void setupDatabase() throws Exception {
+
         DatabaseConnector.getInstance(
                 DatabaseConnectionPool.url,
                 DatabaseConnectionPool.username,
                 DatabaseConnectionPool.password
         );
         conn = DatabaseConnector.getConnection();
+
 
         // Set up test tables
         try (Statement stmt = conn.createStatement()) {
