@@ -14,6 +14,7 @@
     String quizID = request.getParameter("quizID");
     QuestionDAO questions = (QuestionDAO)context.getAttribute("questions");
     System.out.println(questions.getAllQuestions().size());
+    System.out.println(questionId);
     Question question = questions.getQuestion(questionId);
     String description = question.getStatement();
     String answer = question.getAnswer();

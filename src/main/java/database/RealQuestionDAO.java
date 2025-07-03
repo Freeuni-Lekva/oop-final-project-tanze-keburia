@@ -76,7 +76,7 @@ public class RealQuestionDAO implements QuestionDAO{
                     String questionID = resultSet.getString("question_id");
                     String quizNum = resultSet.getString("quiz_id");
                     String points = resultSet.getString("question_points");
-                    questions.add(new RealQuestion(statement, answer, questionID, quizNum, points));
+                    questions.add(new RealQuestion(statement, answer,  quizNum,questionID, points));
                 }
             }
         } catch (SQLException e) {
@@ -136,6 +136,7 @@ public class RealQuestionDAO implements QuestionDAO{
     }
 
     public Question getQuestion(String questionID) {
+
         if(questionID == null || questionID.isEmpty()) {
             throw new IllegalArgumentException("Question ID cannot be null or empty");
         }
@@ -152,7 +153,7 @@ public class RealQuestionDAO implements QuestionDAO{
                     String quizID = resultSet.getString("quiz_id");
                     String points = resultSet.getString("question_points");
 
-                    return new RealQuestion(statement, answer, questionID, quizID, points);
+                    return new RealQuestion(statement, answer,quizID,  questionID, points);
                 }
             }
         } catch (SQLException e) {

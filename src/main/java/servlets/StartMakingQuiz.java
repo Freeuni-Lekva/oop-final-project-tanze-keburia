@@ -2,6 +2,7 @@ package servlets;
 
 import classes.MockQuiz;
 import classes.Quiz;
+import classes.RealQuiz;
 import database.QuizDAO;
 
 import javax.servlet.ServletContext;
@@ -29,7 +30,7 @@ public class StartMakingQuiz extends HttpServlet {
         String username = session.getAttribute("username").toString();
         Date now = new Date();
         String id = UUID.randomUUID().toString();
-        Quiz newQuiz = new MockQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"));
+        Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"));
         quizDAO.addQuiz(newQuiz);
         response.sendRedirect("configureQuiz.jsp?id=" + id);
     }

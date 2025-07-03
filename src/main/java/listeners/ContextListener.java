@@ -1,3 +1,4 @@
+package listeners;
 
 import database.*;
 
@@ -15,12 +16,8 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = null;
 
-        try {
-            dbc = DatabaseConnector.getInstance(DatabaseConnectionPool.getUrl(), DatabaseConnectionPool.getUserName(),
-                    DatabaseConnectionPool.getPassword());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        dbc = DatabaseConnector.getInstance();
+
 
         Connection conn = null;
         try {
@@ -41,7 +38,7 @@ public class ContextListener implements ServletContextListener {
             mailDAO.initialize();
             friendsDAO = new FriendsDAO(conn);
             friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
-            quizDAO = new MockQuizDAO(conn);
+            quizDAO = new RealQuizDAO(conn);
             questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
             quizDAO.initialize();
@@ -58,10 +55,7 @@ public class ContextListener implements ServletContextListener {
         servletContext.setAttribute("quizzes", quizDAO);
         servletContext.setAttribute("questions", questionDAO);
         servletContext.setAttribute("mails", mailDAO);
-        Integer numQuizes = 0;
-        Integer numQuestions = 0;
-        servletContext.setAttribute("numQuizzes", numQuizes);
-        servletContext.setAttribute("numQuestions", numQuestions);
+
 
     }
     public void contextDestroyed(ServletContextEvent event) {

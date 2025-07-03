@@ -25,12 +25,8 @@ public class FriendRequestDAOTest {
     @BeforeClass
     public static void setupDatabase() throws Exception {
 
-        DatabaseConnector.getInstance(
-                DatabaseConnectionPool.url,
-                DatabaseConnectionPool.username,
-                DatabaseConnectionPool.password
-        );
-        conn = DatabaseConnector.getConnection();
+        DatabaseConnector dbc = DatabaseConnector.getInstance();
+        conn = dbc.getConnection();
 
 
         // Set up test tables

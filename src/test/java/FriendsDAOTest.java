@@ -21,12 +21,10 @@ public class FriendsDAOTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 
-        DatabaseConnector.getInstance(
-                DatabaseConnectionPool.url,
-                DatabaseConnectionPool.username,
-                DatabaseConnectionPool.password
-        );
-        conn = DatabaseConnector.getConnection();
+        conn = DatabaseConnector.getInstance(
+
+        ).getConnection();
+
 
         assert(conn != null);
         // Create users table

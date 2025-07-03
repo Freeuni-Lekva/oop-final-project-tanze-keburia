@@ -21,12 +21,8 @@ public class MailDAOTest {
     private static MailDAO mailDAO;
     @BeforeClass
     public static void setUpClass() throws Exception {
-        DatabaseConnector.getInstance(
-                DatabaseConnectionPool.url,
-                DatabaseConnectionPool.username,
-                DatabaseConnectionPool.password
-        );
-        conn = DatabaseConnector.getConnection();
+       conn =  DatabaseConnector.getInstance().getConnection();
+
         mailDAO = new MailDAO(conn);
         mailDAO.initialize();
     }

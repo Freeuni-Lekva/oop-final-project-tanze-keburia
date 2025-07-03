@@ -1,6 +1,8 @@
 import classes.Question;
 import classes.RealQuestion;
 
+import database.DatabaseConnectionPool;
+import database.DatabaseConnector;
 import database.RealQuestionDAO;
 import org.junit.*;
 import java.sql.*;
@@ -17,7 +19,7 @@ public class RealQuestionDAOTest {
 
     @BeforeClass
     public static void init() throws Exception {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/metropolis_db", "root", "Akkdzidzi100!");
+        conn = DriverManager.getConnection(DatabaseConnectionPool.getUrl(), DatabaseConnectionPool.getUserName(), DatabaseConnectionPool.getPassword());
     }
 
     @Before

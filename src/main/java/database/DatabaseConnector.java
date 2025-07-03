@@ -24,9 +24,9 @@ public final class DatabaseConnector {
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
-                DatabaseConnectionPull.getUrl(),
-                DatabaseConnectionPull.getUserName(),
-                DatabaseConnectionPull.getPassword()
+                DatabaseConnectionPool.getUrl(),
+                DatabaseConnectionPool.getUserName(),
+                DatabaseConnectionPool.getPassword()
         );
     }
 }

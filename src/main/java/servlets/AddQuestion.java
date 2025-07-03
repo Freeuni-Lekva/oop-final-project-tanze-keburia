@@ -4,6 +4,7 @@ import Validation.OwnershipChecker;
 import classes.MockQuestion;
 import classes.Question;
 import classes.Quiz;
+import classes.RealQuestion;
 import database.QuestionDAO;
 import database.QuizDAO;
 import mapper.TypePageMapper;
@@ -36,7 +37,7 @@ public class AddQuestion extends HttpServlet {
         }
 
         String id = UUID.randomUUID().toString();
-        Question question = new MockQuestion("", "", quizID, id);
+        Question question = new RealQuestion("", "", quizID, id, "1");
         ServletContext context = getServletContext();
         QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
         QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
@@ -49,7 +50,6 @@ public class AddQuestion extends HttpServlet {
             return;
         }
         questionDAO.addQuestion(question);
-        System.out.println(question.getStatement());
         response.sendRedirect(jsp+"?id="+id+"&quizID="+quizID);
     }
 }
