@@ -47,6 +47,13 @@
         <button type="button">Compose</button>
     </a>
 </div>
+<div>
+    <form action="viewAllQuizzes" method="get" style="margin-top: 10px;">
+        <button type="submit">
+            View All Quizzes
+        </button>
+    </form>
+</div>
 <h3>Recent Messages</h3>
 <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
 <p>No new messages</p>
