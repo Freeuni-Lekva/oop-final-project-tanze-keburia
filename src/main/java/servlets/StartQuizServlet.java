@@ -3,6 +3,7 @@ package servlets;
 
 import classes.Quiz;
 import database.DatabaseConnector;
+import database.QuestionDAO;
 import database.QuizDAO;
 import database.RealQuizDAO;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
+
 
 
 @WebServlet("/startQuiz")
@@ -28,6 +29,7 @@ public class StartQuizServlet extends HttpServlet {
 
         ServletContext context = getServletContext();
         QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
+        QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
 
         Quiz quiz = quizDAO.getQuiz(quizId);
         if (quiz == null) {
@@ -35,7 +37,9 @@ public class StartQuizServlet extends HttpServlet {
             return;
         }
 
+        int questionCount = questionDAO.getQuiz(quizId).size();
         request.setAttribute("quiz", quiz);
+        request.setAttribute("questionCount", questionCount);
         request.getRequestDispatcher("/WEB-INF/startQuiz.jsp").forward(request, response);
     }
 

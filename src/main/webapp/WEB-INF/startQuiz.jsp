@@ -7,31 +7,37 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="classes.Quiz" %>
+<%
+    Quiz quiz = (Quiz) request.getAttribute("quiz");
+    int questionCount = ((Integer) request.getAttribute("questionCount")).intValue();
+%>
+
 
 <html>
 <head>
-    <title>Start Quiz</title>
+    <title><%= quiz.getName() %></title>
 </head>
 <body>
 
-<%
-  Quiz quiz = (Quiz) request.getAttribute("quiz");
-  if (quiz == null) {
-%>
-  <p>Quiz not found.</p>
-<%
-} else {
-%>
-  <h2>Quiz: <%= quiz.getName() %></h2>
-  <p>Author: <%= quiz.getAuthor() %></p>
-  <!-- Here I'll add questions or "Start" button -->
-<%
-  }
-%>
+<h2>Quiz: <%= quiz.getName() %></h2>
+
+<p><strong>Type:</strong> <%= quiz.getType() %></p>
+<p><strong>Number of Questions:</strong> <%= questionCount %></p>
+<p><strong>Time Limit:</strong>
+    <%= quiz.getTimeLimit() == 0 ? "No limit" : (quiz.getTimeLimit() / 60) + " minutes" %>
+</p>
+<p><strong>Topic:</strong> <%= quiz.getTopic() %></p>
+
+<form action="StartActualQuizServlet" method="get">
+    <input type="hidden" name="id" value="<%= quiz.getID() %>">
+    <button type="submit">Start Quiz</button>
+</form>
 
 <br>
-<a href="homepage.jsp">Back to Homepage</a>
-
+<a href="viewAllQuizzes">Back to All Quizzes</a>
 
 </body>
 </html>
+
+
+

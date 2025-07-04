@@ -29,11 +29,8 @@
   <%
     for (Quiz quiz : quizzes) {
   %>
-  <li>
-    <a href="startQuiz?id=<%= quiz.getID() %>">
-      <strong><%= quiz.getName() %></strong>
-    </a> — ID: <%= quiz.getID() %>
-  </li>
+  <li><a href="startQuiz?id=<%= quiz.getID() %>"><%= quiz.getName() %></a></li>
+
   <%
     }
   %>
