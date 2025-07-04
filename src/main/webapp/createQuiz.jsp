@@ -18,7 +18,7 @@
         <option value="Text">Text</option>
         <option value="MultipleChoice">Multiple-Choice</option>
         <option value="FillBlank">Fill in the Blank</option>
-        <option value="PictureResponse">Picutre-response</option>
+        <option value="PictureResponse">Picture-response</option>
     </select><br/>
     <button type="submit">Create</button>
 </form>

@@ -24,7 +24,7 @@
 <p><strong>Type:</strong> <%= quiz.getType() %></p>
 <p><strong>Number of Questions:</strong> <%= questionCount %></p>
 <p><strong>Time Limit:</strong>
-    <%= quiz.getTimeLimit() == 0 ? "No limit" : (quiz.getTimeLimit() / 60) + " minutes" %>
+    <%= quiz.getTimeLimit() == 0 ? "No limit" : (quiz.getTimeLimit() / 60) + " minutes and " + (quiz.getTimeLimit() % 60) + " seconds"%>
 </p>
 <p><strong>Topic:</strong> <%= quiz.getTopic() %></p>
 
