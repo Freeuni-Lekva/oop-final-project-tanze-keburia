@@ -30,7 +30,7 @@ public class UserDAOTest {
 
 
 
-        DatabaseConnector dbc = DatabaseConnector.getInstance(url, username, password);
+        DatabaseConnector dbc = DatabaseConnector.getInstance();
 
         conn = dbc.getConnection();
         assert(conn != null);

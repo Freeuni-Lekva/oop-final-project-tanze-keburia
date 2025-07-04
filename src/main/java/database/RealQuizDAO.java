@@ -26,7 +26,7 @@ public class RealQuizDAO implements QuizDAO {
                     "author VARCHAR(255) NOT NULL, " +
                     "time_limit INT NOT NULL, " +
                     "question_quantity INT NOT NULL, " +
-                    "topic VARCHAR(255) NOT NULL, " +
+                    "topic VARCHAR(255),  " +
                     "type VARCHAR(255) NOT NULL, " +
                     "visible BOOLEAN NOT NULL DEFAULT FALSE)");
         } catch (SQLException e) {
