@@ -6,6 +6,7 @@ import database.DatabaseConnector;
 import database.QuizDAO;
 import database.RealQuizDAO;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,27 +20,23 @@ import java.sql.Connection;
 public class StartQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String quizID = request.getParameter("id");
-
-        if(quizID == null || quizID.isEmpty()) {
-            response.sendRedirect("homepage.jsp");
+        String quizId = request.getParameter("id");
+        if (quizId == null) {
+            response.sendRedirect("viewAllQuizzes");
             return;
         }
 
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            QuizDAO quizDAO = new RealQuizDAO(conn);
-            Quiz quiz = quizDAO.getQuiz(quizID);
+        ServletContext context = getServletContext();
+        QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
 
-            if(quiz == null) {
-                response.sendRedirect("homepage.jsp");
-                return;
-            }
-
-            request.setAttribute("quiz", quiz);
-            request.getRequestDispatcher("/WEB-INF/startQuiz.jsp").forward(request, response);
-        } catch (Exception e) {
-            throw new ServletException("Can't load quizzes", e);
+        Quiz quiz = quizDAO.getQuiz(quizId);
+        if (quiz == null) {
+            response.sendRedirect("viewAllQuizzes");
+            return;
         }
+
+        request.setAttribute("quiz", quiz);
+        request.getRequestDispatcher("/WEB-INF/startQuiz.jsp").forward(request, response);
     }
 
 }
