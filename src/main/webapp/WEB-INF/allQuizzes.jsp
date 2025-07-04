@@ -27,13 +27,15 @@
 %>
 <ul>
   <%
-    for (Quiz quiz : quizzes) {
-  %>
-  <li><a href="startQuiz?id=<%= quiz.getID() %>"><%= quiz.getName() %></a></li>
+    for (Quiz quiz : quizzes) { %>
+  <li>
+    <a href="startQuiz?id=<%= quiz.getID() %>"><%= quiz.getName() %></a>
+    — Author: <%= quiz.getAuthor() %>
+  </li>
+  <% }
 
-  <%
-    }
   %>
+
 </ul>
 <%
   }
