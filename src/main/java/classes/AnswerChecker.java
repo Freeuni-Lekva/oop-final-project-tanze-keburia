@@ -2,11 +2,11 @@ package classes;
 
 public interface AnswerChecker {
     /**
-     * Checks if the provided answer is correct for the given question.
+     * Checks if the provided answer is correct for the given question and returns appropriate points.
      *
      * @param questionID the ID of the question to check
      * @param userAnswer the user's answer input
-     * @return true if the answer is correct, false otherwise
+     * @return points in double according to answer correctness
      */
-    boolean isCorrect(String questionID, GeneralAnswer userAnswer);
+    double getPoints(String questionID, GeneralAnswer userAnswer);
 }

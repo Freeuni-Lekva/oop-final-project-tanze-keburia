@@ -6,7 +6,8 @@ import java.util.List;
 public class SingleAnswer extends GeneralAnswer{
     private final String answer;
 
-    public SingleAnswer(String answer) {
+    public SingleAnswer(String questionID, String answer) {
+        super(questionID);
         this.answer = answer;
     }
 
