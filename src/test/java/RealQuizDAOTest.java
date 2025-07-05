@@ -1,7 +1,9 @@
-package database;
 
-import classes.Quiz;
-import classes.RealQuiz;
+
+import classes.quiz_utilities.Quiz;
+import classes.quiz_utilities.RealQuiz;
+import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.RealQuizDAO;
 import org.junit.*;
 import java.sql.*;
 import java.util.Date;

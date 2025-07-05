@@ -1,9 +1,8 @@
 package servlets;
 
-import classes.MockQuiz;
-import classes.Quiz;
-import classes.RealQuiz;
-import database.QuizDAO;
+import classes.quiz_utilities.Quiz;
+import classes.quiz_utilities.RealQuiz;
+import database.quiz_utilities.QuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

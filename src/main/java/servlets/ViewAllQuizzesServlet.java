@@ -1,8 +1,7 @@
 package servlets;
 
-import classes.Quiz;
-import database.DatabaseConnector;
-import database.QuizDAO;
+import classes.quiz_utilities.Quiz;
+import database.quiz_utilities.QuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-import classes.RealQuiz;
+import classes.quiz_utilities.RealQuiz;
 import junit.framework.TestCase;
 import org.junit.Test;
 
