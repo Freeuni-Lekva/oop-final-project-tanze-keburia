@@ -11,5 +11,5 @@ public interface QuizChecker {
      * @param userAnswers a map from question ID to user answer
      * @return a map from question ID to whether the answer was correct (T/F)
      */
-    Map<String, Boolean> checkAnswer(List<Question> questions, Map<String, String> userAnswers);
+    Map<String, Boolean> checkAnswer(List<Question> questions, Map<String, GeneralAnswer> userAnswers);
 }
