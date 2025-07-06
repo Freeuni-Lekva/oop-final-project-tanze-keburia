@@ -42,7 +42,7 @@ public class QuizHistoryDAOTest {
     @Test
     public void testAddAndRetrieveResult() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        QuizResult result = new QuizResult("alice", 1, 95, now);
+        QuizResult result = new QuizResult("alice", "1", 95, now);
         historyDAO.addResult(result);
 
         List<QuizResult> results = historyDAO.getUserHistory("alice");
@@ -50,7 +50,7 @@ public class QuizHistoryDAOTest {
 
         QuizResult stored = results.get(0);
         assertEquals("alice", stored.getUsername());
-        assertEquals(1, stored.getQuizId());
+        assertEquals("1", stored.getQuizId());
         assertEquals(95, stored.getScore());
     }
 
@@ -67,7 +67,7 @@ public class QuizHistoryDAOTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddResultWithNullUsername() {
-        QuizResult result = new QuizResult(null, 2, 75, new Timestamp(System.currentTimeMillis()));
+        QuizResult result = new QuizResult(null, "2", 75, new Timestamp(System.currentTimeMillis()));
         historyDAO.addResult(result);
     }
 

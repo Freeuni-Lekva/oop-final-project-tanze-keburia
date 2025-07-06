@@ -32,7 +32,7 @@ public class QuizHistoryDAO {
         try (PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO quiz_history (username, quiz_id, score, submit_time) VALUES (?, ?, ?, ?)")) {
             ps.setString(1, result.getUsername());
-            ps.setInt(2, result.getQuizId());
+            ps.setString(2, result.getQuizId());
             ps.setInt(3, result.getScore());
             ps.setTimestamp(4, result.getSubmitTime());
             ps.executeUpdate();
@@ -54,7 +54,7 @@ public class QuizHistoryDAO {
                 while (rs.next()) {
                     QuizResult result = new QuizResult(
                             rs.getString("username"),
-                            rs.getInt("quiz_id"),
+                            rs.getString("quiz_id"),
                             rs.getInt("score"),
                             rs.getTimestamp("submit_time")
                     );
