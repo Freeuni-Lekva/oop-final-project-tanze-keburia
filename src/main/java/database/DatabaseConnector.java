@@ -1,39 +1,32 @@
 package database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class DatabaseConnector {
-    private String dbUrl;
-    private String dbUser;
-    private String dbPassword;
-    private static DatabaseConnector dbc;
+public final class DatabaseConnector {
+    private static DatabaseConnector instance;
 
-   private DatabaseConnector(String dbUrl, String dbUser, String dbPassword) throws ClassNotFoundException {
-
-       if(dbc == null) {
-           Class.forName("com.mysql.cj.jdbc.Driver");
-           dbc = this;
-           dbc.dbUrl = dbUrl;
-           dbc.dbUser = dbUser;
-           dbc.dbPassword = dbPassword;
-       }
-    }
-
-    public static DatabaseConnector getInstance(String dbUrl, String dbUser, String dbPassword) throws ClassNotFoundException {
-       DatabaseConnector dbc = new DatabaseConnector(dbUrl, dbUser, dbPassword);
-       return dbc;
-    }
-
-
-    public static Connection getConnection() throws SQLException {
+    private DatabaseConnector() {
         try {
-            Connection connection = DriverManager.getConnection(dbc.dbUrl, dbc.dbUser, dbc.dbPassword);
-            return connection;
-        } catch (SQLException e) {
-            throw e;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Failed to load JDBC driver", e);
         }
-
     }
 
+    public static synchronized DatabaseConnector getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnector();
+        }
+        return instance;
+    }
 
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                DatabaseConnectionPool.getUrl(),
+                DatabaseConnectionPool.getUserName(),
+                DatabaseConnectionPool.getPassword()
+        );
+    }
 }
