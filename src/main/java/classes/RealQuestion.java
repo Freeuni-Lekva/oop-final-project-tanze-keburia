@@ -11,7 +11,7 @@ public class RealQuestion implements Question {
     private String quizID;
     private String points;
 
-    public RealQuestion(String statement, String answer, String questionID, String quizID, String points) {
+    public RealQuestion(String statement, String answer, String quizID, String questionID, String points) {
         this.statement = statement;
         this.answer = answer;
         this.questionID =  questionID;
