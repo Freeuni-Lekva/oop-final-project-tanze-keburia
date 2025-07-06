@@ -9,12 +9,13 @@ public class RealQuizTest extends TestCase {
     @Test
     public void testQuiz(){
         Date date = new Date(System.currentTimeMillis());
-        RealQuiz quiz = new RealQuiz("Mzare", date, "0", "multipleChoise", "Mzare's Quiz");
+        RealQuiz quiz = new RealQuiz("Mzare", date, "0", "multipleChoise", "Mzare's Quiz", "Default");
         assertEquals("Mzare's Quiz", quiz.getName());
         assertEquals("0", quiz.getID());
         assertEquals("Mzare", quiz.getAuthor());
         assertEquals(date, quiz.getCreationDate());
         assertEquals("multipleChoise", quiz.getType());
+        assertEquals("Default", quiz.getPageFormat());
         quiz.setNumQuestions(2);
         assertEquals(2, quiz.getNumQuestions());
         quiz.setTopic("math");

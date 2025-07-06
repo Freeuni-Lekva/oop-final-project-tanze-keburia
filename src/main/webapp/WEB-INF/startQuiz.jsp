@@ -23,7 +23,6 @@
 
 <p><strong>Type:</strong> <%= quiz.getType() %></p>
 <p><strong>Number of Questions:</strong> <%= questionCount %></p>
-<p><strong>Time Limit:</strong>
         <%
     int timeLimit = quiz.getTimeLimit();
     String timeDisplay;

@@ -21,11 +21,12 @@
         <option value="PictureResponse">Picture-response</option>
     </select><br/>
 
-    <label for="format">Page Format:</label>
-    <select id="format" name="format">
-        <option value="single">One Question at a Time</option>
-        <option value="all">All Questions on One Page</option>
-    </select><br/>
+    <label for="format">Choose page format:</label>
+    <select id="format" name="format" required>
+        <option value="All Questions on One Page">All Questions on One Page</option>
+        <option value="One Question at a Time">One Question at a Time</option>
+    </select>
+
 
     <button type="submit">Create</button>
 </form>

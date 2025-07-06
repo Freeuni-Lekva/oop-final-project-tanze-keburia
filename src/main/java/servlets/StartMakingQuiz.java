@@ -30,10 +30,9 @@ public class StartMakingQuiz extends HttpServlet {
         String username = session.getAttribute("username").toString();
         Date now = new Date();
         String id = UUID.randomUUID().toString();
-        Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"));
-        quizDAO.addQuiz(newQuiz);
         String format = request.getParameter("format");
-        session.setAttribute("pageFormat:" + id, format);
+        Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"), format);
+        quizDAO.addQuiz(newQuiz);
         response.sendRedirect("configureQuiz.jsp?id=" + id);
     }
 }

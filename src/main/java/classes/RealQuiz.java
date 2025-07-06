@@ -12,14 +12,16 @@ public class RealQuiz implements Quiz {
     private String topic;
     private int timeLimit;
     private boolean visible;
+    private String pageFormat;
 
-    public RealQuiz(String author, Date date, String id, String type, String name) {
+    public RealQuiz(String author, Date date, String id, String type, String name, String pageFormat) {
         this.author = author;
         this.date = date;
         this.id = id;
         this.type = type;
         this.name = name;
         this.visible = false;
+        this.pageFormat = pageFormat;
     }
 
     @Override
@@ -63,6 +65,11 @@ public class RealQuiz implements Quiz {
     }
 
     @Override
+    public String getPageFormat() {
+        return pageFormat;
+    }
+
+    @Override
     public void setVisible(boolean param) {
         this.visible = param;
     }
@@ -85,5 +92,10 @@ public class RealQuiz implements Quiz {
     @Override
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    @Override
+    public void setPageFormat(String pageFormat) {
+        this.pageFormat = pageFormat;
     }
 }

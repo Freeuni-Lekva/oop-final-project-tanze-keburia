@@ -34,15 +34,16 @@ public class StartActualQuizServlet extends HttpServlet {
             return;
         }
 
+        session.setAttribute("questionList", questions);
+        session.setAttribute("currentIndex", 0);
+        session.setAttribute("currentQuizID", quizID);
+
         request.setAttribute("quiz", quiz);
         request.setAttribute("questions", questions);
 
-        String format = (String) session.getAttribute("pageFormat:" + quizID);
+        String format = quiz.getPageFormat();
 
-        if ("single".equalsIgnoreCase(format)) {
-            session.setAttribute("questionList", questions);
-            session.setAttribute("currentIndex", 0);
-
+        if ("One Question at a Time".equalsIgnoreCase(format)) {
             request.setAttribute("currentQuestion", questions.get(0));
             request.setAttribute("questionIndex", 0);
             request.setAttribute("totalQuestions", questions.size());
