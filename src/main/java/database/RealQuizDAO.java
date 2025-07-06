@@ -174,6 +174,22 @@ public class RealQuizDAO implements QuizDAO {
         return quiz;
     }
 
+    @Override
+    public String getQuizNameById(String quizId) {
+        String sql = "SELECT quiz_name FROM quizzes WHERE quiz_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, quizId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("quiz_name");
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get quiz name", e);
+        }
+    }
+
     public void close() {
         try {
             if (conn != null && !conn.isClosed()) {
