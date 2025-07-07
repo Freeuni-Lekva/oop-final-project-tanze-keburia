@@ -1,6 +1,7 @@
 package classes.quiz_utilities;
 
 
+import java.sql.SQLException;
 import java.util.Map;
 
 public interface QuizChecker {
@@ -10,5 +11,5 @@ public interface QuizChecker {
      * @param userAnswers a map from question ID to user answers
      * @return a map from question ID to whether the answer was correct (T/F)
      */
-    Map<String, Double> checkAnswer(Map<String, GeneralAnswer> userAnswers);
+    Map<String, Double> checkedAnswers(Map<String, GeneralAnswer> userAnswers) throws SQLException;
 }

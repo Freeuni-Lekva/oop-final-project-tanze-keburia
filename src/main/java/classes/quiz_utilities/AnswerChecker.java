@@ -1,5 +1,7 @@
 package classes.quiz_utilities;
 
+import java.sql.SQLException;
+
 public interface AnswerChecker {
     /**
      * Checks if the provided answer is correct for the given question and returns appropriate points.
@@ -8,5 +10,5 @@ public interface AnswerChecker {
      * @param userAnswer the user's answer input
      * @return points in double according to answer correctness
      */
-    double getPoints(String questionID, GeneralAnswer userAnswer);
+    double getPoints(String questionID, GeneralAnswer userAnswer) throws SQLException;
 }
