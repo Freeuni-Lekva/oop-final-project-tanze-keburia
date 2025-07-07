@@ -1,9 +1,7 @@
 
-
-import classes.Quiz;
-import classes.RealQuiz;
-import database.DatabaseConnector;
-import database.RealQuizDAO;
+import classes.quiz_utilities.*;
+import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.RealQuizDAO;
 import org.junit.*;
 import java.sql.*;
 import java.util.Date;
@@ -38,51 +36,53 @@ public class RealQuizDAOTest {
     @Test
     public void addAndRemoveQuiz() {
         Date date = new Date();
-        Quiz quiz = new RealQuiz("Mzare", date, "quiz1", "multipleChoice", "Mzare's Quiz", "one-pager");
+        Quiz quiz = new RealQuiz("Mzare", date, "quiz1", "multipleChoice", "Mzare's Quiz", "format");
         quiz.setNumQuestions(10);
         quiz.setTopic("General");
         quiz.setTimeLimit(30);
+        quiz.setPageFormat("one-pager");
 
         quizDAO.addQuiz(quiz);
         List<Quiz> quizzes = quizDAO.getAll();
         assertEquals(1, quizzes.size());
         assertEquals(1, quizDAO.getNumQuizes());
+        assertEquals("one-pager", quiz.getPageFormat());
         quizDAO.removeQuiz(quiz);
         quizzes = quizDAO.getAll();
         assertEquals(0, quizzes.size());
-        assertEquals("one-pager", quiz.getPageFormat());
     }
 
 
     @Test
     public void testTopicAuthorType() {
         Date date = new Date();
-        Quiz quiz = new RealQuiz("Mzare", date, "quiz1", "multipleChoice", "Mzare's Quiz", "one-question-on-a-page");
+        Quiz quiz = new RealQuiz("Mzare", date, "quiz1", "multipleChoice", "Mzare's Quiz", "format");
         quiz.setNumQuestions(10);
         quiz.setTopic("General");
         quiz.setTimeLimit(30);
+        quiz.setPageFormat("mefuri formati");
         quizDAO.addQuiz(quiz);
         List<Quiz> quizzes = quizDAO.getAllByType("multipleChoice");
         assertEquals(1, quizzes.size());
+        assertEquals("mefuri formati", quiz.getPageFormat());
         quizzes = quizDAO.getAllbyTopic("General");
         assertEquals(1, quizzes.size());
         quizzes = quizDAO.getAllbyAuthor("Mzare");
         assertEquals(1, quizzes.size());
-        assertEquals("one-question-on-a-page", quiz.getPageFormat());
         quizDAO.removeQuiz(quiz);
+
     }
 
     @Test
     public void testModify(){
         Date date = new Date();
-        Quiz quiz1 = new RealQuiz("Mzare", date, "quiz1", "multipleChoice", "Mzare's Quiz", "one-pager");
+        Quiz quiz1 = new RealQuiz("Mzare", date, "quiz1", "multipleChoice", "Mzare's Quiz", "Form");
         quiz1.setNumQuestions(10);
         quiz1.setTopic("General");
         quiz1.setTimeLimit(30);
         quizDAO.addQuiz(quiz1);
-        assertEquals("one-pager", quiz1.getPageFormat());
 
-        Quiz quiz2 = new RealQuiz("Gio", date, "quiz1", "multipleChoice", "Gio's Quiz", "one-question-on-a-page");
+        Quiz quiz2 = new RealQuiz("Gio", date, "quiz1", "multipleChoice", "Gio's Quiz", "Form");
         quiz2.setNumQuestions(15);
         quiz2.setTopic("Math");
         quiz2.setTimeLimit(45);

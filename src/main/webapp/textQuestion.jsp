@@ -1,5 +1,5 @@
-<%@ page import="database.QuestionDAO" %>
-<%@ page import="classes.Question" %><%--
+<%@ page import="database.quiz_utilities.QuestionDAO" %>
+<%@ page import="classes.quiz_utilities.Question" %><%--
   Created by IntelliJ IDEA.
   User: tarash-dolaberidze
   Date: 6/22/25
