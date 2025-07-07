@@ -69,8 +69,9 @@ public class OptionsDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     options.add(new Option(
-                            rs.getString("option_id"),
                             rs.getString("question_id"),
+                            rs.getString("option_id"),
+
                             rs.getString("answer"),
                             rs.getDouble("option_points")
                     ));

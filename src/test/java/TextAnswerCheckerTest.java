@@ -40,8 +40,8 @@ public class TextAnswerCheckerTest  {
     @Test
     public void test() {
         Question q = new RealQuestion("abc", "a", "1", "1", "1");
-        SingleAnswer answer = new SingleAnswer("1", "a");
-        SingleAnswer answer2 = new SingleAnswer("1", "b");
+        SingleAnswer answer = new SingleAnswer("A", "a");
+        SingleAnswer answer2 = new SingleAnswer("A", "b");
         questionDAO.addQuestion(q);
 
         assertEquals(1.0, answerChecker.getPoints("1", answer), 1e-6);

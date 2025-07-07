@@ -27,23 +27,23 @@ public class OptionsDAOTest {
     }
     @Test
     public void testAdd() throws SQLException {
-        Option option = new Option("1", "1", "a", 2.0);
+        Option option = new Option("A", "1", "a", 2.0);
         options.addOption(option);
         assertEquals(1, options.getNumberOfOptions());
     }
     @Test
     public void testRemove() throws SQLException {
-        Option option = new Option("1", "1", "a", 2.0);
+        Option option = new Option("A", "1", "a", 2.0);
         options.addOption(option);
         options.removeOption(option.getOptionID());
-        Option option2 = new Option("2", "2", "b", 2.0);
+        Option option2 = new Option("B", "2", "b", 2.0);
         assertEquals(0, options.getNumberOfOptions());
         options.removeOption(option.getOptionID());
         assertEquals(0, options.getNumberOfOptions());
     }
     @Test
     public void testUpdate() throws SQLException {
-        Option option = new Option("1", "1", "a", 2.0);
+        Option option = new Option("A", "1", "a", 2.0);
         options.addOption(option);
         option.setAnswer("b");
         options.updateOption(option);
@@ -52,7 +52,7 @@ public class OptionsDAOTest {
     }
     @Test
     public void testGetOptionByID() throws SQLException {
-        Option option = new Option("1", "1", "a", 2.0);
+        Option option = new Option("A", "1", "a", 2.0);
         options.addOption(option);
         Option x = options.getOptionByID(option.getOptionID());
         assertEquals(option.getOptionID(), x.getOptionID());
@@ -65,17 +65,17 @@ public class OptionsDAOTest {
     }
     @Test
     public void testGetAllOptionsByQuestion() throws SQLException {
-        Option option = new Option("1", "1", "a", 2.0);
-        Option option1 = new Option("1", "2", "b", 0.0);
-        Option option2 = new Option("2","3", "a", 1);
+        Option option = new Option("A", "1", "a", 2.0);
+        Option option1 = new Option("A", "2", "b", 0.0);
+        Option option2 = new Option("B","3", "a", 1);
         options.addOption(option);
         options.addOption(option1);
-        List<Option> res = options.getOptionsByQuestion("1");
+        List<Option> res = options.getOptionsByQuestion("A");
         assertEquals(2, res.size());
         assertTrue(res.get(0).getAnswer().equals("b") || res.get(0).getAnswer().equals("a"));
         assertTrue(res.get(1).getAnswer().equals("b") || res.get(1).getAnswer().equals("a"));
         options.removeOption(option.getOptionID());
-        res = options.getOptionsByQuestion("1");
+        res = options.getOptionsByQuestion("A");
         assertEquals(1, res.size());
     }
 
