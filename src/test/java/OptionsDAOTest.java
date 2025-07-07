@@ -72,6 +72,8 @@ public class OptionsDAOTest {
         options.addOption(option1);
         List<Option> res = options.getOptionsByQuestion("A");
         assertEquals(2, res.size());
+        assertEquals("A", res.get(0).getQuestionID());
+        assertEquals("A", res.get(1).getQuestionID());
         assertTrue(res.get(0).getAnswer().equals("b") || res.get(0).getAnswer().equals("a"));
         assertTrue(res.get(1).getAnswer().equals("b") || res.get(1).getAnswer().equals("a"));
         options.removeOption(option.getOptionID());
