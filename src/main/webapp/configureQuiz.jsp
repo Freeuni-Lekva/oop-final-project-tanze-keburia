@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="classes.Question" %>
-<%@ page import="classes.Quiz" %>
-<%@ page import="database.QuestionDAO" %>
-<%@ page import="database.QuizDAO" %>
+<%@ page import="classes.quiz_utilities.Question" %>
+<%@ page import="classes.quiz_utilities.Quiz" %>
+<%@ page import="database.quiz_utilities.QuestionDAO" %>
+<%@ page import="database.quiz_utilities.QuizDAO" %>
 <%@ page import="mapper.TypePageMapper" %>
 <%@ page import="mapper.Topics" %>
 <%@ page import="java.util.*" %>
