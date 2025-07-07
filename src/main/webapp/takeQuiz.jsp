@@ -78,6 +78,10 @@
 
 <p><i>I'll implement answer submission later.</i></p>
 
+<form method="post" action="endQuiz" style="margin-top: 20px;">
+  <button type="submit">End Quiz</button>
+</form>
+
 <br>
 <a href="viewAllQuizzes">Back to Quiz List</a>
 

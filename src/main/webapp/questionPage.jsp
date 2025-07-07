@@ -51,7 +51,7 @@
     <p>This was the last question.</p>
     <% } %>
 
-    <button type="submit" formaction="viewAllQuizzes">End Quiz</button>
+    <button type="submit" formaction="endQuiz">End Quiz</button>
 </form>
 
 </body>
