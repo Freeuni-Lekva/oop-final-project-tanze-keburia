@@ -39,6 +39,7 @@ public class StartActualQuizServlet extends HttpServlet {
         session.setAttribute("questionList", questions);
         session.setAttribute("currentIndex", 0);
         session.setAttribute("currentQuizID", quizID);
+        session.setAttribute("quiz", quiz);
 
         request.setAttribute("quiz", quiz);
         request.setAttribute("questions", questions);
