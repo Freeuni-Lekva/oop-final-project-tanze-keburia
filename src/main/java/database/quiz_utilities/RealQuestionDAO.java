@@ -32,6 +32,12 @@ public class RealQuestionDAO implements QuestionDAO{
     }
 
     public void addQuestion(Question question) {
+        if (question == null ||
+                question.getStatement() == null || question.getStatement().trim().isEmpty() ||
+                question.getAnswer() == null || question.getAnswer().trim().isEmpty()) {
+            return;
+        }
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO questions (question_statement, question_answer, question_id, quiz_id, question_points) VALUES (?, ?, ?, ?, ?)"
         )) {
@@ -41,6 +47,7 @@ public class RealQuestionDAO implements QuestionDAO{
             preparedStatement.setString(4, question.getQuizID());
             preparedStatement.setString(5, Double.toString(question.getPoints()));
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             throw new RuntimeException("Failed to add question", e);
         }

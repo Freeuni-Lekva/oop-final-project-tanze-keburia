@@ -14,12 +14,15 @@
 <h2>Quiz Completed</h2>
 
 <p><strong>Time Taken:</strong> To be calculated</p>
-<p><strong>Your Score:</strong> To be calculated</p>
+<%
+  Object scoreObj = request.getAttribute("totalScore");
+  double score = (scoreObj instanceof Double) ? (Double) scoreObj : 0.0;
+%>
+<p><strong>Your Score:</strong> <%= score %></p>
 
-<form action="viewAllQuizzes" method="get">
-  <button type="submit">Back to Quiz List</button>
-</form>
+<a href="viewAllQuizzes"><button type="button">Back to Quiz List</button></a>
 
 </body>
 </html>
+
 
