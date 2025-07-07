@@ -7,7 +7,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-//import javax.servlet.annotation.WebListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -42,7 +41,7 @@ public class ContextListener implements ServletContextListener {
             questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
             quizDAO.initialize();
-         //   System.out.println(1);
+            //   System.out.println(1);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
