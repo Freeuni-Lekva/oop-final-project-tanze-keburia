@@ -15,9 +15,12 @@
 <html>
 <head>
     <title>Logged Out</title>
+    <link rel="stylesheet" type="text/css" href="loginStyle.css" />
 </head>
 <body>
-<h2>You have been logged out.</h2>
-<a href="login.jsp">Click here to log in again</a>
+<div class="login-box">
+        <h2>You have been logged out.</h2>
+        <a href="login.jsp">Click here to log in again</a>
+</div>
 </body>
 </html>
