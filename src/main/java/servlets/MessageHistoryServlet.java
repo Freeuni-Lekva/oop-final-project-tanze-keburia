@@ -1,6 +1,8 @@
 package servlets;
+
 import classes.Mail;
 import database.MailDAO;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,28 +29,44 @@ public class MessageHistoryServlet extends HttpServlet {
         }
 
         String otherUser = request.getParameter("otherUser");
+        String messageType = request.getParameter("messageType");
         if (otherUser == null || otherUser.trim().isEmpty()) {
             response.sendRedirect("inbox.jsp");
             return;
         }
 
         MailDAO mailDAO = (MailDAO) getServletContext().getAttribute("mails");
-        List<Mail> receivedFromOther = mailDAO.getInbox(currentUser);
+        List<Mail> filteredMessages = new ArrayList<>();
 
-        List<Mail> conversation = new ArrayList<>();
-
-        for (Mail mail : receivedFromOther) {
-            if (mail.getSender().equals(otherUser)) {
-                conversation.add(mail);
+        if ("sent".equals(messageType)) {
+            List<Mail> sentMessages = mailDAO.getSent(currentUser);
+            for (Mail mail : sentMessages) {
+                if (mail.getReceiver().equals(otherUser)) {
+                    filteredMessages.add(mail);
+                }
+            }
+        } else {
+            List<Mail> receivedMessages = mailDAO.getInbox(currentUser);
+            for (Mail mail : receivedMessages) {
+                if (mail.getSender().equals(otherUser)) {
+                    filteredMessages.add(mail);
+                }
             }
         }
-        conversation.sort((m1, m2) -> m2.getTimestamp().compareTo(m1.getTimestamp()));
 
-        request.setAttribute("conversation", conversation);
+        filteredMessages.sort((m1, m2) -> m2.getTimestamp().compareTo(m1.getTimestamp()));
+
+        request.setAttribute("conversation", filteredMessages);
         request.setAttribute("otherUser", otherUser);
         request.setAttribute("currentUser", currentUser);
+        request.setAttribute("messageType", messageType);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("messageList.jsp");
-        dispatcher.forward(request, response);
+        if ("sent".equals(messageType)) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("sentMessageList.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("messageList.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

@@ -42,7 +42,6 @@
 <% } %>
 
 
-<!-- Message History Section -->
 <h3>View Message History</h3>
 <form method="get" action="MessageHistoryServlet">
   <input type="hidden" name="currentUser" value="<%= username %>" />
@@ -51,6 +50,7 @@
   <input type="submit" value="View Messages" />
 </form>
 <br/>
+
 
 
 
