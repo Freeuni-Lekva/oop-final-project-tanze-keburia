@@ -7,16 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/QuizHistoryServlet")
 public class QuizHistoryServlet extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
         ServletContext context = getServletContext();
         MockQuizHistoryDAO quizDAO = (MockQuizHistoryDAO) context.getAttribute("quizzes");
         List<QuizResult> quizzes = quizDAO.getUserHistory(username);

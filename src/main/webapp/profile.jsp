@@ -75,14 +75,6 @@
 <% } %>
 
 
-<!-- Message History Section -->
-<h3>View Message History</h3>
-<form method="get" action="MessageHistoryServlet">
-    <input type="hidden" name="currentUser" value="<%= currentUser %>" />
-    <label for="otherUser">Enter username to view message history:</label>
-    <input type="text" id="otherUser" name="otherUser" placeholder="Username" required />
-    <input type="submit" value="View Messages" />
-</form>
 
 <p><a href="QuizHistoryServlet?username=<%= profileUser %>">View Quiz History</a></p>
 
