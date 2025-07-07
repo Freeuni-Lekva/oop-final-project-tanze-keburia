@@ -7,8 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="classes.Quiz" %>
-<%@ page import="classes.Question" %>
+<%@ page import="classes.quiz_utilities.*" %>
 <%@ page import="mapper.TypePageMapper" %>
 
 <%
