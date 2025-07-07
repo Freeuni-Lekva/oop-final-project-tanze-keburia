@@ -34,23 +34,24 @@ public class MultipleChoiceCheckerTest {
     }
     @Test
     public void test() throws SQLException {
-        GeneralAnswer answer = new MultipleAnswer("A", Arrays.asList("a", "b", "c"));
+        GeneralAnswer answer = new MultipleAnswer("A", Arrays.asList(" a", "b", "c"));
         MultipleChoiceChecker checker = new MultipleChoiceChecker(options);
         double points = checker.getPoints("A", answer);
         assertEquals(1.5, points, 1e-6);
     }
     @Test
     public void testEmpty() throws SQLException {
-        GeneralAnswer answer= new MultipleAnswer("1", Collections.EMPTY_LIST);
+        GeneralAnswer answer= new MultipleAnswer("A", Collections.EMPTY_LIST);
         MultipleChoiceChecker checker = new MultipleChoiceChecker(options);
         double points = checker.getPoints("A", answer);
         assertEquals(0.0, points, 1e-6);
+        assertEquals(0.0, checker.getPoints("A", null));
     }
     @Test
     public void testInvalid() throws SQLException {
-        GeneralAnswer answer= new MultipleAnswer("2", Arrays.asList("a", "b", "c"));
+        GeneralAnswer answer= new MultipleAnswer("B", Arrays.asList("a", "b", "c"));
         MultipleChoiceChecker checker = new MultipleChoiceChecker(options);
-        double points = checker.getPoints("1", answer);
+        double points = checker.getPoints("A", answer);
         assertEquals(0.0, points, 1e-6);
     }
 }

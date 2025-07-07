@@ -14,6 +14,7 @@ public class MultipleChoiceChecker implements AnswerChecker {
         this.options = options;
     }
     public double getPoints(String questionID, GeneralAnswer answer) throws SQLException {
+        if(answer == null) return 0;
         if(!answer.getQuestionID().equals(questionID)) {
             return 0;
         }
@@ -23,7 +24,7 @@ public class MultipleChoiceChecker implements AnswerChecker {
         double res = 0;
         for (String userChoice : userChoices) {
             for (Option p : questionChoices) {
-                if (p.getAnswer().equals(userChoice)) {
+                if (p.getAnswer().trim().equals(userChoice.trim())) {
                     res += p.getPoints();
                 }
             }
