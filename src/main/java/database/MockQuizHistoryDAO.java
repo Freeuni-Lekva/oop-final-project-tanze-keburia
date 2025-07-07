@@ -18,7 +18,7 @@ public class MockQuizHistoryDAO {
     }
 
     public void AddQuizResult(QuizResult result) {
-        String userName = result.getUserName();
+        String userName = result.getUsername();
         if(!quizResults.containsKey(userName)){
             List<QuizResult> lst = new ArrayList<>();
             lst.add(result);
