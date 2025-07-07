@@ -1,7 +1,7 @@
 package servlets;
 
 
-import classes.Question;
+import classes.quiz_utilities.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

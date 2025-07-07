@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.util.List" %>
-<%@ page import="classes.Question" %>
+<%@ page import="classes.quiz_utilities.*" %>
 
 <%
     List<Question> questions = (List<Question>) session.getAttribute("questionList");
