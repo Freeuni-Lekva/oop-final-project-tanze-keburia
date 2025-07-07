@@ -28,7 +28,8 @@ public class RealQuizDAO implements QuizDAO {
                     "question_quantity INT NOT NULL, " +
                     "topic VARCHAR(255),  " +
                     "type VARCHAR(255) NOT NULL, " +
-                    "visible BOOLEAN NOT NULL DEFAULT FALSE)");
+                    "visible BOOLEAN NOT NULL DEFAULT FALSE, " +
+                    "page_format VARCHAR(255) NOT NULL DEFAULT 'All Questions on One Page')");
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize quiz database", e);
         }
@@ -37,8 +38,8 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void addQuiz(Quiz quiz) {
         String sql = "INSERT INTO quizzes (quiz_id, quiz_name, creation_date, author, " +
-                "time_limit, question_quantity, topic, type) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                "time_limit, question_quantity, topic, type, page_format) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, quiz.getID());
@@ -49,6 +50,7 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setInt(6, quiz.getNumQuestions());
             stmt.setString(7, quiz.getTopic());
             stmt.setString(8, quiz.getType());
+            stmt.setString(9, quiz.getPageFormat());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -106,7 +108,7 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void modifyQuiz(Quiz newQuiz) {
         String sql = "UPDATE quizzes SET quiz_name = ?, creation_date = ?, author = ?, " +
-                "time_limit = ?, question_quantity = ?, topic = ?, type = ? " +
+                "time_limit = ?, question_quantity = ?, topic = ?, type = ?, page_format = ? " +
                 "WHERE quiz_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -117,7 +119,8 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setInt(5, newQuiz.getNumQuestions());
             stmt.setString(6, newQuiz.getTopic());
             stmt.setString(7, newQuiz.getType());
-            stmt.setString(8, newQuiz.getID());
+            stmt.setString(8, newQuiz.getPageFormat());
+            stmt.setString(9, newQuiz.getID());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -160,12 +163,15 @@ public class RealQuizDAO implements QuizDAO {
                 new Date(rs.getTimestamp("creation_date").getTime()),
                 rs.getString("quiz_id"),
                 rs.getString("type"),
-                rs.getString("quiz_name")
+                rs.getString("quiz_name"),
+                rs.getString("page_format")
         );
 
         quiz.setNumQuestions(rs.getInt("question_quantity"));
         quiz.setTopic(rs.getString("topic"));
         quiz.setTimeLimit(rs.getInt("time_limit"));
+        quiz.setPageFormat(rs.getString("page_format"));
+
 
         if (rs.getBoolean("visible")) {
             quiz.setVisible(true);
