@@ -12,13 +12,15 @@ public class MockQuiz implements Quiz{
     private int timeLimit;
     private String type;
     private boolean visible;
-    public MockQuiz(String author, Date created, String id,  String type, String name){
+    private String format;
+    public MockQuiz(String author, Date created, String id,  String type, String name, String format){
         this.id = id;
         this.author = author;
         this.creationDate = created;
         this.type = type;
         this.name = name;
         timeLimit = (int)1e9;
+        this.format = format;
     }
     public void setName(String name) {
         this.name = name;
@@ -59,7 +61,18 @@ public class MockQuiz implements Quiz{
     public String getType() {
         return type;
     }
+
+    @Override
+    public String getPageFormat() {
+        return format;
+    }
+
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    @Override
+    public void setPageFormat(String pageFormat) {
+        format = pageFormat;
     }
 }

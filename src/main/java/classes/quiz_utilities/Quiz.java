@@ -30,10 +30,11 @@ public interface Quiz {
      */
     String getType();
 
+    String getPageFormat();
 
     void setVisible(boolean visible);
 
-
+    void setPageFormat(String pageFormat);
     void setNumQuestions(int numQuestions);
     void setTopic(String topic);
     void setTimeLimit(int timeLimit);
