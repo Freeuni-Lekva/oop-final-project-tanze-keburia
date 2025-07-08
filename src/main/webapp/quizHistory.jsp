@@ -1,3 +1,10 @@
+<%--
+    Created by IntelliJ IDEA
+    User: mzare
+    Date: 06-Jul-25
+    Time: 4:25 PM
+    To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="classes.QuizResult" %>
 <%@ page import="java.util.List" %>
 <%@ page import="database.RealQuizDAO" %>
@@ -53,3 +60,4 @@
 
 </body>
 </html>
+

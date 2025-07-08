@@ -1,17 +1,18 @@
 package servlets;
 
 import classes.QuizResult;
+
 import database.DatabaseConnector;
 import database.FriendsDAO;
 import database.QuizHistoryDAO;
 import database.RealQuizDAO;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
+
 
 @WebServlet("/QuizHistoryServlet")
 public class QuizHistoryServlet extends HttpServlet {
@@ -20,6 +21,7 @@ public class QuizHistoryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false); // safer: false so no new session created
         if (session == null || session.getAttribute("username") == null) {
+
             response.sendRedirect("login.jsp");
             return;
         }
@@ -54,5 +56,6 @@ public class QuizHistoryServlet extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException("Failed to load quiz history", e);
         }
+
     }
 }

@@ -58,6 +58,7 @@
 </ul>
 <% } %>
 <p><a href="QuizHistoryServlet">View My Quiz History</a></p>
+
 <p><a href="Homepage">Back to Home</a></p>
 
 </body>
