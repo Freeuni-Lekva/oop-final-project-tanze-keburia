@@ -26,20 +26,19 @@
 <html>
 <head>
     <title>Search Result</title>
+    <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
 <body>
-
-<h2>Search Result</h2>
-
-<p>User found:
-    <% if (foundUser.equals(username)) { %>
-    <a href="myProfile.jsp"><%= foundUser %></a>
-    <% } else { %>
-    <a href="profile.jsp?username=<%= foundUser %>"><%= foundUser %></a>
-    <% } %>
-</p>
-
-<p><a href="homepage.jsp">Back to Home</a></p>
-
+<div class="dashboard">
+    <h2>Search Result</h2>
+    <p>User found:
+        <% if (foundUser.equals(username)) { %>
+        <a href="myProfile.jsp" class="link-blue"><%= foundUser %></a>
+        <% } else { %>
+        <a href="profile.jsp?username=<%= foundUser %>" class="link-blue"><%= foundUser %></a>
+        <% } %>
+    </p>
+    <p><a href="homepage.jsp" class="link-blue">Back to Home</a></p>
+</div>
 </body>
 </html>
