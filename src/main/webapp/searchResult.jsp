@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
 <body>
-<div class="dashboard">
+<div class="dashboard" style="justify-content: flex-start;">
     <h2>Search Result</h2>
     <p>User found:
         <% if (foundUser.equals(username)) { %>

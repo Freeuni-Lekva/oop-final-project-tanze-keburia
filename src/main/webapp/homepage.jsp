@@ -64,9 +64,15 @@
                     if (shown >= 3) break;
                     shown++; %>
             <li class="card message-card">
-                <strong>From:</strong> <%= mail.getSender() %>
-                <strong>Subject:</strong> <%= mail.getSubject() %>
-                <small><%= mail.getTimestamp() %></small><br/>
+                <div>
+                    <strong>From:</strong> <%= mail.getSender() %><br>
+                    <strong>Subject:</strong> <%= mail.getSubject() %>
+                </div>
+                <%
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String formattedTime = sdf.format(mail.getTimestamp());
+                %>
+                <div class="timestamp"><%= formattedTime %></div>
                 <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
             </li>
             <% } %>
