@@ -49,7 +49,6 @@
   <input type="submit" value="View Messages" />
 </form>
 <br/>
-
 <a href="compose.jsp">Compose New</a> |
 <a href="SentServlet">View Sent</a> |
 <a href="Homepage">Home</a>
