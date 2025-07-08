@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ public class TextAnswerCheckerTest  {
     @BeforeAll
 
     public static void init() throws SQLException {
-        DatabaseConnector dbc = DatabaseConnector.getInstance();
-        conn = dbc.getConnection();
+        conn = DriverManager.getConnection("jdbc:h2:mem:test", "sa", "");
         questionDAO = new RealQuestionDAO(conn);
         System.out.println(questionDAO);
         questionDAO.initialize();

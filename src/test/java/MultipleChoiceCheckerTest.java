@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MultipleChoiceCheckerTest {
     private static OptionsDAO options;
     @BeforeAll
-    public static void setUp() throws SQLException {
-        DatabaseConnector dbc = DatabaseConnector.getInstance();
-        Connection conn = dbc.getConnection();
+    public static void setUp() throws SQLException, ClassNotFoundException {
+
+        Connection conn = DriverManager.getConnection("jdbc:h2:mem:test", "sa", "");
         options = new OptionsDAO(conn);
 
     }

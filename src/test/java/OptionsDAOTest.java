@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,8 +18,7 @@ public class OptionsDAOTest {
     private static OptionsDAO options;
     @BeforeAll
     public static void setUpClass() throws SQLException {
-        DatabaseConnector dbc =  DatabaseConnector.getInstance();
-        Connection conn = dbc.getConnection();
+       Connection conn =  DriverManager.getConnection("jdbc:h2:mem:test", "sa", "");
         options = new OptionsDAO(conn);
     }
     @BeforeEach
