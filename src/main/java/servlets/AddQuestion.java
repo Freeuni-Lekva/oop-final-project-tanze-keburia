@@ -5,7 +5,8 @@ import classes.MockQuestion;
 import classes.Question;
 import classes.Quiz;
 import classes.RealQuestion;
-import database.*;
+import database.QuestionDAO;
+import database.QuizDAO;
 import mapper.TypePageMapper;
 
 import javax.servlet.ServletContext;
@@ -16,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.UUID;
 
 @WebServlet("/AddQuestion")
@@ -40,28 +39,17 @@ public class AddQuestion extends HttpServlet {
         String id = UUID.randomUUID().toString();
         Question question = new RealQuestion("", "", quizID, id, "1");
         ServletContext context = getServletContext();
-        QuestionDAO questionDAO = null;
-        QuizDAO quizDAO = null;
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()){
-            questionDAO = new RealQuestionDAO(conn);
-            quizDAO = new RealQuizDAO(conn);
-
-            if(questionDAO == null || quizDAO == null) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Initialization error");
-                return;
-            }
-
-            if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
-                return;
-            }
-            questionDAO.addQuestion(question);
-            request.setAttribute("question", question);
-            request.setAttribute("quizzes", quizDAO);
-            request.setAttribute("questions", questionDAO);
-          //  response.sendRedirect(jsp+"?id="+id+"&quizID="+quizID);
-            request.getRequestDispatcher(jsp+"?id="+id+"&quizID="+quizID).forward(request, response);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
+        QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
+        if(questionDAO == null || quizDAO == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Initialization error");
+            return;
         }
+
+        if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
+            return;
+        }
+        questionDAO.addQuestion(question);
+        response.sendRedirect(jsp+"?id="+id+"&quizID="+quizID);
     }
 }

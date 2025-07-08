@@ -31,7 +31,7 @@ public class MessageHistoryServlet extends HttpServlet {
         String otherUser = request.getParameter("otherUser");
         String messageType = request.getParameter("messageType");
         if (otherUser == null || otherUser.trim().isEmpty()) {
-            response.sendRedirect("InboxServlet");
+            response.sendRedirect("inbox.jsp");
             return;
         }
 

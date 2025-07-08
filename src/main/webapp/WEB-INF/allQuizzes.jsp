@@ -42,7 +42,7 @@
 %>
 
 <br>
-<a href="Homepage">Back to Homepage</a>
+<a href="homepage.jsp">Back to Homepage</a>
 
 </body>
 </html>

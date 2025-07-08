@@ -16,7 +16,7 @@
 
   String idParam = request.getParameter("id");
   if (idParam == null) {
-    response.sendRedirect("InboxServlet"); // fallback
+    response.sendRedirect("inbox.jsp"); // fallback
     return;
   }
 
@@ -58,9 +58,9 @@
 <hr/>
 <p><%= mail.getContent().replaceAll("\n", "<br/>") %></p>
 <hr/>
-<a href="InboxServlet">Back to Inbox</a> |
-<a href="SentServlet">Back to Sent</a> |
-<a href="Homepage">Home</a>
+<a href="inbox.jsp">Back to Inbox</a> |
+<a href="sent.jsp">Back to Sent</a> |
+<a href="homepage.jsp">Home</a>
 </body>
 </html>
 

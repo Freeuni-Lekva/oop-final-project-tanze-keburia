@@ -3,7 +3,8 @@ package servlets;
 import Validation.OwnershipChecker;
 import classes.Question;
 import classes.Quiz;
-import database.*;
+import database.QuestionDAO;
+import database.QuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 @WebServlet("/DeleteQuestion")
 public class DeleteQuestion extends HttpServlet {
 
@@ -28,22 +26,14 @@ public class DeleteQuestion extends HttpServlet {
         String id = request.getParameter("questionID");
         String quizID = request.getParameter("quizID");
         ServletContext servletContext = getServletContext();
-        QuizDAO quizDAO = null;
-        QuestionDAO questionDAO = null;
-        try (Connection connection = DatabaseConnector.getInstance().getConnection()) {
-            quizDAO = new RealQuizDAO(connection);
-            questionDAO = new RealQuestionDAO(connection);
-
-            if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
-                return;
-            }
-            Question q = questionDAO.getQuestion(id);
-            questionDAO.removeQuestion(q);
-            String referer = request.getHeader("Referer");
-            response.sendRedirect(referer);
+        QuizDAO quizDAO = (QuizDAO) servletContext.getAttribute("quizzes");
+        QuestionDAO questionDAO = (QuestionDAO) servletContext.getAttribute("questions");
+        if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
+            return;
         }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Question q = questionDAO.getQuestion(id);
+        questionDAO.removeQuestion(q);
+        String referer = request.getHeader("Referer");
+        response.sendRedirect(referer);
     }
 }
