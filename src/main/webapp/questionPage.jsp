@@ -5,12 +5,14 @@
   Time: 23:57
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="classes.quiz_utilities.*" %>
+<%@ page import="java.util.List" %>
 
 <%
     List<Question> questions = (List<Question>) session.getAttribute("questionList");
     Integer index = (Integer) session.getAttribute("currentIndex");
+    Map<String, GeneralAnswer> savedAnswers = (Map<String, GeneralAnswer>) session.getAttribute("savedAnswers");
 
     if (questions == null || index == null || index < 0 || index >= questions.size()) {
 %>
@@ -21,6 +23,10 @@
     }
 
     Question currentQuestion = questions.get(index);
+    String currentAnswer = "";
+    if (savedAnswers != null && savedAnswers.containsKey(currentQuestion.getID())) {
+        currentAnswer = savedAnswers.get(currentQuestion.getID()).getAnswers().get(0);
+    }
 %>
 
 <html>
@@ -32,11 +38,12 @@
 <h2>Question <%= index + 1 %> of <%= questions.size() %></h2>
 <p><%= currentQuestion.getStatement() %></p>
 
-<!-- User Answer Input (not submitted yet) -->
-<form method="post" action="#" style="margin-bottom: 10px;">
+<form method="post" action="saveAnswer">
+    <input type="hidden" name="questionId" value="<%= currentQuestion.getID() %>" />
     <label for="userAnswer">Your Answer:</label><br/>
-    <input type="text" id="userAnswer" name="userAnswer" style="width: 300px;" />
-    <button type="submit" disabled>Save Answer</button> <%-- Placeholder --%>
+    <input type="text" id="userAnswer" name="userAnswer" value="<%= currentAnswer %>" style="width: 300px;" />
+    <button type="submit" name="action" value="save">Save Answer</button>
+    <button type="submit" name="action" value="customize">Customize Answer</button>
 </form>
 
 <!-- Navigation Buttons -->
@@ -56,6 +63,7 @@
 
 </body>
 </html>
+
 
 
 
