@@ -12,7 +12,7 @@
 
 <%
     String username = (String) session.getAttribute("username");
-    RealQuizDAO quizDAO = (RealQuizDAO) application.getAttribute("quizDAO");
+  //  RealQuizDAO quizDAO = (RealQuizDAO) application.getAttribute("quizDAO");
     if(username == null){
         response.sendRedirect("login.jsp");
         return;
