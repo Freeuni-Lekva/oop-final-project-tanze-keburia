@@ -36,13 +36,12 @@ public class QuizHistoryServlet extends HttpServlet {
             RealQuizDAO realQuizDAO = new RealQuizDAO(conn);
             FriendsDAO friendsDAO = new FriendsDAO(conn);
 
-            // Access control: only allow if same user or friends
             if (!currentUser.equals(targetUser)) {
                 List<String> myFriends = friendsDAO.getFriends(currentUser);
-                if (!myFriends.contains(targetUser)) {
-                    response.sendRedirect("accessDenied.jsp");
-                    return;
-                }
+//                if (!myFriends.contains(targetUser)) {
+//                    response.sendRedirect("accessDenied.jsp");
+//                    return;
+//                }
             }
 
             List<QuizResult> quizHistory = quizHistoryDAO.getUserHistory(targetUser);
