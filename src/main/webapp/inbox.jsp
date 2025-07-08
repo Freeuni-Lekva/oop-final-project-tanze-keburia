@@ -40,10 +40,9 @@
     <form action="DeleteMail" method="post" style="display:inline;">
       <input type="hidden" name="id" value="<%= mail.getId() %>" />
       <button type="submit">Delete</button>
-
     </form>
 
-</div>
+  </div>
   <div class="recent-messages">
     <h3>Your Messages</h3>
     <% if (inbox == null || inbox.isEmpty()) { %>
