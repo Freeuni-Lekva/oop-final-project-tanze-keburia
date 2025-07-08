@@ -31,6 +31,7 @@ public class ContextListener implements ServletContextListener {
         FriendRequestDAO friendRequestDAO = null;
         QuizDAO quizDAO = null;
         QuestionDAO questionDAO = null;
+        QuizHistoryDAO quizHistoryDAO = null;
         try {
             userDAO = new UserDAO(conn);
             mailDAO = new MailDAO(conn);
@@ -41,6 +42,8 @@ public class ContextListener implements ServletContextListener {
             questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
             quizDAO.initialize();
+            quizHistoryDAO = new QuizHistoryDAO(conn);
+            quizHistoryDAO.initialize();
             //   System.out.println(1);
 
         } catch (SQLException e) {
@@ -54,6 +57,7 @@ public class ContextListener implements ServletContextListener {
         servletContext.setAttribute("quizzes", quizDAO);
         servletContext.setAttribute("questions", questionDAO);
         servletContext.setAttribute("mails", mailDAO);
+        servletContext.setAttribute("quizHistoryDAO", quizHistoryDAO);
 
 
     }

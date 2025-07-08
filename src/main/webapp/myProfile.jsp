@@ -64,7 +64,8 @@
 <% } %>
 
 
-<p><a href="QuizHistoryServlet?username=<%= username %>">View Quiz History</a></p>
+<p><a href="QuizHistoryServlet">View My Quiz History</a></p>
+
 
 <p><a href="homepage.jsp">Back to Home</a></p>
 

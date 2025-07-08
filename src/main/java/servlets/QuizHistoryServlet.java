@@ -1,4 +1,5 @@
 package servlets;
+import classes.QuizResult;
 import database.QuizHistoryDAO;
 import database.RealQuizDAO;
 import database.FriendsDAO;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+
 
 @WebServlet("/QuizHistoryServlet")
 public class QuizHistoryServlet extends HttpServlet {
@@ -25,6 +27,7 @@ public class QuizHistoryServlet extends HttpServlet {
         }
 
         String targetUser = request.getParameter("username");
+
         if (targetUser == null || targetUser.isEmpty()) {
             targetUser = currentUser;
         }
@@ -40,19 +43,13 @@ public class QuizHistoryServlet extends HttpServlet {
         }
 
         if (!currentUser.equals(targetUser)) {
-            if (friendsDAO != null) {
-                List friends = friendsDAO.getFriends(currentUser);
-                if (!friends.contains(targetUser)) {
-                    response.sendRedirect("QuizHistoryServlet");
-                    return;
-                }
-            } else {
-                response.sendRedirect("QuizHistoryServlet");
+            if (friendsDAO == null || !friendsDAO.getFriends(currentUser).contains(targetUser)) {
+                response.sendRedirect("accessDenied.jsp");
                 return;
             }
         }
 
-        List quizHistory = quizHistoryDAO.getUserHistory(targetUser);
+        List<QuizResult> quizHistory = quizHistoryDAO.getUserHistory(targetUser);
         request.setAttribute("quizHistory", quizHistory);
         request.setAttribute("realQuizDAO", realQuizDAO);
         request.setAttribute("targetUser", targetUser);
