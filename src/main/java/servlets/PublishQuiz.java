@@ -34,7 +34,7 @@ public class PublishQuiz extends HttpServlet {
         quiz.setTopic(quizTopic);
         quiz.setVisible(true);
         quizzes.modifyQuiz(quiz);
-        response.sendRedirect("homepage.jsp");
+        response.sendRedirect("Homepage");
 
     }
 }
