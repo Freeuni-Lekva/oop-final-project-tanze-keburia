@@ -5,6 +5,7 @@
     Time: 4:25 PM
     To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page import="classes.QuizResult" %>
 <%@ page import="java.util.List" %>
 <%@ page import="database.RealQuizDAO" %>
@@ -13,50 +14,57 @@
 
 <%
     String currentUser = (String) session.getAttribute("username");
-    if (currentUser == null) {
+    if(currentUser == null){
         response.sendRedirect("login.jsp");
         return;
     }
 
     String targetUser = (String) request.getAttribute("targetUser");
-    if (targetUser == null) targetUser = currentUser;
+    if(targetUser == null) {
+        targetUser = currentUser;
+    }
 
-    List<QuizResult> quizHistory = (List<QuizResult>) request.getAttribute("quizHistory");
-    RealQuizDAO realQuizDAO = (RealQuizDAO) application.getAttribute("realQuizDAO");
+    List quizHistory = (List) request.getAttribute("quizHistory");
+    RealQuizDAO realQuizDAO = (RealQuizDAO) request.getAttribute("realQuizDAO");
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title><%= targetUser %>'s Quiz History</title>
 </head>
 <body>
-
-<a href="<%= currentUser.equals(targetUser) ? "homepage.jsp" : "ProfileServlet?username=" + targetUser %>">Back</a>
+<a href="<%= currentUser.equals(targetUser) ? "homepage.jsp" : "profile.jsp?username=" + targetUser %>">Back</a>
 <h2><%= targetUser %>'s Quiz History</h2>
 
 <%
-    if (quizHistory == null || quizHistory.isEmpty()) {
+    if(quizHistory == null || quizHistory.isEmpty()){
 %>
 <p>No quiz history available.</p>
 <%
 } else {
-    for (QuizResult quizResult : quizHistory) {
+    for(Object obj : quizHistory){
+        QuizResult quizResult = (QuizResult) obj;
+        int score = quizResult.getScore();
+        Timestamp time = quizResult.getSubmitTime();
         String quizId = quizResult.getQuizId();
-        String quizName = realQuizDAO != null ? realQuizDAO.getQuizNameById(quizId) : null;
-        if (quizName == null || quizName.trim().isEmpty()) {
+        String quizName = "";
+
+        if(realQuizDAO != null) {
+            quizName = realQuizDAO.getQuizNameById(quizId);
+        }
+
+        if(quizName == null || quizName.isEmpty()) {
             quizName = "Quiz #" + quizId;
         }
 %>
-<div>
-    <p><strong>Quiz:</strong> <a href="QuizTakeServlet?quizId=<%= quizId %>"><%= quizName %></a></p>
-    <p><strong>Score:</strong> <%= quizResult.getScore() %>%</p>
-    <p><strong>Completed:</strong> <%= quizResult.getSubmitTime() != null ? quizResult.getSubmitTime().toString() : "Unknown" %></p>
-    <hr>
-</div>
+<p><a href="QuizTakeServlet?quizId=<%= quizId %>"><%= quizName %></a></p>
+<p>Score: <%= score %>%</p>
+<p>Completed: <%= time != null ? time.toString() : "Unknown" %></p>
+<hr>
 <%
         }
     }
 %>
-
 </body>
 </html>
