@@ -57,6 +57,16 @@ html, body {
     background-color: #218838;
 }
 
+.btn-red {
+    background-color: #dc3545;
+}
+
+.btn-red:hover {
+    background-color: #a71d2a;
+}
+
+
+
 .btn-purple {
     background-color: #6c63ff;
 }
@@ -145,8 +155,21 @@ html, body {
 /* ========== Messages ========== */
 .recent-messages {
     margin-top: 20px;
-    min-height: 300px; /* ≈ height of 3 message cards */
+    min-height: 300px; /* reserve space for messages even if none */
+    display: flex;
+    flex-direction: column;
 }
+
+.fixed-search {
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+
+
+.message-container {
+    flex: 1;
+}
+
 
 
 .message-list {
@@ -166,8 +189,8 @@ html, body {
 }
 
 .message-card strong {
-    display: block;
-    margin-bottom: 4px;
+    display: inline;
+    margin-right: 5px;
     color: #333;
 }
 
@@ -177,6 +200,13 @@ html, body {
 
 .message-card a {
     font-weight: bold;
+}
+
+.timestamp {
+    text-align: right;
+    color: #777;
+    font-size: 13px;
+    margin-top: 8px;
 }
 
 /* ========== Mail Links ========== */

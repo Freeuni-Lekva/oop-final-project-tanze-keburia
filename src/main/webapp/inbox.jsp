@@ -14,11 +14,18 @@
     response.sendRedirect("login.jsp");
     return;
   }
+
   List<Mail> inbox = (List<Mail>) request.getAttribute("inbox");
 %>
+<!DOCTYPE html>
 <html>
-<head><title>Inbox</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Inbox</title>
+  <link rel="stylesheet" href="dashboardStyle.css">
+</head>
 <body>
+
 <h2>Inbox</h2>
 <% if (inbox == null || inbox.isEmpty())  { %>
 <p>No messages.</p>
@@ -33,28 +40,53 @@
     <form action="DeleteMail" method="post" style="display:inline;">
       <input type="hidden" name="id" value="<%= mail.getId() %>" />
       <button type="submit">Delete</button>
+
     </form>
-    <hr/>
-  </li>
-  <% } %>
-</ul>
-<% } %>
 
+</div>
+  <div class="recent-messages">
+    <h3>Your Messages</h3>
+    <% if (inbox == null || inbox.isEmpty()) { %>
+    <p>No messages.</p>
+    <% } else { %>
+    <ul class="message-list">
+      <% for (Mail mail : inbox) { %>
+      <li class="card message-card">
+        <div>
+          <strong>From:</strong> <%= mail.getSender() %><br>
+          <strong>Subject:</strong> <%= mail.getSubject() %>
+        </div>
+        <%
+          java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+          String formattedTime = sdf.format(mail.getTimestamp());
+        %>
+        <div class="timestamp"><%= formattedTime %></div>
+        <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">view message</a>
+        <form action="DeleteMail" method="post" style="display:inline;">
+          <input type="hidden" name="id" value="<%= mail.getId() %>" />
+          <button type="submit" class="btn btn-red" style="margin-left:10px;">Delete</button>
+        </form>
+      </li>
+      <% } %>
+    </ul>
+    <% } %>
+  </div>
 
-<h3>View Message History</h3>
-<form method="get" action="MessageHistoryServlet">
-  <input type="hidden" name="currentUser" value="<%= username %>" />
-  <label for="otherUser">Enter username to view message history:</label>
-  <input type="text" id="otherUser" name="otherUser" placeholder="Username" required />
-  <input type="submit" value="View Messages" />
-</form>
-<br/>
+  <div class="mail-links mt-20 mb-20">
+    <a href="sent.jsp" class="link link-blue">View Sent</a>
+    <a href="compose.jsp" class="link link-blue">Compose New</a>
+  </div>
 
-
-
+  <div class="bottom-bar mt-30">
+    <a href="homepage.jsp" class="link link-blue">Home</a>
+  </div>
+</div>
+</body>
+</html>
 
 <a href="compose.jsp">Compose New</a> |
 <a href="SentServlet">View Sent</a> |
 <a href="Homepage">Home</a>
 </body>
 </html>
+
