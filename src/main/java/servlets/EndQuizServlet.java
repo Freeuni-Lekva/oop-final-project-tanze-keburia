@@ -1,10 +1,14 @@
 package servlets;
 
 
+import classes.QuizResult;
 import classes.quiz_utilities.*;
+import database.QuizHistoryDAO;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuestionDAO;
+import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +38,8 @@ public class EndQuizServlet extends HttpServlet {
         }
         try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
+            QuizDAO quizDAO = new RealQuizDAO(conn);
+            QuizHistoryDAO quizHist = new QuizHistoryDAO(conn, quizDAO);
             if (questionDAO == null) {
                 throw new ServletException("QuestionDAO not found in context.");
             }
@@ -68,12 +75,16 @@ public class EndQuizServlet extends HttpServlet {
                     }
                 }
             }
-
+            Quiz x =  quizDAO.getQuiz(quiz.getID());
+            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
+            quizHist.addResult(quizResult);
+            System.out.println("fdaf;ljkad");
             request.setAttribute("totalScore", totalScore);
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
         }catch(SQLException e) {
             throw new RuntimeException("could not connect database");
         }
+
     }
 }
 

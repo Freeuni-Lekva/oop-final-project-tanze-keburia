@@ -1,7 +1,10 @@
 package servlets;
 import classes.QuizResult;
 import database.MockQuizHistoryDAO;
+import database.QuizHistoryDAO;
 import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -30,8 +33,9 @@ public class QuizHistoryServlet extends HttpServlet {
         ServletContext context = getServletContext();
         try (Connection conn = DatabaseConnector.getInstance().getConnection())
         {
-            MockQuizHistoryDAO quizDAO = (MockQuizHistoryDAO) context.getAttribute("quizzes");
-            List<QuizResult> quizzes = quizDAO.getUserHistory(username);
+            QuizDAO quizDAO = new RealQuizDAO(conn);
+            QuizHistoryDAO quizHistDAO = new QuizHistoryDAO(conn, quizDAO);
+            List<QuizResult> quizzes = quizHistDAO.getUserHistory(username);
             request.setAttribute("History", quizzes);
             request.getRequestDispatcher("quizHistory.jsp").forward(request, response);
         } catch (SQLException e) {

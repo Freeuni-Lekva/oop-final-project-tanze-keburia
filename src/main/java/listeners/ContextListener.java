@@ -34,7 +34,8 @@ public class ContextListener implements ServletContextListener {
             quizDAO.initialize();
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
-
+            QuizHistoryDAO quizHistory = new QuizHistoryDAO(conn, quizDAO);
+            quizHistory.initialize();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database schema", e);
         }
