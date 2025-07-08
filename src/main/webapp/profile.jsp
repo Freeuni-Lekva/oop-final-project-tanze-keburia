@@ -65,8 +65,9 @@
     <% } %>
 </ul>
 <% } %>
-
+<%  if(isFriend){ %>
 <p><a href="QuizHistoryServlet?username=<%= profileUser %>">View Quiz History</a></p>
+<%} %>
 <p><a href="Homepage">Back to Home</a></p>
 
 </body>
