@@ -41,6 +41,20 @@
     <% } %>
 </ul>
 <% } %>
+
+
+<h3>View Message History</h3>
+<form method="get" action="MessageHistoryServlet">
+    <input type="hidden" name="currentUser" value="<%= username %>" />
+    <input type="hidden" name="messageType" value="sent" />
+    <label for="otherUser">Enter username to view message history:</label>
+    <input type="text" id="otherUser" name="otherUser" placeholder="Username" required />
+    <input type="submit" value="View Messages" />
+</form>
+<br/>
+
+
+
 <a href="compose.jsp">Compose New</a> |
 <a href="inbox.jsp">Inbox</a> |
 <a href="homepage.jsp">Home</a>

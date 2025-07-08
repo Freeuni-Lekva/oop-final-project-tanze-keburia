@@ -37,8 +37,8 @@
       <input type="text" name="otherUser" placeholder="Enter username to view history" required />
       <input type="submit" value="Search" class="btn btn-blue" />
     </form>
-  </div>
 
+</div>
   <div class="recent-messages">
     <h3>Your Messages</h3>
     <% if (inbox == null || inbox.isEmpty()) { %>
