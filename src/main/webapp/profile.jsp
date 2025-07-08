@@ -32,6 +32,7 @@
 
     boolean isFriend = myFriends.contains(profileUser);
     boolean requestAlreadySent = pendingRequests.contains(currentUser);
+    boolean isMyProfile = currentUser.equals(profileUser);
 %>
 
 <!DOCTYPE html>
@@ -74,9 +75,9 @@
 </ul>
 <% } %>
 
-
+<% if (isMyProfile || isFriend) { %>
 <p><a href="QuizHistoryServlet?username=<%= profileUser %>">View Quiz History</a></p>
-
+<% } %>
 
 <p><a href="homepage.jsp">Back to Home</a></p>
 
