@@ -8,14 +8,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ServletContext context = application;
     String questionId = request.getParameter("id");
-    System.out.println(questionId);
     String quizID = request.getParameter("quizID");
-    QuestionDAO questions = (QuestionDAO)context.getAttribute("questions");
-    System.out.println(questions.getAllQuestions().size());
-    System.out.println(questionId);
-    Question question = questions.getQuestion(questionId);
+   // QuestionDAO questions = (QuestionDAO)request.getAttribute("questions");
+    Question question = (Question)request.getAttribute("question");
     String description = question.getStatement();
     String answer = question.getAnswer();
 %>

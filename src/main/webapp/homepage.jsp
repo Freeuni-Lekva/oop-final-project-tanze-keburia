@@ -21,8 +21,8 @@
         response.sendRedirect("login.jsp");
         return;
     }
-    MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-    List<Mail> inboxPreview = mailDAO.getInbox(username);
+    List<Mail> inboxPreview = (List<Mail>) request.getAttribute("inboxPreview");
+
 %>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 <div class="dashboard">
     <div class="header-row">
         <h2>Welcome, <%= username %>!</h2>
-        <a href="myProfile.jsp" class="link link-blue">My Profile</a>
+        <a href="MyProfileServlet" class="link link-blue">My Profile</a>
     </div>
 
     <form method="get" action="SearchServlet" class="search-form">
@@ -64,9 +64,15 @@
                     if (shown >= 3) break;
                     shown++; %>
             <li class="card message-card">
-                <strong>From:</strong> <%= mail.getSender() %>
-                <strong>Subject:</strong> <%= mail.getSubject() %>
-                <small><%= mail.getTimestamp() %></small><br/>
+                <div>
+                    <strong>From:</strong> <%= mail.getSender() %><br>
+                    <strong>Subject:</strong> <%= mail.getSubject() %>
+                </div>
+                <%
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String formattedTime = sdf.format(mail.getTimestamp());
+                %>
+                <div class="timestamp"><%= formattedTime %></div>
                 <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
             </li>
             <% } %>
@@ -75,8 +81,8 @@
     </div>
 
     <div class="mail-links mt-20 mb-20">
-        <a href="inbox.jsp" class="link link-blue">View Inbox</a>
-        <a href="sent.jsp" class="link link-blue">View Sent Mails</a>
+        <a href="InboxServlet" class="link link-blue">View Inbox</a>
+        <a href="SentServlet" class="link link-blue">View Sent Mails</a>
     </div>
 
     <div class="bottom-bar mt-30">
