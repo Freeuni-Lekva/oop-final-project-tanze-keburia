@@ -1,10 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: GUGA
-  Date: 6/18/2025
-  Time: 10:54 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%--&lt;%&ndash;--%>
+<%--  Created by IntelliJ IDEA.--%>
+<%--  User: GUGA--%>
+<%--  Date: 6/18/2025--%>
+<%--  Time: 10:54 PM--%>
+<%--  To change this template use File | Settings | File Templates.--%>
+<%--&ndash;%&gt;--%>
 <%@ page import="database.FriendsDAO" %>
 <%@ page import="database.FriendRequestDAO" %>
 <%@ page import="javax.servlet.ServletContext" %>
@@ -62,7 +62,14 @@
     <% } %>
 </ul>
 <% } %>
+
+
+<p><a href="QuizHistoryServlet?username=<%= username %>">View Quiz History</a></p>
+
 <p><a href="homepage.jsp">Back to Home</a></p>
 
 </body>
 </html>
+
+
+
