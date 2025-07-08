@@ -14,14 +14,13 @@
     response.sendRedirect("login.jsp");
     return;
   }
-  MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-  List<Mail> inbox = mailDAO.getInbox(username);
+  List<Mail> inbox = (List<Mail>) request.getAttribute("inbox");
 %>
 <html>
 <head><title>Inbox</title></head>
 <body>
 <h2>Inbox</h2>
-<% if (inbox.isEmpty()) { %>
+<% if (inbox == null || inbox.isEmpty())  { %>
 <p>No messages.</p>
 <% } else { %>
 <ul>
@@ -55,7 +54,7 @@
 
 
 <a href="compose.jsp">Compose New</a> |
-<a href="sent.jsp">View Sent</a> |
-<a href="homepage.jsp">Home</a>
+<a href="SentServlet">View Sent</a> |
+<a href="Homepage">Home</a>
 </body>
 </html>
