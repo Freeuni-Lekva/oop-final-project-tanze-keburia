@@ -1,14 +1,16 @@
 package servlets;
+
 import classes.QuizResult;
-import database.MockQuizHistoryDAO;
-import javax.servlet.ServletContext;
+import database.DatabaseConnector;
+import database.FriendsDAO;
+import database.QuizHistoryDAO;
+import database.RealQuizDAO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
 @WebServlet("/QuizHistoryServlet")
@@ -16,17 +18,42 @@ public class QuizHistoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        if (username == null) {
+        HttpSession session = request.getSession(false); // safer: false so no new session created
+        if (session == null || session.getAttribute("username") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        ServletContext context = getServletContext();
-        MockQuizHistoryDAO quizDAO = (MockQuizHistoryDAO) context.getAttribute("quizzes");
-        List<QuizResult> quizzes = quizDAO.getUserHistory(username);
-        request.setAttribute("History", quizzes);
-        request.getRequestDispatcher("quizHistory.jsp").forward(request, response);
+        String currentUser = (String) session.getAttribute("username");
+        String targetUser = request.getParameter("username");
+
+        if (targetUser == null || targetUser.isEmpty()) {
+            targetUser = currentUser;
+        }
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            QuizHistoryDAO quizHistoryDAO = new QuizHistoryDAO(conn);
+            RealQuizDAO realQuizDAO = new RealQuizDAO(conn);
+            FriendsDAO friendsDAO = new FriendsDAO(conn);
+
+            // Access control: only allow if same user or friends
+            if (!currentUser.equals(targetUser)) {
+                List<String> myFriends = friendsDAO.getFriends(currentUser);
+                if (!myFriends.contains(targetUser)) {
+                    response.sendRedirect("accessDenied.jsp");
+                    return;
+                }
+            }
+
+            List<QuizResult> quizHistory = quizHistoryDAO.getUserHistory(targetUser);
+
+            request.setAttribute("quizHistory", quizHistory);
+            request.setAttribute("realQuizDAO", realQuizDAO);
+            request.setAttribute("targetUser", targetUser);
+            request.getRequestDispatcher("quizHistory.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            throw new ServletException("Failed to load quiz history", e);
+        }
     }
 }
