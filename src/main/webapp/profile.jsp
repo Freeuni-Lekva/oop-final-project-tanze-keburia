@@ -18,21 +18,12 @@
 
     String profileUser = request.getParameter("username");
     if (profileUser == null || profileUser.isEmpty()) {
-        response.sendRedirect("homepage.jsp");
+        response.sendRedirect("Homepage");
         return;
     }
-
-    ServletContext context = application;
-    FriendsDAO friendsDAO = (FriendsDAO) context.getAttribute("friends");
-    FriendRequestDAO requestDAO = (FriendRequestDAO) context.getAttribute("friendRequests");
-
-    List<String> profileFriends = friendsDAO.getFriends(profileUser);
-    List<String> myFriends = friendsDAO.getFriends(currentUser);
-    List<String> pendingRequests = requestDAO.getRequestList(profileUser);
-
-    boolean isFriend = myFriends.contains(profileUser);
-    boolean requestAlreadySent = pendingRequests.contains(currentUser);
-    boolean isMyProfile = currentUser.equals(profileUser);
+    List<String> profileFriends = (List<String>) request.getAttribute("profileFriends");
+    boolean isFriend = (Boolean) request.getAttribute("isFriend");
+    boolean requestAlreadySent = (Boolean) request.getAttribute("requestAlreadySent");
 %>
 
 <!DOCTYPE html>
@@ -65,21 +56,21 @@
 <% } %>
 
 <h3><%= profileUser %>'s Friends</h3>
-<% if (profileFriends.isEmpty()) { %>
+<% if (profileFriends == null || profileFriends.isEmpty()) { %>
 <p>No friends yet.</p>
 <% } else { %>
 <ul>
     <% for (String friend : profileFriends) { %>
-    <li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>
+    <li><a href="ProfileServlet?username=<%= friend %>"><%= friend %></a></li>
     <% } %>
 </ul>
 <% } %>
 
-<% if (isMyProfile || isFriend) { %>
+<%  if(isFriend){ %>
 <p><a href="QuizHistoryServlet?username=<%= profileUser %>">View Quiz History</a></p>
-<% } %>
+<%} %>
 
-<p><a href="homepage.jsp">Back to Home</a></p>
+<p><a href="Homepage">Back to Home</a></p>
 
 </body>
 </html>

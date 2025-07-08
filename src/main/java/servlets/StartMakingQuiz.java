@@ -1,8 +1,11 @@
 package servlets;
 
-import classes.quiz_utilities.Quiz;
-import classes.quiz_utilities.RealQuiz;
-import database.quiz_utilities.QuizDAO;
+import classes.MockQuiz;
+import classes.Quiz;
+import classes.RealQuiz;
+import database.DatabaseConnector;
+import database.QuizDAO;
+import database.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,7 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.DataBufferShort;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -24,14 +30,19 @@ public class StartMakingQuiz extends HttpServlet {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Please log in first.");
             return;
         }
-        QuizDAO quizDAO = (QuizDAO) servletContext.getAttribute("quizzes");
+        QuizDAO quizDAO = null;
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
        // Integer numQuizes = (Integer)(servletContext.getAttribute("numQuizes"));
-        String username = session.getAttribute("username").toString();
-        Date now = new Date();
-        String id = UUID.randomUUID().toString();
-        String format = request.getParameter("format");
-        Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"), format);
-        quizDAO.addQuiz(newQuiz);
-        response.sendRedirect("configureQuiz.jsp?id=" + id);
+            quizDAO = new RealQuizDAO(conn);
+            String username = session.getAttribute("username").toString();
+            Date now = new Date();
+            String id = UUID.randomUUID().toString();
+            Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"));
+            quizDAO.addQuiz(newQuiz);
+
+            response.sendRedirect("ConfigureQuiz?id=" + id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -9,17 +9,17 @@ import java.sql.*;
 public class UserDAO {
     private Connection conn;
 
-    public UserDAO(Connection conn) throws SQLException {
+    public UserDAO(Connection conn) {
         this.conn = conn;
-        String sql = "DROP TABLE IF EXISTS users";
-        Statement stmt = conn.createStatement();
-        stmt.execute(sql);
-        sql =
-                "CREATE TABLE IF NOT EXISTS users (" +
-                        "userName VARCHAR(50) PRIMARY KEY, " +
-                        "passwordHash VARCHAR(60) NOT NULL)";
-        stmt.execute(sql);
-        stmt.close();
+    }
+
+    public void initialize() throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DROP TABLE IF EXISTS users");
+            stmt.execute("CREATE TABLE IF NOT EXISTS users (" +
+                    "userName VARCHAR(50) PRIMARY KEY, " +
+                    "passwordHash VARCHAR(60) NOT NULL)");
+        }
     }
 
     public void addUser(User u) {
