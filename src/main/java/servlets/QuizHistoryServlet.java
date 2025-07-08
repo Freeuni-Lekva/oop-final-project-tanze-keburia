@@ -1,7 +1,7 @@
 package servlets;
 import classes.QuizResult;
 import database.QuizHistoryDAO;
-import database.RealQuizDAO;
+import database.quiz_utilities.RealQuizDAO;
 import database.FriendsDAO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
