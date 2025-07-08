@@ -1,11 +1,12 @@
 package servlets;
 
-import classes.MockQuiz;
-import classes.Quiz;
-import classes.RealQuiz;
-import database.DatabaseConnector;
-import database.QuizDAO;
-import database.RealQuizDAO;
+
+
+import classes.quiz_utilities.Quiz;
+import classes.quiz_utilities.RealQuiz;
+import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -37,7 +38,8 @@ public class StartMakingQuiz extends HttpServlet {
             String username = session.getAttribute("username").toString();
             Date now = new Date();
             String id = UUID.randomUUID().toString();
-            Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"));
+            String format = request.getParameter("format");
+            Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"), format);
             quizDAO.addQuiz(newQuiz);
 
             response.sendRedirect("ConfigureQuiz?id=" + id);

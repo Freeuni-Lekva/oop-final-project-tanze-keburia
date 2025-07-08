@@ -13,14 +13,11 @@
 <%
   String questionId = request.getParameter("id");
   String quizId = request.getParameter("quizID");
-  ServletContext context = application;
-  QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
-
-  Question question = questionDAO.getQuestion(questionId);
+  Question question = (Question)request.getAttribute("question");
   if (question == null) {
 %>
 <p style="color:red;">Question not found.</p>
-<a href="configureQuiz.jsp?id=<%= quizId %>">Back</a>
+<a href="ConfigureQuiz?id=<%= quizId %>">Back</a>
 <%
     return;
   }
@@ -48,7 +45,7 @@
 </form>
 
 <br>
-<a href="configureQuiz.jsp?id=<%= quizId %>">Back to Quiz Configuration</a>
+<a href="ConfigureQuiz?id=<%= quizId %>">Back to Quiz Configuration</a>
 
 </body>
 </html>

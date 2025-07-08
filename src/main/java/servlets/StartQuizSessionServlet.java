@@ -3,8 +3,11 @@ package servlets;
 
 
 import classes.quiz_utilities.Question;
+import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuestionDAO;
 import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuestionDAO;
+import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -25,16 +30,20 @@ public class StartQuizSessionServlet extends HttpServlet {
         String quizID = request.getParameter("id");
 
         ServletContext context = getServletContext();
-        QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
-        QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
+        try(Connection conn =  DatabaseConnector.getInstance().getConnection()){
 
-        List<Question> questions = questionDAO.getQuiz(quizID);
+            QuestionDAO questionDAO = new RealQuestionDAO(conn);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("quizID", quizID);
-        session.setAttribute("questions", questions);
-        session.setAttribute("currentIndex", 0);
+            List<Question> questions = questionDAO.getQuiz(quizID);
 
-        response.sendRedirect("questionPage.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("quizID", quizID);
+            session.setAttribute("questions", questions);
+            session.setAttribute("currentIndex", 0);
+
+            response.sendRedirect("questionPage.jsp");
+        }catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

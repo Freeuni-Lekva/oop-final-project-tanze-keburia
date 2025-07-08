@@ -1,5 +1,5 @@
-<%@ page import="database.QuestionDAO" %>
-<%@ page import="classes.Question" %><%--
+<%@ page import="database.quiz_utilities.QuestionDAO" %>
+<%@ page import="classes.quiz_utilities.Question" %><%--
   Created by IntelliJ IDEA.
   User: tarash-dolaberidze
   Date: 6/22/25
@@ -9,9 +9,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String questionId = request.getParameter("id");
+    System.out.println(questionId);
     String quizID = request.getParameter("quizID");
+
    // QuestionDAO questions = (QuestionDAO)request.getAttribute("questions");
     Question question = (Question)request.getAttribute("question");
+    System.out.println(question);
     String description = question.getStatement();
     String answer = question.getAnswer();
 %>

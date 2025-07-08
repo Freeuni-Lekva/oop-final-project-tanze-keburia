@@ -1,7 +1,7 @@
 package servlets;
 
 import com.sun.net.httpserver.HttpContext;
-import database.DatabaseConnector;
+import database.database_connection.DatabaseConnector;
 import database.UserDAO;
 
 import javax.servlet.ServletContext;

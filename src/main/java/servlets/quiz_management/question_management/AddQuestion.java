@@ -1,11 +1,15 @@
 package servlets;
 
 import Validation.OwnershipChecker;
-import classes.MockQuestion;
-import classes.Question;
-import classes.Quiz;
-import classes.RealQuestion;
+
+import classes.quiz_utilities.Question;
+import classes.quiz_utilities.RealQuestion;
 import database.*;
+import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuestionDAO;
+import database.quiz_utilities.RealQuizDAO;
 import mapper.TypePageMapper;
 
 import javax.servlet.ServletContext;
@@ -54,10 +58,11 @@ public class AddQuestion extends HttpServlet {
             if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizID)){
                 return;
             }
+            System.out.println(question.getID());
             questionDAO.addQuestion(question);
+            System.out.println(questionDAO.getAllQuestions().size());
             request.setAttribute("question", question);
-            request.setAttribute("quizzes", quizDAO);
-            request.setAttribute("questions", questionDAO);
+           // request.setAttribute("questions", questionDAO);
           //  response.sendRedirect(jsp+"?id="+id+"&quizID="+quizID);
             request.getRequestDispatcher(jsp+"?id="+id+"&quizID="+quizID).forward(request, response);
         } catch (SQLException e) {
