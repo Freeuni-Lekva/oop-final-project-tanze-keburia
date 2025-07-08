@@ -8,6 +8,17 @@
 <%@ page import="java.util.*" %>
 
 <%
+    String error = (String) session.getAttribute("errorMessage");
+    if (error != null) {
+%>
+<p style="color: red;"><%= error %></p>
+<%
+        session.removeAttribute("errorMessage");
+    }
+%>
+
+
+<%
     ServletContext context = application;
     String quizID = request.getParameter("id");
 

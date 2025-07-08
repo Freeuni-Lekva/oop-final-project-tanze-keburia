@@ -28,15 +28,22 @@ public class SetTimeLimit extends HttpServlet {
         if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizId)){
             return;
         }
-        if(timeLimit == null || timeLimit.isEmpty()){
+        if (timeLimit == null || timeLimit.trim().isEmpty()) {
+            session.setAttribute("errorMessage", "Time limit must not be empty.");
+            response.sendRedirect(request.getHeader("Referer"));
             return;
         }
-        int x = Integer.parseInt(timeLimit);
-        Quiz quiz = quizDAO.getQuiz(quizId);
-        quiz.setTimeLimit(x);
-        quizDAO.modifyQuiz(quiz);
-        String ref = request.getHeader("Referer");
-       // System.out.println(ref);
-        response.sendRedirect(ref);
+        try {
+            int x = Integer.parseInt(timeLimit.trim());
+            if (x < 0) throw new NumberFormatException("Negative");
+
+            Quiz quiz = quizDAO.getQuiz(quizId);
+            quiz.setTimeLimit(x);
+            quizDAO.modifyQuiz(quiz);
+        } catch (NumberFormatException e) {
+            session.setAttribute("errorMessage", "Time limit must be a positive number.");
+        }
+
+        response.sendRedirect(request.getHeader("Referer"));
     }
 }
