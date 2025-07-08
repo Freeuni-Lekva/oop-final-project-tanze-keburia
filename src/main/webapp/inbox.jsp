@@ -15,8 +15,7 @@
     return;
   }
 
-  MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-  List<Mail> inbox = mailDAO.getInbox(username);
+  List<Mail> inbox = (List<Mail>) request.getAttribute("inbox");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,16 +25,22 @@
   <link rel="stylesheet" href="dashboardStyle.css">
 </head>
 <body>
-<div class="dashboard">
-  <div class="header-row">
-    <h2>Inbox</h2>
-    <a href="myProfile.jsp" class="link link-blue">My Profile</a>
-  </div>
-  <div class="fixed-search mt-20 mb-20">
-    <form method="get" action="MessageHistoryServlet" class="search-form">
-      <input type="hidden" name="messageType" value="inbox" />
-      <input type="text" name="otherUser" placeholder="Enter username to view history" required />
-      <input type="submit" value="Search" class="btn btn-blue" />
+
+<h2>Inbox</h2>
+<% if (inbox == null || inbox.isEmpty())  { %>
+<p>No messages.</p>
+<% } else { %>
+<ul>
+  <% for (Mail mail : inbox) { %>
+  <li>
+    <strong>From:</strong> <%= mail.getSender() %><br/>
+    <strong>Subject:</strong> <%= mail.getSubject() %><br/>
+    <strong>Time:</strong> <%= mail.getTimestamp() %><br/>
+    <a href="message.jsp?id=<%= mail.getId() %>">View Message</a><br/>
+    <form action="DeleteMail" method="post" style="display:inline;">
+      <input type="hidden" name="id" value="<%= mail.getId() %>" />
+      <button type="submit">Delete</button>
+
     </form>
 
 </div>
@@ -79,5 +84,9 @@
 </body>
 </html>
 
-
+<a href="compose.jsp">Compose New</a> |
+<a href="SentServlet">View Sent</a> |
+<a href="Homepage">Home</a>
+</body>
+</html>
 

@@ -21,7 +21,8 @@
 </head>
 <div class="dashboard">
   <h2>User Not Found</h2>
-  <p>No user with that name exists!</p>
-  <p><a href="homepage.jsp" class="link-blue">Back to Home</a></p>
+  <p>No user with that name exists.</p>
+  <p><a href="Homepage" class="link-blue">Back to Home</a></p>
+
 </div>
 </html>
