@@ -33,10 +33,13 @@ public class QuizHistoryServlet extends HttpServlet {
         ServletContext context = getServletContext();
         try (Connection conn = DatabaseConnector.getInstance().getConnection())
         {
+            String targetUser = request.getParameter("username");
+            if(targetUser == null) targetUser = username;
             QuizDAO quizDAO = new RealQuizDAO(conn);
             QuizHistoryDAO quizHistDAO = new QuizHistoryDAO(conn, quizDAO);
-            List<QuizResult> quizzes = quizHistDAO.getUserHistory(username);
+            List<QuizResult> quizzes = quizHistDAO.getUserHistory(targetUser);
             request.setAttribute("History", quizzes);
+            request.setAttribute("targetUser", targetUser );
             request.getRequestDispatcher("quizHistory.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
