@@ -15,13 +15,8 @@
         response.sendRedirect("login.jsp");
         return;
     }
-
-    ServletContext context = application;
-    FriendsDAO friendsDAO = (FriendsDAO) context.getAttribute("friends");
-    FriendRequestDAO requestDAO = (FriendRequestDAO) context.getAttribute("friendRequests");
-
-    List<String> myFriends = friendsDAO.getFriends(username);
-    List<String> requests = requestDAO.getRequestList(username);
+    List<String> myFriends = (List<String>) request.getAttribute("myFriends");
+    List<String> requests = (List<String>) request.getAttribute("requests");
 %>
 
 <!DOCTYPE html>
@@ -39,7 +34,7 @@
 <% } else { %>
 <ul>
     <% for (String friend : myFriends) { %>
-    <li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>
+    <li><a href="ProfileServlet?username=<%= friend %>"><%= friend %></a></li>
     <% } %>
 </ul>
 <% } %>
@@ -62,7 +57,10 @@
     <% } %>
 </ul>
 <% } %>
-<p><a href="homepage.jsp">Back to Home</a></p>
+l
+<p><a href="QuizHistoryServlet">View My Quiz History</a></p>
+
+<p><a href="Homepage">Back to Home</a></p>
 
 </body>
 </html>

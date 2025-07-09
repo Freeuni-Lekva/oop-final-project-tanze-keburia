@@ -1,6 +1,7 @@
 package servlets.mail;
 
 import classes.Mail;
+import database.DatabaseConnector;
 import database.MailDAO;
 import database.UserDAO;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @WebServlet("/SendMail")
 public class SendMailServlet extends HttpServlet {
@@ -27,23 +30,29 @@ public class SendMailServlet extends HttpServlet {
         String subject = request.getParameter("subject");
         String content = request.getParameter("content");
 
-        ServletContext context = getServletContext();
-        MailDAO mailDAO = (MailDAO) context.getAttribute("mails");
-        UserDAO userDAO = (UserDAO) context.getAttribute("users");
+
         if (receiver == null || receiver.isEmpty() || subject == null || content == null) {
             response.sendRedirect("compose.jsp");
             return;
         }
-        if (!userDAO.userExists(receiver)) {
-            String errorSubject = "Failed to deliver mail to '" + receiver + "'";
-            String errorContent = "Your message was not sent because user '" + receiver + "' does not exist.";
-            Mail errorMail = new Mail(0, "System", sender, errorSubject, errorContent, null);
-            mailDAO.sendMail(errorMail);
-            response.sendRedirect("homepage.jsp");
-            return;
-        }
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            UserDAO userDAO = new UserDAO(conn);
+            MailDAO mailDAO = new MailDAO(conn);
 
-        mailDAO.sendMail(new Mail(0, sender, receiver, subject, content, null));
-        response.sendRedirect("sent.jsp");
+            if (!userDAO.userExists(receiver)) {
+                String errorSubject = "Failed to deliver mail to '" + receiver + "'";
+                String errorContent = "Your message was not sent because user '" + receiver + "' does not exist.";
+                Mail errorMail = new Mail(0, "System", sender, errorSubject, errorContent, null);
+                mailDAO.sendMail(errorMail);
+                response.sendRedirect("Homepage");
+                return;
+            }
+
+            mailDAO.sendMail(new Mail(0, sender, receiver, subject, content, null));
+            response.sendRedirect("SentServlet");
+
+        } catch (SQLException e) {
+            throw new ServletException("Database error while sending mail", e);
+        }
     }
 }

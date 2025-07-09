@@ -3,15 +3,18 @@
 <html>
 <head>
     <title>Information Incorrect</title>
+    <link rel="stylesheet" type="text/css" href="loginStyle.css" />
 </head>
 <body>
-<h1>Please try again</h1>
-<p>Either your username or password is incorrect. Please try again.</p>
-<form action="LoginServlet" method="post">
-    Username: <input type="text" name="username" required /><br/>
-    Password: <input type="password" name="password" required /><br/>
-    <input type="submit" value="Login" />
-</form>
-<p><a href="signup.jsp">Create new account</a></p>
+<div class="login-box">
+    <h1>Try again...</h1>
+    <p class = error>Either your username or password is incorrect</p>
+    <form action="LoginServlet" method="post">
+        Username: <input type="text" name="username" required /><br/>
+        Password: <input type="password" name="password" required /><br/>
+        <input type="submit" value="Login" />
+    </form>
+    <a href="signup.jsp">Create new account</a>
+</div>
 </body>
 </html>

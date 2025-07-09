@@ -10,11 +10,14 @@
 <html>
 <head>
     <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="loginStyle.css" />
 </head>
 <body>
-<h2>Create a New Account</h2>
-<jsp:include page = "signupForm.jspf" />
-<p><a href="login.jsp">Back to Log in</a></p>
+<div class="login-box">
+    <h2>Create a New Account</h2>
+    <jsp:include page = "signupForm.jspf" />
+    <a href="login.jsp">Back to Log in</a>
+</div>
 </body>
 </html>
 

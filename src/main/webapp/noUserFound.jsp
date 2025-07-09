@@ -17,9 +17,12 @@
 <html>
 <head>
   <title>User Not Found</title>
+  <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
-<body>
-<h2>No user with that name exists.</h2>
-<p><a href="homepage.jsp">Back to Home</a></p>
-</body>
+<div class="dashboard">
+  <h2>User Not Found</h2>
+  <p>No user with that name exists.</p>
+  <p><a href="Homepage" class="link-blue">Back to Home</a></p>
+
+</div>
 </html>

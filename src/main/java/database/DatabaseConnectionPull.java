@@ -1,9 +1,9 @@
 package database;
 
 public final class DatabaseConnectionPull {
-    private static String url = "jdbc:mysql://localhost:3306/metropolis_db";
-    private static String userName = "root";
-    private static String password = "Akkdzidzi100!";
+    private static String url = "jdbc:mysql://localhost:3306/metro";
+    private static String userName = "icosahedron";
+    private static String password = "Loko_kina1";
 
     private DatabaseConnectionPull() {}
 

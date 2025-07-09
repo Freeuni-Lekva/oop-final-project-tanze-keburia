@@ -1,8 +1,10 @@
-package servlets.quiz_management.quiz_properties;
+package servlets;
 
 import Validation.OwnershipChecker;
-import classes.quiz_utilities.Quiz;
-import database.quiz_utilities.QuizDAO;
+import classes.Quiz;
+import database.DatabaseConnector;
+import database.QuizDAO;
+import database.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,29 +14,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 @WebServlet("/PublishQuiz")
 public class PublishQuiz extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         ServletContext context = getServletContext();
         if(session == null || session.getAttribute("username") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
-        QuizDAO quizzes = (QuizDAO)context.getAttribute("quizzes");
-        String quizID =  request.getParameter("quizID");
-        String quizTopic = request.getParameter("topic");
-        Quiz quiz = quizzes.getQuiz(quizID);
-        if(!OwnershipChecker.checkOwnershipByQuiz(quiz, request, response, (String)session.getAttribute("username"))) {
-            return;
-        }
-        quiz.setTopic(quizTopic);
-        quiz.setVisible(true);
-        quizzes.modifyQuiz(quiz);
-        response.sendRedirect("homepage.jsp");
+        QuizDAO quizzes = null;
+        try (Connection connection = DatabaseConnector.getInstance().getConnection()){
+            quizzes = new RealQuizDAO(connection);
 
+            String quizID =  request.getParameter("quizID");
+            String quizTopic = request.getParameter("topic");
+            Quiz quiz = quizzes.getQuiz(quizID);
+            if (quiz == null) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Quiz not found");
+                return;
+            }
+            if(!OwnershipChecker.checkOwnershipByQuiz(quiz, request, response, (String)session.getAttribute("username"))) {
+                return;
+            }
+            quiz.setTopic(quizTopic);
+            quiz.setVisible(true);
+            quizzes.modifyQuiz(quiz);
+            response.sendRedirect("Homepage");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

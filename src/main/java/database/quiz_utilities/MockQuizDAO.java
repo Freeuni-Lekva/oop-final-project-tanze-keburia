@@ -42,6 +42,12 @@ public class MockQuizDAO implements QuizDAO{
         }
         return null;
     }
+
+    @Override
+    public String getQuizNameById(String quizId) {
+        return "";
+    }
+
     public List<Quiz> getAll() {
         return new ArrayList<>(quizzes);
     }
@@ -75,4 +81,5 @@ public class MockQuizDAO implements QuizDAO{
     public int getNumQuizes() {
         return quizzes.size();
     }
+
 }

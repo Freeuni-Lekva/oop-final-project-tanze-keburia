@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: GUGA
-  Date: 6/27/2025
-  Time: 2:13 PM
-  To change this template use File | Settings | File Templates.
+ Created by IntelliJ IDEA.
+ User: GUGA
+ Date: 6/27/2025
+ Time: 2:13 PM
+ To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="classes.Mail" %>
 <%@ page import="database.MailDAO" %>
@@ -14,14 +14,13 @@
     response.sendRedirect("login.jsp");
     return;
   }
-  MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-  List<Mail> inbox = mailDAO.getInbox(username);
+  List<Mail> inbox = (List<Mail>) request.getAttribute("inbox");
 %>
 <html>
 <head><title>Inbox</title></head>
 <body>
 <h2>Inbox</h2>
-<% if (inbox.isEmpty()) { %>
+<% if (inbox == null || inbox.isEmpty())  { %>
 <p>No messages.</p>
 <% } else { %>
 <ul>
@@ -40,8 +39,18 @@
   <% } %>
 </ul>
 <% } %>
+
+
+<h3>View Message History</h3>
+<form method="get" action="MessageHistoryServlet">
+  <input type="hidden" name="currentUser" value="<%= username %>" />
+  <label for="otherUser">Enter username to view message history:</label>
+  <input type="text" id="otherUser" name="otherUser" placeholder="Username" required />
+  <input type="submit" value="View Messages" />
+</form>
+<br/>
 <a href="compose.jsp">Compose New</a> |
-<a href="sent.jsp">View Sent</a> |
-<a href="homepage.jsp">Home</a>
+<a href="SentServlet">View Sent</a> |
+<a href="Homepage">Home</a>
 </body>
 </html>
