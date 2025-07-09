@@ -31,7 +31,7 @@
 %>
 <div>
     <h3><%= quiz.getName() %></h3>
-    <p>ID: <%= quiz.getID() %>, Author: <%= quiz.getAuthor() %></p>
+    <p>Author: <%= quiz.getAuthor() %></p>
 
     <form method="post" action="AdminQuizzesServlet">
         <input type="hidden" name="action" value="deleteQuiz">
