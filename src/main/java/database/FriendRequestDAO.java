@@ -11,10 +11,11 @@ public class FriendRequestDAO {
     public FriendRequestDAO(Connection conn, FriendsDAO friendsDAO) {
         this.conn = conn;
         this.friendsDAO = friendsDAO;
-
     }
-    public void initialize(){
+
+    public void initialize() throws SQLException {
         try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DROP TABLE IF EXISTS requests");
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (" +
                     "sender VARCHAR(255) NOT NULL, " +
                     "receiver VARCHAR(255) NOT NULL, " +
@@ -22,9 +23,10 @@ public class FriendRequestDAO {
                     "PRIMARY KEY (sender, receiver), " +
                     "CHECK (sender <> receiver))");
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to initialize requests database", e);
+            throw new SQLException(e);
         }
     }
+
     public void createRequest(String sender, String receiver) {
         if (sender == null || receiver == null || sender.equals(receiver)) {
             throw new IllegalArgumentException("Invalid sender or receiver");

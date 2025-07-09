@@ -1,8 +1,9 @@
-import classes.quiz_utilities.Question;
-import classes.quiz_utilities.RealQuestion;
+import classes.Question;
+import classes.RealQuestion;
 
-import database.database_connection.DatabaseConnectionPool;
-import database.quiz_utilities.RealQuestionDAO;
+import database.DatabaseConnectionPool;
+import database.DatabaseConnector;
+import database.RealQuestionDAO;
 import org.junit.*;
 import java.sql.*;
 import java.util.ArrayList;

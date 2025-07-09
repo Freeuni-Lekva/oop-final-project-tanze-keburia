@@ -1,6 +1,6 @@
 package servlets;
 
-import database.database_connection.DatabaseConnector;
+import database.DatabaseConnector;
 import database.FriendsDAO;
 import database.FriendRequestDAO;
 

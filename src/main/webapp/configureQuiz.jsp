@@ -1,23 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page import="classes.Question" %>
+<%@ page import="classes.Quiz" %>
+<%@ page import="database.QuestionDAO" %>
+<%@ page import="database.QuizDAO" %>
 <%@ page import="mapper.TypePageMapper" %>
 <%@ page import="mapper.Topics" %>
 <%@ page import="java.util.*" %>
-<%@ page import="classes.quiz_utilities.Question" %>
-<%@ page import="classes.quiz_utilities.Quiz" %>
 
 <%
-    ServletContext context = application;
-    String quizID = request.getParameter("id");
+    String quizID = (String)request.getAttribute("id");
+    String quizName = (String)request.getAttribute("quizName");
+    List<Question>questions = (List<Question>) request.getAttribute("questions");
+    Quiz quiz = (Quiz)request.getAttribute("quiz");
 
-    QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
-    QuizDAO quizzes = (QuizDAO) context.getAttribute("quizzes");
-
-    List<Question> questions = questionDAO.getQuiz(quizID);
-    Quiz quiz = quizzes.getQuiz(quizID);
-
-    String quizName = quiz.getName();
-    String questionPage = TypePageMapper.fromName(quiz.getType()).getJspPage();
     int timeLimit = quiz.getTimeLimit();
 
     String timeLimitMessage = timeLimit >= 1000000000
@@ -38,9 +33,10 @@
 <% } else { %>
 <ul>
     <% for (Question q : questions) {
-        String questionURL = questionPage + "?id=" + q.getID() + "&quizID=" + quizID; %>
+        String questionURL = "/ViewQuestion" + "?id=" + q.getID() + "&quizID=" + quizID; %>
     <li>
         <a href="<%= questionURL %>">View</a>
+
         <form action="DeleteQuestion" method="post" style="display:inline;">
             <input type="hidden" name="quizID" value="<%= quizID %>">
             <input type="hidden" name="questionID" value="<%= q.getID() %>">
