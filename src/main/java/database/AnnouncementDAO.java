@@ -82,4 +82,20 @@ public class AnnouncementDAO {
         }
         return result;
     }
+
+    public  Announcement getLatestAnnouncement() throws SQLException {
+        String sql = "SELECT * FROM announcements ORDER BY created_date DESC LIMIT 1";
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return new Announcement(
+                        rs.getString("ID"),
+                        rs.getString("author"),
+                        rs.getString("body"),
+                        rs.getTimestamp("created_date")
+                );
+            }
+        }
+        return null;
+    }
 }

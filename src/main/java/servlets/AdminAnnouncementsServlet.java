@@ -16,8 +16,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-@WebServlet("/AdminAnnouncementServlet")  // Changed to match the URL in your error
-
+@WebServlet("/AdminAnnouncementServlet")
 public class AdminAnnouncementsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -68,7 +67,9 @@ public class AdminAnnouncementsServlet extends HttpServlet {
                             new Timestamp(System.currentTimeMillis())
                     );
                     announcementDAO.addAnnouncement(announcement);
-                    request.setAttribute("success", "Announcement created");
+
+                    response.sendRedirect("Homepage");
+                    return;
                 }
             } else if ("delete".equals(action)) {
                 String announcementId = request.getParameter("announcementId");
@@ -77,7 +78,6 @@ public class AdminAnnouncementsServlet extends HttpServlet {
                     request.setAttribute("success", "Announcement deleted");
                 }
             }
-
             response.sendRedirect("AdminAnnouncementServlet");
 
         } catch (SQLException e) {

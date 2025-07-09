@@ -5,10 +5,9 @@
   Time: 10:13 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="classes.Mail" %>
-<%@ page import="database.MailDAO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="classes.Announcement" %>
 <%
     String username;
     if (session != null) {
@@ -52,6 +51,33 @@
             <button type="submit" class="btn btn-green">Create Quiz</button>
         </form>
     </div>
+
+
+    <div class="latest-announcement mt-20">
+        <div class="announcement-header-with-link">
+            <h3>Latest Announcement</h3>
+            <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
+        </div>
+        <%
+            Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
+            if (latestAnnouncement != null) {
+        %>
+        <div class="card announcement-card">
+            <p><%= latestAnnouncement.getBody() %></p>
+            <div class="timestamp">
+                Posted on:
+                <%
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
+                %>
+                <%= formattedTime %>
+            </div>
+        </div>
+        <% } else { %>
+        <p>No announcements yet</p>
+        <% } %>
+    </div>
+
 
     <div class="recent-messages mt-20">
         <h3>Recent Messages</h3>

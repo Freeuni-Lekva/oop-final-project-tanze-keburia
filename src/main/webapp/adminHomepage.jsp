@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="classes.Mail" %>
 <%@ page import="java.util.List" %>
+<%@ page import="classes.Announcement" %>
 <%
     String username;
     if (session != null) {
@@ -53,6 +54,31 @@
             <button type="submit" class="btn btn-green">Create Quiz</button>
         </form>
     </div>
+
+
+    <div class="latest-announcement mt-20">
+        <h3>Latest Announcement</h3>
+        <%
+            Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
+            if (latestAnnouncement != null) {
+        %>
+        <div class="card announcement-card">
+            <p><%= latestAnnouncement.getBody() %></p>
+            <div class="timestamp">
+                Posted on:
+                <%
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
+                %>
+                <%= formattedTime %>
+            </div>
+        </div>
+        <% } else { %>
+        <p>No announcements yet</p>
+        <% } %>
+    </div>
+
+
 
     <div class="recent-messages mt-20">
         <h3>Recent Messages</h3>
