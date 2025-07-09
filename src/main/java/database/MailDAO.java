@@ -24,9 +24,7 @@ public class MailDAO {
                     "sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "receiver_deleted BOOLEAN DEFAULT FALSE, " +
                     "sender_deleted BOOLEAN DEFAULT FALSE)");
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to initialize mails table", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to initialize mails table", e);}
     }
 
     public void sendMail(Mail mail){
@@ -40,9 +38,7 @@ public class MailDAO {
             ps.setString(3, mail.getSubject());
             ps.setString(4, mail.getContent());
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to send mail", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to send mail", e);}
     }
 
     public List<Mail> getInbox(String username) {
@@ -65,9 +61,7 @@ public class MailDAO {
                     ));
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get inbox", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get inbox", e);}
         return inbox;
     }
 
@@ -93,9 +87,7 @@ public class MailDAO {
                     ));
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get sent mails", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get sent mails", e);}
 
         return sent;
     }
@@ -106,9 +98,7 @@ public class MailDAO {
             ps.setInt(1, mailId);
             ps.setString(2, username);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete mail", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to delete mail", e);}
     }
 
     public void deleteSentMail(int mailId, String username) {
@@ -117,9 +107,7 @@ public class MailDAO {
             ps.setInt(1, mailId);
             ps.setString(2, username);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete sent mail", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to delete sent mail", e);}
     }
 
 }

@@ -1,6 +1,7 @@
 import classes.QuizResult;
 import database.DatabaseConnectionPull;
-import database.DatabaseConnector;
+import database.database_connection.DatabaseConnectionPool;
+import database.database_connection.DatabaseConnector;
 import database.QuizHistoryDAO;
 import org.junit.*;
 
@@ -15,12 +16,8 @@ public class QuizHistoryDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        DatabaseConnector.getInstance(
-                DatabaseConnectionPull.url,
-                DatabaseConnectionPull.username,
-                DatabaseConnectionPull.password
-        );
-        conn = DatabaseConnector.getConnection();
+        DatabaseConnector dbConnector = DatabaseConnector.getInstance();
+        conn = dbConnector.getConnection();
         historyDAO = new QuizHistoryDAO(conn);
         historyDAO.initialize();
     }

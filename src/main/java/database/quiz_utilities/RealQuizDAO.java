@@ -130,9 +130,7 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setString(9, newQuiz.getID());
 
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to modify quiz", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to modify quiz", e);}
     }
 
     @Override
@@ -141,9 +139,7 @@ public class RealQuizDAO implements QuizDAO {
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             return rs.next() ? rs.getInt(1) : 0;
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to count quizzes", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to count quizzes", e);}
     }
 
     private List<Quiz> getQuizzesWithQuery(String query, String... param) {
@@ -159,9 +155,7 @@ public class RealQuizDAO implements QuizDAO {
                 }
             }
             return quizzes;
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to retrieve quizzes", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to retrieve quizzes", e);}
     }
 
     private Quiz createQuizFromResultSet(ResultSet rs) throws SQLException {
@@ -198,9 +192,7 @@ public class RealQuizDAO implements QuizDAO {
                 return rs.getString("quiz_name");
             }
             return null;
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get quiz name", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get quiz name", e);}
     }
 
     public void close() {

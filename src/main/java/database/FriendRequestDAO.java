@@ -22,9 +22,7 @@ public class FriendRequestDAO {
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "PRIMARY KEY (sender, receiver), " +
                     "CHECK (sender <> receiver))");
-        } catch (SQLException e) {
-            throw new SQLException(e);
-        }
+        } catch (SQLException e) {throw new SQLException(e);}
     }
 
     public void createRequest(String sender, String receiver) {
@@ -45,9 +43,7 @@ public class FriendRequestDAO {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to create friend request", e);
-        }
+        } catch (SQLException e) { throw new RuntimeException("Failed to create friend request", e);}
     }
 
     private boolean areAlreadyFriends(String user1, String user2) {
@@ -63,9 +59,7 @@ public class FriendRequestDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to check request existence", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to check request existence", e);}
     }
 
     public void removeRequest(String sender, String receiver) {
@@ -78,9 +72,7 @@ public class FriendRequestDAO {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete friend request", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to delete friend request", e);}
     }
 
     public List<String> getRequestList(String username) {
@@ -102,9 +94,7 @@ public class FriendRequestDAO {
                     requests.add(rs.getString("sender"));
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get request list", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get request list", e);}
         return requests;
     }
 }

@@ -1,5 +1,3 @@
-
-
 import database.database_connection.DatabaseConnector;
 import database.FriendRequestDAO;
 import database.FriendsDAO;
@@ -23,10 +21,8 @@ public class FriendRequestDAOTest {
 
     @BeforeClass
     public static void setupDatabase() throws Exception {
-
         DatabaseConnector dbc = DatabaseConnector.getInstance();
         conn = dbc.getConnection();
-
 
         // Set up test tables
         try (Statement stmt = conn.createStatement()) {
@@ -51,7 +47,13 @@ public class FriendRequestDAOTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
+        // Clear tables before each test
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DELETE FROM friends");
+            stmt.execute("DELETE FROM requests");
+        }
+
         requestDAO = new FriendRequestDAO(conn, friendsDAO);
     }
 
@@ -76,6 +78,8 @@ public class FriendRequestDAOTest {
 
     @Test
     public void testRemoveFriendRequest() {
+        requestDAO.createRequest("Alice", "Bob");
+        requestDAO.createRequest("Charlie", "Bob");
 
         List<String> requests = requestDAO.getRequestList("Bob");
         assertEquals(2, requests.size());
@@ -90,6 +94,96 @@ public class FriendRequestDAOTest {
         requestDAO.removeRequest("Charlie", "Bob");
         requests = requestDAO.getRequestList("Bob");
         assertEquals(0, requests.size());
+        assertFalse(requests.contains("Charlie"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateRequestWithNullSender() {
+        requestDAO.createRequest(null, "Bob");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateRequestWithNullReceiver() {
+        requestDAO.createRequest("Alice", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateRequestWithSameSenderAndReceiver() {
+        requestDAO.createRequest("Alice", "Alice");
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testCreateDuplicateRequest() {
+        requestDAO.createRequest("Alice", "Bob");
+        requestDAO.createRequest("Alice", "Bob");
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testCreateRequestBetweenFriends() throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("INSERT INTO friends VALUES ('Alice', 'Bob')");
+        }
+        requestDAO.createRequest("Alice", "Bob");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetRequestListWithNullUsername() {
+        requestDAO.getRequestList(null);
+    }
+
+    @Test
+    public void testGetEmptyRequestList() {
+        List<String> requests = requestDAO.getRequestList("NonExistentUser");
+        assertTrue(requests.isEmpty());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveRequestWithNullSender() {
+        requestDAO.removeRequest(null, "Bob");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveRequestWithNullReceiver() {
+        requestDAO.removeRequest("Alice", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveRequestWithSameSenderAndReceiver() {
+        requestDAO.removeRequest("Alice", "Alice");
+    }
+
+    @Test
+    public void testInitialize() throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DROP TABLE IF EXISTS requests");
+        }
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeQuery("SELECT * FROM requests");
+            fail("Expected SQLException");
+        } catch (SQLException e) {
+        }
+
+        requestDAO.initialize();
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeQuery("SELECT * FROM requests");
+        }
+    }
+
+    @Test
+    public void testGetRequestListExcludesFriends() throws SQLException {
+        requestDAO.createRequest("Alice", "Bob");
+        requestDAO.createRequest("Charlie", "Bob");
+        requestDAO.createRequest("Dana", "Bob");
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("INSERT INTO friends VALUES ('Bob', 'Charlie')");
+        }
+
+        List<String> requests = requestDAO.getRequestList("Bob");
+        assertEquals(2, requests.size());
+        assertTrue(requests.contains("Alice"));
+        assertTrue(requests.contains("Dana"));
         assertFalse(requests.contains("Charlie"));
     }
 }

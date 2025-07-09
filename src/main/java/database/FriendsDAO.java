@@ -19,9 +19,7 @@ public class FriendsDAO {
                     "user_b VARCHAR(255), " +
                     "PRIMARY KEY (user_a, user_b), " +
                     "CHECK (user_a < user_b))");
-        } catch (SQLException e) {
-            throw new SQLException(e);
-        }
+        } catch (SQLException e) {throw new SQLException(e);}
     }
 
     public void addFriends(String username, String friendUsername) {
@@ -56,9 +54,7 @@ public class FriendsDAO {
             ps.setString(1, user1);
             ps.setString(2, user2);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to remove friends", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to remove friends", e);}
     }
 
     public List<String> getFriends(String username) {
@@ -87,9 +83,7 @@ public class FriendsDAO {
                     }
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get friends", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get friends", e);}
         return friends;
     }
 
