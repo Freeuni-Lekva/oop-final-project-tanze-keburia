@@ -8,60 +8,29 @@
     <title>Admin Dashboard</title>
 </head>
 <body>
-<h1>Admin Dashboard</h1>
+<h1>Welcome, <%= request.getAttribute("adminUsername") %></h1>
+<%--<a href="logout">Logout</a>--%>
 
-<p>Welcome, <%= request.getAttribute("adminUsername") %></p>
-<a href="logout">Logout</a>
+<div>
+    <a href="AdminAnnouncementServlet">Announcements</a> |
+    <a href="AdminUserServlet">Users</a> |
+    <a href="AdminQuizzesServlet">Quizzes</a>
+</div>
 
-<nav>
-    <a href="admin-dashboard">Dashboard</a>
-    <a href="admin-announcements">Manage Announcements</a>
-    <a href="admin-users">Manage Users</a>
-    <a href="admin-quizzes">Manage Quizzes</a>
-</nav>
-
-<h2>Site Statistics</h2>
-<div>
-    <h3>Total Users</h3>
-    <p><%= request.getAttribute("totalUsers") %></p>
-</div>
-<div>
-    <h3>Total Quizzes</h3>
-    <p><%= request.getAttribute("totalQuizzes") %></p>
-</div>
-<div>
-    <h3>Active Announcements</h3>
-    <p>
-        <%
-            List<Announcement> announcements = (List<Announcement>) request.getAttribute("announcements");
-            if (announcements != null) {
-                System.out.println(announcements.size());
-            } else {
-                System.out.println(0);
-            }
-        %>
-    </p>
-</div>
+<h2>Total Quizzes: <%= request.getAttribute("totalQuizzes") %></h2>
 
 <h2>Recent Announcements</h2>
 <%
-    List<Announcement> recentAnnouncements = (List<Announcement>) request.getAttribute("announcements");
-    if (recentAnnouncements != null && !recentAnnouncements.isEmpty()) {
-        int count = 0;
-        for (Announcement announcement : recentAnnouncements) {
-            if (count >= 5) break; // Show only first 5
+    List<Announcement> announcements = (List<Announcement>) request.getAttribute("announcements");
+    if (announcements != null && !announcements.isEmpty()) {
+        for (Announcement a : announcements) {
 %>
-<div>
-    <p>By <%= announcement.getAuthor() %> on <%= announcement.getPublishDate() %></p>
-    <p><%= announcement.getBody() %></p>
-    <hr>
-</div>
+<p><%= a.getAuthor() %>: <%= a.getBody() %></p>
 <%
-        count++;
     }
 } else {
 %>
-<p>No announcements found.</p>
+<p>No announcements</p>
 <% } %>
 </body>
 </html>

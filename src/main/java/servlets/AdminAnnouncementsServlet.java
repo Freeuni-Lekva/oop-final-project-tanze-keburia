@@ -1,7 +1,9 @@
 package servlets;
+
 import classes.Admins;
 import classes.Announcement;
 import database.AnnouncementDAO;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +16,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-@WebServlet("/admin-announcements")
-public class AdminAnnouncementsServlet extends HttpServlet {
+@WebServlet("/AdminAnnouncementServlet")  // Changed to match the URL in your error
 
-    @Override
+public class AdminAnnouncementsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
-        // Check if user is logged in and is admin
         if (username == null || !Admins.isAdmin(username)) {
             response.sendRedirect("login.jsp");
             return;
@@ -32,17 +32,13 @@ public class AdminAnnouncementsServlet extends HttpServlet {
 
         try {
             AnnouncementDAO announcementDAO = (AnnouncementDAO) getServletContext().getAttribute("announcements");
-
-            // Get all announcements
             request.setAttribute("announcements", announcementDAO.getAllAnnouncements());
             request.setAttribute("adminUsername", username);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("admin-announcements.jsp");
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("admin-announcements.jsp").forward(request, response);
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
+            throw new ServletException("Error loading announcements", e);
         }
     }
 
@@ -53,7 +49,6 @@ public class AdminAnnouncementsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
-        // Check if user is logged in and is admin
         if (username == null || !Admins.isAdmin(username)) {
             response.sendRedirect("login.jsp");
             return;
@@ -66,29 +61,27 @@ public class AdminAnnouncementsServlet extends HttpServlet {
             if ("create".equals(action)) {
                 String body = request.getParameter("body");
                 if (body != null && !body.trim().isEmpty()) {
-                    String announcementId = UUID.randomUUID().toString();
-                    Timestamp now = new Timestamp(System.currentTimeMillis());
-
-                    Announcement announcement = new Announcement(announcementId, username, body, now);
+                    Announcement announcement = new Announcement(
+                            UUID.randomUUID().toString(),
+                            username,
+                            body,
+                            new Timestamp(System.currentTimeMillis())
+                    );
                     announcementDAO.addAnnouncement(announcement);
-
-                    request.setAttribute("success", "Announcement created successfully!");
+                    request.setAttribute("success", "Announcement created");
                 }
             } else if ("delete".equals(action)) {
                 String announcementId = request.getParameter("announcementId");
                 if (announcementId != null) {
                     announcementDAO.removeAnnouncement(announcementId);
-                    request.setAttribute("success", "Announcement deleted successfully!");
+                    request.setAttribute("success", "Announcement deleted");
                 }
             }
 
-            // Redirect to avoid form resubmission
-            response.sendRedirect("admin-announcements");
+            response.sendRedirect("AdminAnnouncementServlet");
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Database error occurred");
-            doGet(request, response);
+            throw new ServletException("Error processing announcement", e);
         }
     }
 }

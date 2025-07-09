@@ -13,40 +13,31 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin-users")
+@WebServlet("/AdminUserServlet")  // Changed to match the URL in your error
 public class AdminUsersServlet extends HttpServlet {
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
-        // Check if user is logged in and is admin
         if (username == null || !Admins.isAdmin(username)) {
             response.sendRedirect("login.jsp");
             return;
         }
 
         try {
-            UserDAO userDAO = (UserDAO) getServletContext().getAttribute("users");
-
-            // We'll need to add getAllUsers() method to UserDAO
-            // For now, we'll pass admin list and current user
             List<String> admins = Admins.getAdmins();
-
             request.setAttribute("admins", admins);
             request.setAttribute("currentUser", username);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("admin-users.jsp");
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("admin-users.jsp").forward(request, response);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error occurred");
+            throw new ServletException("Error loading users", e);
         }
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,45 +46,38 @@ public class AdminUsersServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
-        // Check if user is logged in and is admin
         if (username == null || !Admins.isAdmin(username)) {
             response.sendRedirect("login.jsp");
             return;
         }
 
         String action = request.getParameter("action");
-        UserDAO userDAO = (UserDAO) getServletContext().getAttribute("users");
 
         try {
             if ("removeUser".equals(action)) {
                 String userToRemove = request.getParameter("userToRemove");
                 if (userToRemove != null && !userToRemove.equals(username)) {
-                    // We'll need to add removeUser() method to UserDAO
-                    // userDAO.removeUser(userToRemove);
-                    Admins.removeAdmin(userToRemove); // Remove from admins if was admin
-                    request.setAttribute("success", "User removed successfully!");
+                    Admins.removeAdmin(userToRemove);
+                    request.setAttribute("success", "User removed");
                 }
             } else if ("promoteUser".equals(action)) {
                 String userToPromote = request.getParameter("userToPromote");
-                if (userToPromote != null && userDAO.userExists(userToPromote)) {
+                if (userToPromote != null) {
                     Admins.addAdmin(userToPromote);
-                    request.setAttribute("success", "User promoted to admin successfully!");
+                    request.setAttribute("success", "User promoted");
                 }
             } else if ("demoteUser".equals(action)) {
                 String userToDemote = request.getParameter("userToDemote");
                 if (userToDemote != null && !userToDemote.equals(username)) {
                     Admins.removeAdmin(userToDemote);
-                    request.setAttribute("success", "User demoted from admin successfully!");
+                    request.setAttribute("success", "Admin rights removed");
                 }
             }
 
-            // Redirect to avoid form resubmission
-            response.sendRedirect("admin-users");
+            response.sendRedirect("AdminUserServlet");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Error occurred");
-            doGet(request, response);
+            throw new ServletException("Error processing request", e);
         }
     }
 }

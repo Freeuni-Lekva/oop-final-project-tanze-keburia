@@ -17,49 +17,34 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/admin-dashboard")
+@WebServlet("/AdminDashboardServlet")  // Changed to match your JSP
 public class AdminDashboardServlet extends HttpServlet {
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
-        // Check if user is logged in and is admin
         if (username == null || !Admins.isAdmin(username)) {
             response.sendRedirect("login.jsp");
             return;
         }
 
         try {
-            // Get DAOs from servlet context
             AnnouncementDAO announcementDAO = (AnnouncementDAO) getServletContext().getAttribute("announcements");
-            UserDAO userDAO = (UserDAO) getServletContext().getAttribute("users");
             QuizDAO quizDAO = (QuizDAO) getServletContext().getAttribute("quizzes");
 
-            // Get all announcements for display
             List<Announcement> announcements = announcementDAO.getAllAnnouncements();
-
-            // Get site statistics
             int totalQuizzes = quizDAO.getNumQuizes();
-            // For user count, we'll need to add a method to UserDAO
-            // For now, we'll set it to 0 or implement a counter
-            int totalUsers = 0; // This would need getUserCount() method in UserDAO
 
-            // Set attributes for JSP
             request.setAttribute("announcements", announcements);
-            request.setAttribute("totalUsers", totalUsers);
             request.setAttribute("totalQuizzes", totalQuizzes);
             request.setAttribute("adminUsername", username);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("admin-dashboard.jsp");
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("admin-dashboard.jsp").forward(request, response);
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
+            throw new ServletException("Database error", e);
         }
     }
 }

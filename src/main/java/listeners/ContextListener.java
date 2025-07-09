@@ -50,7 +50,6 @@ public class ContextListener implements ServletContextListener {
             announcementDAO = new AnnouncementDAO(conn);
             announcementDAO.initialize();
 
-            // Initialize default admin (you can remove this in production)
             Admins.addAdmin("admin");
 
         } catch (SQLException e) {
