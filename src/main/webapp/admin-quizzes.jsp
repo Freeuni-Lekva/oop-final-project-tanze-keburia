@@ -11,11 +11,10 @@
 <h1>Manage Quizzes</h1>
 
 <p>Welcome, <%= request.getAttribute("adminUsername") %></p>
-<%--<a href="logout">Logout</a>--%>
+
 
 <p>
     <a href="AdminDashboardServlet">Dashboard</a> |
-<%--    <a href="AdminQuizzesServlet">Quizzes</a>--%>
 </p>
 
 <%
@@ -33,12 +32,6 @@
 <div>
     <h3><%= quiz.getName() %></h3>
     <p>ID: <%= quiz.getID() %>, Author: <%= quiz.getAuthor() %></p>
-
-    <form method="post" action="AdminQuizzesServlet">
-        <input type="hidden" name="action" value="clearHistory">
-        <input type="hidden" name="quizId" value="<%= quiz.getID() %>">
-        <button type="submit">Clear History</button>
-    </form>
 
     <form method="post" action="AdminQuizzesServlet">
         <input type="hidden" name="action" value="deleteQuiz">

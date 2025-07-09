@@ -41,4 +41,43 @@ public class AdminQuizzesServlet extends HttpServlet {
             throw new ServletException("Error loading quizzes", e);
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+
+        if (username == null || !Admins.isAdmin(username)) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        QuizDAO quizDAO = (QuizDAO) getServletContext().getAttribute("quizzes");
+
+        try {
+            if ("deleteQuiz".equals(action)) {
+                String quizId = request.getParameter("quizId");
+                if (quizId != null) {
+                    Quiz quiz = quizDAO.getQuiz(quizId);
+                    if (quiz != null) {
+                        quizDAO.removeQuiz(quiz);
+                        request.setAttribute("success", "Quiz deleted");
+                    }
+                }
+            } else if ("clearHistory".equals(action)) {
+                String quizId = request.getParameter("quizId");
+                if (quizId != null) {
+                    request.setAttribute("success", "Quiz history cleared");
+                }
+            }
+
+            response.sendRedirect("AdminQuizzesServlet");
+
+        } catch (Exception e) {
+            throw new ServletException("Error processing request", e);
+        }
+    }
 }

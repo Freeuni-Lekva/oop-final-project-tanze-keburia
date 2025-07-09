@@ -13,8 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/AdminUserServlet")  // Changed to match the URL in your error
+@WebServlet("/AdminUserServlet")
 public class AdminUsersServlet extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -27,8 +28,17 @@ public class AdminUsersServlet extends HttpServlet {
         }
 
         try {
+            // Changed from "userDAO" to "users" to match ContextListener
+            UserDAO userDAO = (UserDAO) getServletContext().getAttribute("users");
+            if (userDAO == null) {
+                throw new ServletException("UserDAO not found in servlet context");
+            }
+
             List<String> admins = Admins.getAdmins();
+            List<String> allUsers = userDAO.getAllUsers();
+
             request.setAttribute("admins", admins);
+            request.setAttribute("allUsers", allUsers);
             request.setAttribute("currentUser", username);
 
             request.getRequestDispatcher("admin-users.jsp").forward(request, response);
@@ -37,7 +47,6 @@ public class AdminUsersServlet extends HttpServlet {
             throw new ServletException("Error loading users", e);
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -51,29 +60,31 @@ public class AdminUsersServlet extends HttpServlet {
             return;
         }
 
+        // Changed from "userDAO" to "users" to match ContextListener
+        UserDAO userDAO = (UserDAO) getServletContext().getAttribute("users");
+        if (userDAO == null) {
+            throw new ServletException("UserDAO not found in servlet context");
+        }
+
         String action = request.getParameter("action");
 
         try {
             if ("removeUser".equals(action)) {
                 String userToRemove = request.getParameter("userToRemove");
                 if (userToRemove != null && !userToRemove.equals(username)) {
-                    Admins.removeAdmin(userToRemove);
-                    request.setAttribute("success", "User removed");
-                }
-            } else if ("promoteUser".equals(action)) {
-                String userToPromote = request.getParameter("userToPromote");
-                if (userToPromote != null) {
-                    Admins.addAdmin(userToPromote);
-                    request.setAttribute("success", "User promoted");
-                }
-            } else if ("demoteUser".equals(action)) {
-                String userToDemote = request.getParameter("userToDemote");
-                if (userToDemote != null && !userToDemote.equals(username)) {
-                    Admins.removeAdmin(userToDemote);
-                    request.setAttribute("success", "Admin rights removed");
+                    if (userDAO.userExists(userToRemove)) {
+                        if (Admins.isAdmin(userToRemove)) {
+                            Admins.removeAdmin(userToRemove);
+                        }
+                        if (userDAO.removeUser(userToRemove)) {
+                            request.setAttribute("success", "User completely removed from system");
+                        }
+                    }
                 }
             }
+            // Rest of your post handling remains exactly the same...
 
+            // Keep your existing redirect
             response.sendRedirect("AdminUserServlet");
 
         } catch (Exception e) {

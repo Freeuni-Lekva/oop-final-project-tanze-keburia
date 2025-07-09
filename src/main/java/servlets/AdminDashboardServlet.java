@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/AdminDashboardServlet")  // Changed to match your JSP
+@WebServlet("/AdminDashboardServlet")
 public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,20 +33,50 @@ public class AdminDashboardServlet extends HttpServlet {
         }
 
         try {
-            AnnouncementDAO announcementDAO = (AnnouncementDAO) getServletContext().getAttribute("announcements");
+            // Get DAOs from servlet context
+            UserDAO userDAO = (UserDAO) getServletContext().getAttribute("users"); // Note: "users" not "userDAO"
             QuizDAO quizDAO = (QuizDAO) getServletContext().getAttribute("quizzes");
+            AnnouncementDAO announcementDAO = (AnnouncementDAO) getServletContext().getAttribute("announcements");
 
-            List<Announcement> announcements = announcementDAO.getAllAnnouncements();
-            int totalQuizzes = quizDAO.getNumQuizes();
+            // Initialize counts
+            int totalUsers = userDAO != null ? userDAO.getUserCount() : 0;
+            int totalQuizzes = quizDAO != null ? quizDAO.getAll().size() : 0;
+            List<Announcement> announcements = announcementDAO != null ? announcementDAO.getAllAnnouncements() : new ArrayList<>();
 
-            request.setAttribute("announcements", announcements);
-            request.setAttribute("totalQuizzes", totalQuizzes);
+            // Get user count with connection verification
+            if (userDAO != null) {
+                try {
+                    totalUsers = userDAO.getUserCount();
+                    System.out.println("[DEBUG] Current user count: " + totalUsers); // Debug log
+                } catch (Exception e) {
+                    System.err.println("Error getting user count: " + e.getMessage());
+                }
+            }
+
+            // Get quiz count
+            if (quizDAO != null) {
+                try {
+                    totalQuizzes = quizDAO.getAll().size();
+                } catch (Exception e) {
+                    System.err.println("Error getting quiz count: " + e.getMessage());
+                }
+            }
+
+            // Set attributes for JSP
             request.setAttribute("adminUsername", username);
-
+            request.setAttribute("totalUsers", totalUsers);
+            request.setAttribute("totalQuizzes", totalQuizzes);
+            request.setAttribute("announcements", announcements); // Add this line
             request.getRequestDispatcher("admin-dashboard.jsp").forward(request, response);
 
-        } catch (SQLException e) {
-            throw new ServletException("Database error", e);
+        } catch (Exception e) {
+            // Fallback values if error occurs
+            request.setAttribute("adminUsername", username);
+            request.setAttribute("totalUsers", 0);
+            request.setAttribute("totalQuizzes", 0);
+            request.setAttribute("error", "Could not load statistics: " + e.getMessage());
+
+            request.getRequestDispatcher("admin-dashboard.jsp").forward(request, response);
         }
     }
 }

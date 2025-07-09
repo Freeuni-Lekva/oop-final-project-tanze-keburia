@@ -9,7 +9,8 @@
 </head>
 <body>
 <h1>Welcome, <%= request.getAttribute("adminUsername") %></h1>
-<%--<a href="logout">Logout</a>--%>
+
+<a href="adminHomepage.jsp">Back to Admin Homepage</a>
 
 <div>
     <a href="AdminAnnouncementServlet">Announcements</a> |
@@ -17,7 +18,11 @@
     <a href="AdminQuizzesServlet">Quizzes</a>
 </div>
 
-<h2>Total Quizzes: <%= request.getAttribute("totalQuizzes") %></h2>
+<h2>Site Statistics</h2>
+<div>
+    <p>Total Users: <%= request.getAttribute("totalUsers") %></p>
+    <p>Total Quizzes: <%= request.getAttribute("totalQuizzes") %></p>
+</div>
 
 <h2>Recent Announcements</h2>
 <%
@@ -32,5 +37,6 @@
 %>
 <p>No announcements</p>
 <% } %>
+
 </body>
 </html>

@@ -36,9 +36,6 @@
         <h3>Admin Panel</h3>
         <div class="admin-links">
             <a href="AdminDashboardServlet" class="link link-purple">Dashboard</a>
-            <a href="AdminUserServlet" class="link link-purple">Manage Users</a>
-            <a href="AdminQuizzesServlet" class="link link-purple">Manage Quizzes</a>
-            <a href="AdminAnnouncementServlet" class="link link-purple">Manage Announcements</a>
         </div>
     </div>
 

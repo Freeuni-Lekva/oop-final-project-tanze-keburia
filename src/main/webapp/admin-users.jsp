@@ -10,38 +10,61 @@
 <h1>Manage Users</h1>
 
 <p>Welcome, <%= request.getAttribute("currentUser") %></p>
-<%--<a href="logout">Logout</a>--%>
 
-<p>
-  <a href="AdminDashboardServlet">Dashboard</a> |
-<%--  <a href="AdminUserServlet">Users</a>--%>
-</p>
+<a href="AdminDashboardServlet">Dashboard</a>
 
-<%
-  String success = (String) request.getAttribute("success");
+<% String success = (String) request.getAttribute("success");
   if (success != null) { %>
-<p>Success: <%= success %></p>
+<p><%= success %></p>
 <% } %>
 
-<h2>Remove User</h2>
-<form method="post" action="AdminUserServlet">
-  <input type="hidden" name="action" value="removeUser">
-  Username: <input type="text" name="userToRemove" required>
-  <button type="submit">Remove</button>
-</form>
+<% String error = (String) request.getAttribute("error");
+  if (error != null) { %>
+<p><%= error %></p>
+<% } %>
 
-<h2>Promote to Admin</h2>
-<form method="post" action="AdminUserServlet">
-  <input type="hidden" name="action" value="promoteUser">
-  Username: <input type="text" name="userToPromote" required>
-  <button type="submit">Promote</button>
-</form>
-
-<h2>Admins</h2>
+<h2>All Users</h2>
 <%
+  List<String> allUsers = (List<String>) request.getAttribute("allUsers");
   List<String> admins = (List<String>) request.getAttribute("admins");
   String currentUser = (String) request.getAttribute("currentUser");
-  if (admins != null) {
+
+  if (allUsers != null && !allUsers.isEmpty()) {
+%>
+<table>
+  <% for (String user : allUsers) {
+    boolean isAdmin = admins != null && admins.contains(user);
+  %>
+  <tr>
+    <td><%= user %></td>
+    <td>
+      <% if (!user.equals(currentUser)) { %>
+      <form method="post" action="AdminUserServlet">
+        <input type="hidden" name="action" value="removeUser">
+        <input type="hidden" name="userToRemove" value="<%= user %>">
+        <button type="submit">Remove User</button>
+      </form>
+      <% } %>
+    </td>
+    <td>
+      <% if (!isAdmin && !user.equals(currentUser)) { %>
+      <form method="post" action="AdminUserServlet">
+        <input type="hidden" name="action" value="promoteUser">
+        <input type="hidden" name="userToPromote" value="<%= user %>">
+        <button type="submit">Promote to Admin</button>
+      </form>
+      <% } %>
+    </td>
+  </tr>
+  <% } %>
+</table>
+<% } else { %>
+<p>No users found</p>
+<% } %>
+
+<h2>Current Admins</h2>
+<%
+  if (admins != null && !admins.isEmpty()) {
     for (String admin : admins) {
 %>
 <p>
@@ -50,13 +73,15 @@
 <form method="post" action="AdminUserServlet" style="display:inline">
   <input type="hidden" name="action" value="demoteUser">
   <input type="hidden" name="userToDemote" value="<%= admin %>">
-  <button type="submit">Remove Admin</button>
+  <button type="submit">Remove Admin Rights</button>
 </form>
 <% } %>
 </p>
 <%
-    }
   }
+} else {
 %>
+<p>No administrators found</p>
+<% } %>
 </body>
 </html>

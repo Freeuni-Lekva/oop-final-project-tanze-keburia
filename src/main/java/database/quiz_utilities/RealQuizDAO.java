@@ -50,8 +50,15 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setInt(6, quiz.getNumQuestions());
             stmt.setString(7, quiz.getTopic());
             stmt.setString(8, quiz.getType());
-            stmt.setString(9, quiz.getPageFormat());
 
+            String pageFormat = "All Questions on One Page";
+            if (quiz instanceof RealQuiz) {
+                RealQuiz realQuiz = (RealQuiz) quiz;
+                if (realQuiz.getPageFormat() != null) {
+                    pageFormat = realQuiz.getPageFormat();
+                }
+            }
+            stmt.setString(9, pageFormat);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to add quiz", e);

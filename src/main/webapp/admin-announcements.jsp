@@ -11,11 +11,10 @@
 <h1>Manage Announcements</h1>
 
 <p>Welcome, <%= request.getAttribute("adminUsername") %></p>
-<%--<a href="logout">Logout</a>--%>
+
 
 <p>
     <a href="AdminDashboardServlet">Dashboard</a> |
-<%--    <a href="AdminAnnouncementServlet">Announcements</a>--%>
 </p>
 
 <%
