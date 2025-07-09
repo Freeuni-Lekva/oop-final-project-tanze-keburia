@@ -9,7 +9,7 @@ public class FriendRequestDAO {
     private final FriendsDAO friendsDAO;
 
     public FriendRequestDAO(Connection conn, FriendsDAO friendsDAO) {
-        this.conn = conn;
+        this.conn = conn; //connection
         this.friendsDAO = friendsDAO;
     }
 
