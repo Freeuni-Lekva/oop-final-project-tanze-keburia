@@ -1,9 +1,8 @@
 package Validation;
 
-import classes.Quiz;
-import database.QuizDAO;
+import classes.quiz_utilities.Quiz;
+import database.quiz_utilities.QuizDAO;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

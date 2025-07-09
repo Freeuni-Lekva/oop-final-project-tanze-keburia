@@ -33,12 +33,12 @@
     <h2>Search Result</h2>
     <p>User found:
         <% if (foundUser.equals(username)) { %>
-        <a href="MyProfileServlet" class="link-blue"><%= foundUser %></a>
+        <a href="myProfile.jsp" class="link-blue"><%= foundUser %></a>
         <% } else { %>
-        <a href="ProfileServlet?username=<%= foundUser %>" class="link-blue"><%= foundUser %></a>
+        <a href="profile.jsp?username=<%= foundUser %>" class="link-blue"><%= foundUser %></a>
         <% } %>
     </p>
-    <p><a href="Homepage" class="link-blue">Back to Home</a></p>
+    <p><a href="homepage.jsp" class="link-blue">Back to Home</a></p>
 </div>
 </body>
 </html>

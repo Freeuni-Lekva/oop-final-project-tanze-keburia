@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="classes.Quiz" %>
+<%@ page import="classes.quiz_utilities.Quiz" %>
 <%
     Quiz quiz = (Quiz) request.getAttribute("quiz");
     int questionCount = ((Integer) request.getAttribute("questionCount")).intValue();
@@ -23,8 +23,22 @@
 
 <p><strong>Type:</strong> <%= quiz.getType() %></p>
 <p><strong>Number of Questions:</strong> <%= questionCount %></p>
-<p><strong>Time Limit:</strong>
-    <%= quiz.getTimeLimit() == 0 ? "No limit" : (quiz.getTimeLimit() / 60) + " minutes and " + (quiz.getTimeLimit() % 60) + " seconds"%>
+        <%
+    int timeLimit = quiz.getTimeLimit();
+    String timeDisplay;
+    if (timeLimit == 0) {
+        timeDisplay = "No limit";
+    } else if (timeLimit < 60) {
+        timeDisplay = timeLimit + " seconds";
+    } else if (timeLimit % 60 == 0) {
+        timeDisplay = (timeLimit / 60) + " minutes";
+    } else {
+        timeDisplay = (timeLimit / 60) + " minutes and " + (timeLimit % 60) + " seconds";
+    }
+%>
+
+<p><strong>Time Limit:</strong> <%= timeDisplay %></p>
+
 </p>
 <p><strong>Topic:</strong> <%= quiz.getTopic() %></p>
 
