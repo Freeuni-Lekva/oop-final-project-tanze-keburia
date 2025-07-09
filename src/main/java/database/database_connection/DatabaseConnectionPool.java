@@ -1,4 +1,4 @@
-package database;
+package database.database_connection;
 
 public class DatabaseConnectionPool {
     public static final String url = "jdbc:mysql://localhost:3306/gmzar23";

@@ -2,7 +2,7 @@ package servlets.login;
 
 
 import classes.User;
-import database.DatabaseConnector;
+import database.database_connection.DatabaseConnector;
 import database.UserDAO;
 
 import javax.servlet.ServletContext;

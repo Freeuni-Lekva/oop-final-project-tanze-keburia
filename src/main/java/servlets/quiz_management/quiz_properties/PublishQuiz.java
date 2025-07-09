@@ -1,10 +1,10 @@
 package servlets;
 
 import Validation.OwnershipChecker;
-import classes.Quiz;
-import database.DatabaseConnector;
-import database.QuizDAO;
-import database.RealQuizDAO;
+import classes.quiz_utilities.Quiz;
+import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
