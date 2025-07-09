@@ -5,6 +5,8 @@ import classes.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private Connection conn;

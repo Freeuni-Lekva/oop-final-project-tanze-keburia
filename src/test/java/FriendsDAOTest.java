@@ -1,5 +1,4 @@
-import database.DatabaseConnectionPool;
-import database.DatabaseConnector;
+import database.database_connection.DatabaseConnector;
 import database.FriendsDAO;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -7,7 +6,6 @@ import org.junit.Test;
 
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
