@@ -21,6 +21,7 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = DatabaseConnector.getInstance();
 
+<<<<<<< Updated upstream
         try (Connection conn = dbc.getConnection()) {
             UserDAO userDAO = new UserDAO(conn);
             userDAO.initialize();
@@ -31,6 +32,35 @@ public class ContextListener implements ServletContextListener {
             FriendRequestDAO friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
             friendRequestDAO.initialize();
             QuizDAO quizDAO = new RealQuizDAO(conn);
+=======
+        dbc = DatabaseConnector.getInstance();
+
+
+        Connection conn = null;
+        try {
+            conn = dbc.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        MailDAO mailDAO = null;
+        UserDAO userDAO = null;
+        AnnouncementDAO announcementDAO = null;
+        FriendsDAO friendsDAO = null;
+        FriendRequestDAO friendRequestDAO = null;
+        QuizDAO quizDAO = null;
+        QuestionDAO questionDAO = null;
+        try {
+            userDAO = new UserDAO(conn);
+            mailDAO = new MailDAO(conn);
+            mailDAO.initialize();
+            announcementDAO = new AnnouncementDAO(conn);
+            announcementDAO.initialize();
+            friendsDAO = new FriendsDAO(conn);
+            friendRequestDAO = new FriendRequestDAO(conn, friendsDAO);
+            quizDAO = new RealQuizDAO(conn);
+            questionDAO = new RealQuestionDAO(conn);
+            questionDAO.initialize();
+>>>>>>> Stashed changes
             quizDAO.initialize();
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
@@ -38,6 +68,19 @@ public class ContextListener implements ServletContextListener {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database schema", e);
         }
+<<<<<<< Updated upstream
+=======
+        ServletContext servletContext = event.getServletContext();
+        servletContext.setAttribute("users", userDAO);
+        servletContext.setAttribute("announcements", announcementDAO);
+        servletContext.setAttribute("friends", friendsDAO);
+        servletContext.setAttribute("friendRequests", friendRequestDAO);
+        servletContext.setAttribute("quizzes", quizDAO);
+        servletContext.setAttribute("questions", questionDAO);
+        servletContext.setAttribute("mails", mailDAO);
+
+
+>>>>>>> Stashed changes
     }
 
     @Override
