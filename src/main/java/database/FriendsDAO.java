@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsDAO {
-    private Connection conn;
+    private Connection conn; //connection
 
     public FriendsDAO(Connection conn) {
         this.conn = conn;
