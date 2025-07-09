@@ -26,7 +26,7 @@
 <body>
 <div class="dashboard">
   <div class="header-row">
-    <h2>Inbox - <%= username %></h2>
+    <h2>Inbox</h2>
     <a href="MyProfileServlet" class="link link-blue">My Profile</a>
   </div>
 

@@ -6,17 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Title</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-
-<%--</body>--%>
-<%--</html>--%>
-
-
-
 <%@ page import="classes.Mail" %>
 <%@ page import="java.util.List" %>
 <%
@@ -24,30 +13,53 @@
   String otherUser = (String) request.getAttribute("otherUser");
   List<Mail> conversation = (List<Mail>) request.getAttribute("conversation");
 %>
+<!DOCTYPE html>
 <html>
-<head><title>Sent Messages to <%= otherUser %></title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Sent to <%= otherUser %></title>
+  <link rel="stylesheet" href="dashboardStyle.css">
+</head>
 <body>
-<h2>Sent Messages to <%= otherUser %></h2>
+<div class="dashboard">
+  <div class="header-row">
+    <h2>Messages to <%= otherUser %></h2>
+    <a href="Homepage" class="link link-blue">Home</a>
+  </div>
 
-<% if (conversation == null || conversation.isEmpty()) { %>
-<p>No sent messages found to <%= otherUser %>.</p>
-<% } else { %>
-<ul>
-  <% for (Mail mail : conversation) { %>
-  <li>
-    <strong>To:</strong> <%= mail.getReceiver() %><br/>
-    <strong>Subject:</strong> <%= mail.getSubject() %><br/>
-    <strong>Time:</strong> <%= mail.getTimestamp() %><br/>
-    <a href="ViewMail?id=<%= mail.getId() %>">View Message</a><br/>
-    <hr/>
-  </li>
-  <% } %>
-</ul>
-<% } %>
+  <div class="recent-messages">
+    <h3>Found mails:</h3>
+    <% if (conversation == null || conversation.isEmpty()) { %>
+    <p>No sent messages found to <%= otherUser %>.</p>
+    <% } else { %>
+    <ul class="message-list">
+      <% for (Mail mail : conversation) { %>
+      <li class="card message-card">
+        <div>
+          <strong>To:</strong> <%= mail.getReceiver() %><br>
+          <strong>Subject:</strong> <%= mail.getSubject() %>
+        </div>
+        <%
+          java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+          String formattedTime = sdf.format(mail.getTimestamp());
+        %>
+        <div class="timestamp"><%= formattedTime %></div>
 
-<br/>
-<a href="SentServlet">Back to Sent</a> |
-<a href="compose.jsp">Compose New</a> |
-<a href="Homepage">Home</a>
+        <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+        <form action="DeleteSentMail" method="post" style="display: inline;">
+          <input type="hidden" name="id" value="<%= mail.getId() %>" />
+          <button type="submit" class="btn btn-red" style="margin-left: 10px;">Delete</button>
+        </form>
+      </li>
+      <% } %>
+    </ul>
+    <% } %>
+  </div>
+
+  <div class="mail-links mt-20 mb-20">
+    <a href="SentServlet" class="link link-blue">Back to Sent</a>
+    <a href="compose.jsp" class="link link-blue">Compose New</a>
+  </div>
+</div>
 </body>
 </html>
