@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="javax.servlet.http.HttpSession" %>
-
+<%@ page import="classes.Mail" %>
+<%@ page import="database.MailDAO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="classes.mail.Mail" %>
 <%
     String username;
     if (session != null) {
@@ -21,8 +21,8 @@
         response.sendRedirect("login.jsp");
         return;
     }
-    List<Mail> inboxPreview = (List<Mail>) request.getAttribute("inboxPreview");
 
+    List<Mail> inboxPreview = (List<Mail>)request.getAttribute("inboxPreview");
 %>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 <div class="dashboard">
     <div class="header-row">
         <h2>Welcome, <%= username %>!</h2>
-        <a href="MyProfileServlet" class="link link-blue">My Profile</a>
+        <a href="myProfile.jsp" class="link link-blue">My Profile</a>
     </div>
 
     <form method="get" action="SearchServlet" class="search-form">
@@ -81,8 +81,8 @@
     </div>
 
     <div class="mail-links mt-20 mb-20">
-        <a href="InboxServlet" class="link link-blue">View Inbox</a>
-        <a href="SentServlet" class="link link-blue">View Sent Mails</a>
+        <a href="inbox.jsp" class="link link-blue">View Inbox</a>
+        <a href="sent.jsp" class="link link-blue">View Sent Mails</a>
     </div>
 
     <div class="bottom-bar mt-30">

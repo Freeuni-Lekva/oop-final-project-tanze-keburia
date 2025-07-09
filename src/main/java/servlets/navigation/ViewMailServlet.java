@@ -1,8 +1,8 @@
-package servlets.navigation;
+package servlets;
 
-import classes.mail.Mail;
+import classes.Mail;
 import database.database_connection.DatabaseConnector;
-import database.social.MailDAO;
+import database.MailDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

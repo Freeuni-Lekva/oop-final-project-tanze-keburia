@@ -1,4 +1,4 @@
-package database.social;
+package database;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class FriendRequestDAO {
         this.friendsDAO = friendsDAO;
 
     }
-    public void initialize() {
+    public void initialize(){
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (" +
                     "sender VARCHAR(255) NOT NULL, " +
@@ -25,7 +25,6 @@ public class FriendRequestDAO {
             throw new RuntimeException("Failed to initialize requests database", e);
         }
     }
-
     public void createRequest(String sender, String receiver) {
         if (sender == null || receiver == null || sender.equals(receiver)) {
             throw new IllegalArgumentException("Invalid sender or receiver");
