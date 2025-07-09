@@ -11,6 +11,6 @@ import java.io.IOException;
 public class GoBackToQuiz extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String quizID = request.getParameter("quizID");
-        response.sendRedirect("ConfigureQuiz?id="+quizID);
+        response.sendRedirect("configureQuiz.jsp?id="+quizID);
     }
 }
