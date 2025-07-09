@@ -27,7 +27,7 @@
         <strong>From:</strong> <%= mail.getSender() %><br/>
         <strong>Subject:</strong> <%= mail.getSubject() %><br/>
         <strong>Time:</strong> <%= mail.getTimestamp() %><br/>
-        <a href="message.jsp?id=<%= mail.getId() %>">View Message</a><br/>
+        <a href="ViewMail?id=<%= mail.getId() %>">View Message</a><br/>
         <% if (mail.getReceiver().equals(currentUser)) { %>
         <form action="DeleteMail" method="post" style="display:inline;">
             <input type="hidden" name="id" value="<%= mail.getId() %>" />
