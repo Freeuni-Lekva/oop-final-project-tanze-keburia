@@ -5,6 +5,7 @@
   Time: 20:20
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="classes.quiz_utilities.*" %>
@@ -18,13 +19,36 @@
 <html>
 <head>
   <title>Take Quiz: <%= quiz.getName() %></title>
+  <%-- Countdown Timer Script --%>
+  <% int timeLimit = quiz.getTimeLimit(); %>
+  <% if (timeLimit > 0) { %>
+  <script>
+    let timeLeft = <%= timeLimit %>;
+    window.onload = function () {
+      const timerDisplay = document.createElement('p');
+      timerDisplay.style.fontWeight = 'bold';
+      document.body.insertBefore(timerDisplay, document.body.firstChild);
+
+      function updateTimer() {
+        if (timeLeft <= 0) {
+          alert("Time is up! Submitting your quiz.");
+          document.forms[0].submit();
+        } else {
+          timerDisplay.innerText = "Time Left: " + timeLeft + " seconds";
+          timeLeft--;
+          setTimeout(updateTimer, 1000);
+        }
+      }
+      updateTimer();
+    };
+  </script>
+  <% } %>
 </head>
 <body>
 
 <h1>Take Quiz: <%= quiz.getName() %></h1>
 <p><strong>Topic:</strong> <%= quiz.getTopic() %></p>
 <%
-  int timeLimit = quiz.getTimeLimit();
   String timeDisplay;
   if (timeLimit == 0) {
     timeDisplay = "No limit";
@@ -70,7 +94,6 @@
   <%
     }
   %>
-
   <button type="submit">End Quiz</button>
 </form>
 
@@ -79,5 +102,6 @@
 
 </body>
 </html>
+
 
 

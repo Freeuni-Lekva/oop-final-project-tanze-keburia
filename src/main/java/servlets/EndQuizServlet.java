@@ -66,6 +66,27 @@ public class EndQuizServlet extends HttpServlet {
             }
         }
 
+
+
+        Long startTimeObj = (Long) session.getAttribute("quizStartTime");
+        Long endTime = System.currentTimeMillis();
+        String timeTakenStr;
+
+        if ("true".equals(request.getParameter("submittedDueToTimeout"))) {
+            timeTakenStr = "Time limit exceeded";
+        } else if (startTimeObj == null) {
+            timeTakenStr = "N/A";
+        } else {
+            long timeTaken = (endTime - startTimeObj) / 1000;
+            if (timeTaken < 60) {
+                timeTakenStr = timeTaken + " seconds";
+            } else {
+                timeTakenStr = (timeTaken / 60) + " minutes and " + (timeTaken % 60) + " seconds";
+            }
+        }
+        request.setAttribute("timeTaken", timeTakenStr);
+
+
         request.setAttribute("totalScore", totalScore);
         request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
     }

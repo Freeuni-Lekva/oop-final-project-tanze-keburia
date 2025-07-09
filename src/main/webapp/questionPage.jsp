@@ -5,6 +5,7 @@
   Time: 23:57
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page import="java.util.Map" %>
 <%@ page import="classes.quiz_utilities.*" %>
 <%@ page import="java.util.List" %>
@@ -13,6 +14,7 @@
     List<Question> questions = (List<Question>) session.getAttribute("questionList");
     Integer index = (Integer) session.getAttribute("currentIndex");
     Map<String, GeneralAnswer> savedAnswers = (Map<String, GeneralAnswer>) session.getAttribute("savedAnswers");
+    Quiz quiz = (Quiz) session.getAttribute("quiz");
 
     if (questions == null || index == null || index < 0 || index >= questions.size()) {
 %>
@@ -32,6 +34,52 @@
 <html>
 <head>
     <title>Question <%= index + 1 %> of <%= questions.size() %></title>
+    <% int timeLimit = quiz.getTimeLimit(); %>
+    <% if (timeLimit > 0) { %>
+    <script>
+        let totalTime = <%= timeLimit %>;
+
+        if (!sessionStorage.getItem("quizTimer")) {
+            sessionStorage.setItem("quizTimer", totalTime);
+        }
+
+        let timeLeft = parseInt(sessionStorage.getItem("quizTimer"));
+        window.onload = function () {
+            const timerDisplay = document.createElement('p');
+            timerDisplay.style.fontWeight = 'bold';
+            document.body.insertBefore(timerDisplay, document.body.firstChild);
+
+            function updateTimer() {
+                if (timeLeft <= 0) {
+                    sessionStorage.removeItem("quizTimer");
+                    alert("Time is up! Submitting your quiz.");
+
+
+                    const form = document.createElement("form");
+                    form.method = "POST";
+                    form.action = "endQuiz";
+
+                    const timeoutInput = document.createElement("input");
+                    timeoutInput.type = "hidden";
+                    timeoutInput.name = "submittedDueToTimeout";
+                    timeoutInput.value = "true";
+                    form.appendChild(timeoutInput);
+
+                    document.body.appendChild(form);
+                    form.submit();
+
+                } else {
+                    timerDisplay.innerText = "Time Left: " + timeLeft + " seconds";
+                    timeLeft--;
+                    sessionStorage.setItem("quizTimer", timeLeft);
+                    setTimeout(updateTimer, 1000);
+                }
+            }
+
+            updateTimer();
+        };
+    </script>
+    <% } %>
 </head>
 <body>
 
