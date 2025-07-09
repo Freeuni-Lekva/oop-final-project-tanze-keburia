@@ -21,6 +21,7 @@
 </p>
 
 
+
 <%
   Object scoreObj = request.getAttribute("totalScore");
   double score = (scoreObj instanceof Double) ? (Double) scoreObj : 0.0;

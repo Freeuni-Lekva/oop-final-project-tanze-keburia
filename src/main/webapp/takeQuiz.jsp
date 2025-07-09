@@ -31,8 +31,21 @@
 
       function updateTimer() {
         if (timeLeft <= 0) {
+          // alert("Time is up! Submitting your quiz.");
+          // document.forms[0].submit();
           alert("Time is up! Submitting your quiz.");
-          document.forms[0].submit();
+
+          const form = document.forms[0];
+          const hidden = document.createElement("input");
+          hidden.type = "hidden";
+          hidden.name = "submittedDueToTimeout";
+          hidden.value = "true";
+          form.appendChild(hidden);
+
+          alert("Time is up! Submitting your quiz.");
+          form.submit();
+
+
         } else {
           timerDisplay.innerText = "Time Left: " + timeLeft + " seconds";
           timeLeft--;

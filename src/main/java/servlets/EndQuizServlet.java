@@ -68,11 +68,12 @@ public class EndQuizServlet extends HttpServlet {
 
 
 
+        String submittedDueToTimeout = request.getParameter("submittedDueToTimeout");
         Long startTimeObj = (Long) session.getAttribute("quizStartTime");
         Long endTime = System.currentTimeMillis();
         String timeTakenStr;
 
-        if ("true".equals(request.getParameter("submittedDueToTimeout"))) {
+        if ("true".equals(submittedDueToTimeout)) {
             timeTakenStr = "Time limit exceeded";
         } else if (startTimeObj == null) {
             timeTakenStr = "N/A";
@@ -85,6 +86,7 @@ public class EndQuizServlet extends HttpServlet {
             }
         }
         request.setAttribute("timeTaken", timeTakenStr);
+
 
 
         request.setAttribute("totalScore", totalScore);

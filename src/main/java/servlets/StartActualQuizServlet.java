@@ -25,6 +25,10 @@ public class StartActualQuizServlet extends HttpServlet {
         ServletContext context = getServletContext();
         HttpSession session = request.getSession();
 
+// Reset saved answers for a fresh start
+        session.removeAttribute("savedAnswers");
+
+
         QuizDAO quizDAO = (QuizDAO) context.getAttribute("quizzes");
         QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
 
