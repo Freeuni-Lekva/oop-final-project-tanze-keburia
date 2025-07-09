@@ -24,8 +24,11 @@ import java.sql.SQLException;
 public class StartQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("HELl");
         String quizId = request.getParameter("id");
+        System.out.println(quizId);
         if (quizId == null) {
+            System.out.println("FUCCCKKK");
             response.sendRedirect("viewAllQuizzes");
             return;
         }
@@ -34,7 +37,7 @@ public class StartQuizServlet extends HttpServlet {
         try(Connection connection = DatabaseConnector.getInstance().getConnection()){
             QuizDAO quizDAO = new RealQuizDAO(connection);
             QuestionDAO questionDAO= new RealQuestionDAO(connection);
-
+            System.out.println(quizId);
             Quiz quiz = quizDAO.getQuiz(quizId);
             if (quiz == null) {
                 response.sendRedirect("viewAllQuizzes");
@@ -42,6 +45,7 @@ public class StartQuizServlet extends HttpServlet {
             }
 
             int questionCount = questionDAO.getQuiz(quizId).size();
+            System.out.println(questionCount);
             request.setAttribute("quiz", quiz);
             request.setAttribute("questionCount", questionCount);
             request.getRequestDispatcher("/WEB-INF/startQuiz.jsp").forward(request, response);

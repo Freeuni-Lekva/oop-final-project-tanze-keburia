@@ -23,7 +23,11 @@ public class QuizHistoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         String username = (String) session.getAttribute("username");
         if (username == null) {
             response.sendRedirect("login.jsp");
