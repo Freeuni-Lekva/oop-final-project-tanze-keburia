@@ -1,7 +1,7 @@
 package servlets;
 
 import classes.Mail;
-import database.DatabaseConnector;
+import database.database_connection.DatabaseConnector;
 import database.MailDAO;
 
 import javax.servlet.RequestDispatcher;

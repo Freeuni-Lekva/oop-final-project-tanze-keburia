@@ -11,6 +11,9 @@ public class UserDAO {
 
     public UserDAO(Connection conn) throws SQLException {
         this.conn = conn;
+
+    }
+    public void initialize() throws SQLException {
         String sql = "DROP TABLE IF EXISTS users";
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
@@ -21,7 +24,6 @@ public class UserDAO {
         stmt.execute(sql);
         stmt.close();
     }
-
     public void addUser(User u) {
         String sql =  "INSERT INTO users (userName, passwordHash) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {

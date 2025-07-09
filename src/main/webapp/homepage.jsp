@@ -21,8 +21,8 @@
         response.sendRedirect("login.jsp");
         return;
     }
-    MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-    List<Mail> inboxPreview = mailDAO.getInbox(username);
+
+    List<Mail> inboxPreview = (List<Mail>)request.getAttribute("inboxPreview");
 %>
 
 <!DOCTYPE html>
