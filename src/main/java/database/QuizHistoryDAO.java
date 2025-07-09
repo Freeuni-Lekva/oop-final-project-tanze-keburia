@@ -63,7 +63,8 @@ public class QuizHistoryDAO {
                     Quiz x = quizzes.getQuiz(id);
                     QuizResult result = new QuizResult(
                             rs.getString("username"),
-                            x,
+                            x.getID(),
+                            x.getName(),
                             rs.getDouble("score"),
                             rs.getTimestamp("submit_time")
                     );

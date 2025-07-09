@@ -24,11 +24,11 @@ import java.sql.SQLException;
 public class StartQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("HELl");
+
         String quizId = request.getParameter("id");
-        System.out.println(quizId);
+
         if (quizId == null) {
-            System.out.println("FUCCCKKK");
+
             response.sendRedirect("viewAllQuizzes");
             return;
         }

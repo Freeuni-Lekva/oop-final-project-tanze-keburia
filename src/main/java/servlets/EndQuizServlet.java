@@ -75,8 +75,8 @@ public class EndQuizServlet extends HttpServlet {
                     }
                 }
             }
-            Quiz x =  quizDAO.getQuiz(quiz.getID());
-            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
+
+            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), quiz.getID(), quiz.getName(), totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
             System.out.println("fdaf;ljkad");
             request.setAttribute("totalScore", totalScore);
