@@ -28,7 +28,6 @@ public class UserDAO {
             stmt.setString(1, u.getUserName());
             stmt.setString(2, u.getPassword());
             stmt.executeUpdate();
-            stmt.close();
         } catch (SQLException e) {e.printStackTrace();}
     }
 
