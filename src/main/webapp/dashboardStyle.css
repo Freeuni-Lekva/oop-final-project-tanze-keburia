@@ -229,6 +229,112 @@ html, body {
 }
 
 
+
+/* ========== New Announcement Styles ========== */
+.announcement-card {
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.announcement-card p {
+    margin: 5px 0;
+}
+
+textarea.input-full {
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+/* ========== Button Alignment ========== */
+form button[type="submit"] {
+    margin-top: 5px;
+}
+
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* ========== Quiz Configuration Styles ========== */
+.quiz-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quiz-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.quiz-info {
+    flex-grow: 1;
+}
+
+.no-quizzes {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.time-limit {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.time-limit p {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.publish-form {
+    padding: 20px;
+}
+
+/* Quiz Actions */
+.quiz-actions {
+    margin: 20px 0;
+}
+
+.quiz-actions form {
+    width: 100%;
+}
+
+/* Form Elements */
+select.input-full {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* ========== Navigation Links ========== */
+.nav-links {
+    margin: 20px 0;
+}
+
+.nav-links a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+
 /* ========== Utility Classes ========== */
 .mt-20 { margin-top: 20px; }
 .mb-20 { margin-bottom: 20px; }

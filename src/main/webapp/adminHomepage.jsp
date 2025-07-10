@@ -64,7 +64,7 @@
   </form>
 
   <div class="quiz-actions">
-    <form action="viewAllQuizzes" method="get">
+    <form action="AdminQuizzesServlet" method="get">
       <button type="submit" class="btn btn-green">View All Quizzes</button>
     </form>
     <form action="CreateQuiz" method="post">

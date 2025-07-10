@@ -33,6 +33,7 @@ public class AnnouncementDAO {
         }
     }
 
+
     public void addAnnouncement(Announcement toAdd) throws SQLException {
         try(PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO announcements(author, body, ID, created_date) VALUES(?, ?, ?, ?)"
