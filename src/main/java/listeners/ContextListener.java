@@ -28,7 +28,7 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = DatabaseConnector.getInstance();
         final String DEFAULT_ADMIN_USERNAME = "admin";
-        final String DEFAULT_ADMIN_PASSWORD = "123"; // Change this to a secure password
+        final String DEFAULT_ADMIN_PASSWORD = "123";
 
 
         try (Connection conn = dbc.getConnection()) {
@@ -39,8 +39,8 @@ public class ContextListener implements ServletContextListener {
             if (!userDAO.userExists(DEFAULT_ADMIN_USERNAME)) {
                 User adminUser = new User(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD);
                 userDAO.addUser(adminUser);
-                userDAO.setAdminStatus(DEFAULT_ADMIN_USERNAME, true); // Set admin status in DB
-                Admins.addAdmin(DEFAULT_ADMIN_USERNAME); // Add to in-memory list
+                userDAO.setAdminStatus(DEFAULT_ADMIN_USERNAME, true);
+                Admins.addAdmin(DEFAULT_ADMIN_USERNAME);
                 System.out.println("Created default admin user: " + DEFAULT_ADMIN_USERNAME);
             } else if (!Admins.isAdmin(DEFAULT_ADMIN_USERNAME)) {
                 userDAO.setAdminStatus(DEFAULT_ADMIN_USERNAME, true);
