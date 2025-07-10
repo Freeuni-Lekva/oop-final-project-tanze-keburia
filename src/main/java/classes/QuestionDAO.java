@@ -1,5 +1,7 @@
 package classes;
 
+import classes.quiz_utilities.questions.Question;
+
 import java.util.List;
 
 public interface QuestionDAO {

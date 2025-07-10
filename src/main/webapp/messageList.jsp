@@ -1,4 +1,5 @@
-<%--
+<%@ page import="classes.mail.Mail" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: mzare
   Date: 07-Jul-25
@@ -6,8 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="classes.Mail" %>
-<%@ page import="java.util.List" %>
+
 <%
     String currentUser = (String) request.getAttribute("currentUser");
     String otherUser = (String) request.getAttribute("otherUser");
@@ -27,7 +27,7 @@
         <strong>From:</strong> <%= mail.getSender() %><br/>
         <strong>Subject:</strong> <%= mail.getSubject() %><br/>
         <strong>Time:</strong> <%= mail.getTimestamp() %><br/>
-        <a href="message.jsp?id=<%= mail.getId() %>">View Message</a><br/>
+        <a href="ViewMail?id=<%= mail.getId() %>">View Message</a><br/>
         <% if (mail.getReceiver().equals(currentUser)) { %>
         <form action="DeleteMail" method="post" style="display:inline;">
             <input type="hidden" name="id" value="<%= mail.getId() %>" />

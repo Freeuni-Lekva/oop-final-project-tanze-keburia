@@ -1,7 +1,6 @@
-import classes.Mail;
-import database.DatabaseConnectionPool;
-import database.DatabaseConnector;
-import database.MailDAO;
+import classes.mail.Mail;
+import database.database_connection.DatabaseConnector;
+import database.social.MailDAO;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

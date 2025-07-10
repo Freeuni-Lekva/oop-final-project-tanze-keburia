@@ -1,0 +1,66 @@
+package servlets.quiz_participation;
+
+
+
+import classes.quiz_utilities.questions.Question;
+import classes.quiz_utilities.quiz.Quiz;
+import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuestionDAO;
+import database.quiz_utilities.RealQuizDAO;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+
+@WebServlet("/StartActualQuizServlet")
+public class StartActualQuizServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String quizID = request.getParameter("id");
+
+        ServletContext context = getServletContext();
+        HttpSession session = request.getSession();
+        try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            QuizDAO quizDAO = new RealQuizDAO(conn);
+            QuestionDAO questionDAO = new RealQuestionDAO(conn);
+
+            Quiz quiz = quizDAO.getQuiz(quizID);
+            List<Question> questions = questionDAO.getQuiz(quizID);
+
+            if (quiz == null || questions == null || questions.isEmpty()) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Quiz not found or has no questions.");
+                return;
+            }
+
+            session.setAttribute("questionList", questions);
+            session.setAttribute("currentIndex", 0);
+            session.setAttribute("currentQuizID", quizID);
+            session.setAttribute("quiz", quiz);
+
+            request.setAttribute("quiz", quiz);
+            request.setAttribute("questions", questions);
+
+            String format = quiz.getPageFormat();
+
+            if ("One Question at a Time".equalsIgnoreCase(format)) {
+                request.setAttribute("currentQuestion", questions.get(0));
+                request.setAttribute("questionIndex", 0);
+                request.setAttribute("totalQuestions", questions.size());
+                request.getRequestDispatcher("questionPage.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("takeQuiz.jsp").forward(request, response);
+            }
+        }catch(SQLException e) {
+            throw new RuntimeException("Could not connect database");
+        }
+    }
+}

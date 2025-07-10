@@ -1,9 +1,7 @@
-import classes.MockQuestion;
-import classes.Question;
-import database.MockQuestionDAO;
+import classes.quiz_utilities.questions.MockQuestion;
+import classes.quiz_utilities.questions.Question;
+import database.quiz_utilities.MockQuestionDAO;
 import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 
 public class MockQuestionDAOTest extends TestCase {

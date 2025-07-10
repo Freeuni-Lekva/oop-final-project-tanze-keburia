@@ -5,9 +5,9 @@
   Time: 2:13 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="classes.Mail" %>
-<%@ page import="database.MailDAO" %>
+
 <%@ page import="java.util.List" %>
+<%@ page import="classes.mail.Mail" %>
 <%
     String username = (String) session.getAttribute("username");
     if (username == null) {
@@ -29,7 +29,7 @@
         <strong>To:</strong> <%= mail.getReceiver() %><br/>
         <strong>Subject:</strong> <%= mail.getSubject() %><br/>
         <strong>Time:</strong> <%= mail.getTimestamp() %><br/>
-        <a href="message.jsp?id=<%= mail.getId() %>">View Message</a><br/>
+        <a href="ViewMail?id=<%= mail.getId() %>">View Message</a><br/>
         <form action="DeleteSentMail" method="post" style="display:inline;">
             <input type="hidden" name="id" value="<%= mail.getId() %>" />
             <button type="submit">Delete</button>

@@ -6,9 +6,9 @@
     To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="classes.QuizResult" %>
+<%@ page import="classes.quiz_result.QuizResult" %>
 <%@ page import="java.util.List" %>
-<%@ page import="database.RealQuizDAO" %>
+<%@ page import="database.quiz_utilities.RealQuizDAO" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -24,8 +24,8 @@
         targetUser = currentUser;
     }
 
-    List quizHistory = (List) request.getAttribute("quizHistory");
-    RealQuizDAO realQuizDAO = (RealQuizDAO) request.getAttribute("realQuizDAO");
+    List <QuizResult>quizHistory = (List<QuizResult>) request.getAttribute("History");
+    //RealQuizDAO realQuizDAO = (RealQuizDAO) request.getAttribute("realQuizDAO");
 %>
 
 <!DOCTYPE html>
@@ -34,31 +34,24 @@
     <title><%= targetUser %>'s Quiz History</title>
 </head>
 <body>
-<a href="<%= currentUser.equals(targetUser) ? "homepage.jsp" : "profile.jsp?username=" + targetUser %>">Back</a>
+<a href="<%= currentUser.equals(targetUser) ? "Homepage" : "ProfileServlet?username=" + targetUser %>">Back</a>
 <h2><%= targetUser %>'s Quiz History</h2>
 
 <%
-    if(quizHistory == null || quizHistory.isEmpty()){
+    if(quizHistory.isEmpty()){
 %>
 <p>No quiz history available.</p>
 <%
 } else {
     for(Object obj : quizHistory){
         QuizResult quizResult = (QuizResult) obj;
-        int score = quizResult.getScore();
+        double score = quizResult.getScore();
         Timestamp time = quizResult.getSubmitTime();
         String quizId = quizResult.getQuizId();
         String quizName = "";
-
-        if(realQuizDAO != null) {
-            quizName = realQuizDAO.getQuizNameById(quizId);
-        }
-
-        if(quizName == null || quizName.isEmpty()) {
-            quizName = "Quiz #" + quizId;
-        }
+        quizName = quizResult.getQuizName();
 %>
-<p><a href="QuizTakeServlet?quizId=<%= quizId %>"><%= quizName %></a></p>
+<p><a href="startQuiz?id=<%=quizId%>"><%= quizName %></a></p>
 <p>Score: <%= score %>%</p>
 <p>Completed: <%= time != null ? time.toString() : "Unknown" %></p>
 <hr>

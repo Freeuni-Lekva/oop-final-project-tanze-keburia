@@ -17,7 +17,7 @@
 
 
 
-<%@ page import="classes.Mail" %>
+<%@ page import="classes.mail.Mail" %>
 <%@ page import="java.util.List" %>
 <%
   String currentUser = (String) request.getAttribute("currentUser");
@@ -38,7 +38,7 @@
     <strong>To:</strong> <%= mail.getReceiver() %><br/>
     <strong>Subject:</strong> <%= mail.getSubject() %><br/>
     <strong>Time:</strong> <%= mail.getTimestamp() %><br/>
-    <a href="message.jsp?id=<%= mail.getId() %>">View Message</a><br/>
+    <a href="ViewMail?id=<%= mail.getId() %>">View Message</a><br/>
     <hr/>
   </li>
   <% } %>
