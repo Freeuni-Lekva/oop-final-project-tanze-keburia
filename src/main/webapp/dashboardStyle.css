@@ -216,6 +216,11 @@ html, body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
 /* ========== Form Input Layout ========== */
 .input-full {
     display: block;
