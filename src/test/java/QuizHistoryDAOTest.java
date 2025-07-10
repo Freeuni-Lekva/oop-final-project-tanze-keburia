@@ -41,6 +41,7 @@ public class QuizHistoryDAOTest {
     @Test
     public void testAddAndRetrieveResult() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
+
         QuizResult result = new QuizResult("alice", "1", 95, now);
         historyDAO.addResult(result);
 

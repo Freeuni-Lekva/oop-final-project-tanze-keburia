@@ -1,4 +1,4 @@
-package database;
+package database.social;
 
 import java.sql.*;
 import java.util.ArrayList;

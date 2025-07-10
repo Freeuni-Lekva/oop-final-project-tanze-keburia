@@ -1,4 +1,6 @@
-package database;
+package database.social;
+
+import database.social.FriendsDAO;
 
 import java.sql.*;
 import java.util.ArrayList;

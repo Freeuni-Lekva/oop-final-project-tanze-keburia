@@ -1,6 +1,6 @@
-package database;
+package database.user;
 
-import classes.Hasher;
+import classes.security.Hasher;
 import classes.User;
 
 import java.security.NoSuchAlgorithmException;
