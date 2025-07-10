@@ -1,8 +1,5 @@
-import classes.quiz_utilities.Option;
-import database.database_connection.DatabaseConnector;
+import classes.quiz_utilities.options.Option;
 import database.quiz_utilities.OptionsDAO;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

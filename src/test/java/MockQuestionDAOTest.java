@@ -1,5 +1,5 @@
-import classes.quiz_utilities.MockQuestion;
-import classes.quiz_utilities.Question;
+import classes.quiz_utilities.questions.MockQuestion;
+import classes.quiz_utilities.questions.Question;
 import database.quiz_utilities.MockQuestionDAO;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.BeforeEach;

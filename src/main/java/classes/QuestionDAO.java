@@ -1,6 +1,6 @@
 package classes;
 
-import classes.quiz_utilities.Question;
+import classes.quiz_utilities.questions.Question;
 
 import java.util.List;
 

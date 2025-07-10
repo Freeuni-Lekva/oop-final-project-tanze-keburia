@@ -1,10 +1,9 @@
 package servlets.friend_management;
 
-import database.FriendsDAO;
+import database.social.FriendsDAO;
 import database.database_connection.DatabaseConnector;
-import database.FriendRequestDAO;
+import database.social.FriendRequestDAO;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

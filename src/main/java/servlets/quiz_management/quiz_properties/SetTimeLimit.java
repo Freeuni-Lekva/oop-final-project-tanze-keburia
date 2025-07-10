@@ -1,7 +1,7 @@
 package servlets;
 
 import Validation.OwnershipChecker;
-import classes.quiz_utilities.Quiz;
+import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuizDAO;

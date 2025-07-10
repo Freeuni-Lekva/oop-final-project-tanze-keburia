@@ -1,8 +1,6 @@
-import classes.QuizResult;
-import database.DatabaseConnectionPull;
-import database.database_connection.DatabaseConnectionPool;
+import classes.quiz_result.QuizResult;
 import database.database_connection.DatabaseConnector;
-import database.QuizHistoryDAO;
+import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuizDAO;
 import org.junit.*;

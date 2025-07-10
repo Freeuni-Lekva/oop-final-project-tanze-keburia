@@ -1,6 +1,6 @@
 package database.quiz_utilities;
 
-import classes.quiz_utilities.Option;
+import classes.quiz_utilities.options.Option;
 
 import java.sql.*;
 import java.util.ArrayList;

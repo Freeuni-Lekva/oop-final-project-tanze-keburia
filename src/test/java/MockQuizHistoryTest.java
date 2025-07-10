@@ -1,5 +1,5 @@
-import classes.QuizResult;
-import database.MockQuizHistoryDAO;
+import classes.quiz_result.QuizResult;
+import database.history.MockQuizHistoryDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

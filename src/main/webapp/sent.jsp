@@ -5,17 +5,16 @@
   Time: 2:13 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="classes.Mail" %>
-<%@ page import="database.MailDAO" %>
+
 <%@ page import="java.util.List" %>
+<%@ page import="classes.mail.Mail" %>
 <%
     String username = (String) session.getAttribute("username");
     if (username == null) {
         response.sendRedirect("login.jsp");
         return;
     }
-    MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-    List<Mail> sent = mailDAO.getSent(username);
+    List<Mail> sent = (List<Mail>) request.getAttribute("sentMails");
 %>
 <html>
 <head><title>Sent Messages</title></head>
@@ -56,7 +55,7 @@
 
 
 <a href="compose.jsp">Compose New</a> |
-<a href="inbox.jsp">Inbox</a> |
-<a href="homepage.jsp">Home</a>
+<a href="InboxServlet">Inbox</a> |
+<a href="Homepage">Home</a>
 </body>
 </html>

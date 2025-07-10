@@ -19,5 +19,6 @@
     <a href="login.jsp">Back to Log in</a>
 </div>
 </body>
+
 </html>
 

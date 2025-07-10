@@ -1,5 +1,4 @@
-import classes.quiz_utilities.Option;
-import org.junit.BeforeClass;
+import classes.quiz_utilities.options.Option;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

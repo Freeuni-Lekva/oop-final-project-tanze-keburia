@@ -1,4 +1,4 @@
-import classes.QuizResult;
+import classes.quiz_result.QuizResult;
 import org.junit.Test;
 
 import java.sql.Timestamp;

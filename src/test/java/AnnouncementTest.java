@@ -1,7 +1,6 @@
-import classes.Announcement;
+import classes.admin.Announcement;
 import org.junit.Test;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

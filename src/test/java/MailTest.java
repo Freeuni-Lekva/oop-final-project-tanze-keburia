@@ -1,4 +1,4 @@
-import classes.Mail;
+import classes.mail.Mail;
 import junit.framework.TestCase;
 import org.junit.Test;
 

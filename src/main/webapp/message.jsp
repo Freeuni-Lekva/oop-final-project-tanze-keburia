@@ -5,7 +5,7 @@
   Time: 5:20 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="classes.Mail" %>
+<%@ page import="classes.mail.Mail" %>
 <%
   String username = (String) session.getAttribute("username");
   if (username == null) {

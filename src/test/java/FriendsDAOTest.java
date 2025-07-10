@@ -1,5 +1,5 @@
 import database.database_connection.DatabaseConnector;
-import database.FriendsDAO;
+import database.social.FriendsDAO;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

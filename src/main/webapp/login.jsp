@@ -18,6 +18,7 @@
 
         <input type="submit" value="Login" />
     </form>
+
     <a href="signup.jsp">Create new account</a>
 </div>
 

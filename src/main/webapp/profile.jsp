@@ -5,8 +5,8 @@
   Time: 11:42 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="database.FriendsDAO" %>
-<%@ page import="database.FriendRequestDAO" %>
+<%@ page import="database.social.FriendsDAO" %>
+<%@ page import="database.social.FriendRequestDAO" %>
 <%@ page import="javax.servlet.ServletContext" %>
 <%@ page import="java.util.List" %>
 <%

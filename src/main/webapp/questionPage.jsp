@@ -8,6 +8,8 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="classes.quiz_utilities.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="classes.quiz_utilities.answer.GeneralAnswer" %>
+<%@ page import="classes.quiz_utilities.questions.Question" %>
 
 <%
     List<Question> questions = (List<Question>) session.getAttribute("questionList");

@@ -1,4 +1,4 @@
-import classes.Admins;
+import database.admin.Admins;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

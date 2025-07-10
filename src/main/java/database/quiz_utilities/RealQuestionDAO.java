@@ -1,7 +1,7 @@
 package database.quiz_utilities;
 
-import classes.quiz_utilities.Question;
-import classes.quiz_utilities.RealQuestion;
+import classes.quiz_utilities.questions.Question;
+import classes.quiz_utilities.questions.RealQuestion;
 
 
 import java.sql.*;
