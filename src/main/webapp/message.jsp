@@ -38,9 +38,9 @@
 <hr/>
 <p><%= mail.getContent().replaceAll("\n", "<br/>") %></p>
 <hr/>
-<a href="inbox.jsp">Back to Inbox</a> |
-<a href="sent.jsp">Back to Sent</a> |
-<a href="homepage.jsp">Home</a>
+<a href="InboxServlet">Back to Inbox</a> |
+<a href="SentServlet">Back to Sent</a> |
+<a href="Homepage">Home</a>
 </body>
 </html>
 
