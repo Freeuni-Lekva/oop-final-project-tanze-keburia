@@ -42,7 +42,7 @@ public class ChallengeDAO {
         try(PreparedStatement stmt = conn.prepareStatement(
                 "DELETE FROM challenges WHERE quiz_id = ? " +
                         "and sender = ? and receiver = ? " +
-                        "and score = ? and quiz_name = ?"
+                        "and ABS(score - ?) < 0.000001 and quiz_name = ?"
         )){
            stmt.setString(1, x.getQuizID());
            stmt.setString(2, x.getSender());
@@ -75,7 +75,7 @@ public class ChallengeDAO {
     }
     public boolean ChallengeExists(Challenge challenge) throws SQLException {
         try(PreparedStatement stmt = conn.prepareStatement(
-                "SELECT *  FROM challenges WHERE quiz_id = ? and sender = ? and receiver = ? and score = ?"
+                "SELECT *  FROM challenges WHERE quiz_id = ? and sender = ? and receiver = ? and ABS(score - ?)< 0.000001"
         )){
             stmt.setString(1, challenge.getQuizID());
             stmt.setString(2, challenge.getSender());

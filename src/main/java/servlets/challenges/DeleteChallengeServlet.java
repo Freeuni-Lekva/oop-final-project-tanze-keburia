@@ -26,8 +26,11 @@ public class DeleteChallengeServlet extends HttpServlet {
         String quizName = request.getParameter("quiz_name");
         double score =   Double.parseDouble(request.getParameter("score"));
         String quizID = request.getParameter("quiz_id");
-
-
+        System.out.println("Receiver: " + receiver);
+        System.out.println("Sender: " + sender);
+        System.out.println("Quiz Name: " + quizName);
+        System.out.println("Score: " + score);
+        System.out.println("Quiz ID: " + quizID);
         Challenge challenge = new Challenge(sender, receiver, quizID, quizName, score);
         try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
             ChallengeDAO challengeDAO = new ChallengeDAO(conn);

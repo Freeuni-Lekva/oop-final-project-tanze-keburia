@@ -28,8 +28,6 @@
         </thead>
         <tbody>
         <%
-          int rank = 1;
-
           for (Challenge entry : challengeList) {
            // String receiver = entry.getReceiver();
             Double score = entry.getScore();
@@ -46,7 +44,7 @@
               <input type = "hidden" name="quiz_id" value="<%=id%>">
               <input type = "hidden" name="score" value="<%=score%>">
               <input type = "hidden" name = "sender" value ="<%=sender%>">
-              <input type = "hidden" name = "quiz_name" value="<%=id%>" >
+              <input type = "hidden" name = "quiz_name" value="<%=quiz_name%>" >
               <input type = "submit" value ="Reject Challenge(PUSSY)">
             </form>
           </td>
@@ -57,7 +55,7 @@
         </tbody>
       </table>
       <%} else{%>
-      <p>No participants yet</p>
+      <p>No Challenges yet</p>
       <%}
       %>
 
