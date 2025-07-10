@@ -1,4 +1,6 @@
 import classes.quiz_result.QuizResult;
+import classes.quiz_utilities.quiz.MockQuiz;
+import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
 import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuizDAO;
@@ -41,7 +43,13 @@ public class QuizHistoryDAOTest {
     @Test
     public void testAddAndRetrieveResult() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        QuizResult result = new QuizResult("alice", "1", 95, now);
+
+        // Create mock quiz
+        Quiz quiz = new MockQuiz("alice", now, "1", "Multiple Choice", "Sample Quiz", "Page-by-page");
+        quiz.setNumQuestions(10);
+        quiz.setTopic("Science");
+
+        QuizResult result = new QuizResult("alice", quiz, 95, now);
         historyDAO.addResult(result);
 
         List<QuizResult> results = historyDAO.getUserHistory("alice");
@@ -50,8 +58,9 @@ public class QuizHistoryDAOTest {
         QuizResult stored = results.get(0);
         assertEquals("alice", stored.getUsername());
         assertEquals("1", stored.getQuizId());
-        assertEquals(95, stored.getScore());
+        assertEquals(95, stored.getScore(), 0.001);  // delta added for comparing doubles
     }
+
 
     @Test
     public void testEmptyHistory() {
@@ -66,7 +75,8 @@ public class QuizHistoryDAOTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddResultWithNullUsername() {
-        QuizResult result = new QuizResult(null, "2", 75, new Timestamp(System.currentTimeMillis()));
+        Quiz quiz = new MockQuiz("bob", new Timestamp(System.currentTimeMillis()), "2", "MCQ", "Quiz 2", "All-in-one");
+        QuizResult result = new QuizResult(null, quiz, 75, new Timestamp(System.currentTimeMillis()));
         historyDAO.addResult(result);
     }
 
