@@ -27,5 +27,5 @@ public interface QuizDAO {
     Quiz getQuiz(String id);
 
     String getQuizNameById(String quizId);
-
+    int getCreatedQuizCount(String username);
 }

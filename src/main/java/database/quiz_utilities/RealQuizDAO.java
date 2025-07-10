@@ -195,6 +195,15 @@ public class RealQuizDAO implements QuizDAO {
             throw new RuntimeException("Failed to get quiz name", e);
         }
     }
+    public int getCreatedQuizCount(String username) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM quizzes WHERE author = ?")) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return 0;
+    }
 
     public void close() {
         try {

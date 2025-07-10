@@ -7,6 +7,7 @@ import classes.quiz_utilities.answer.SingleAnswer;
 import classes.quiz_utilities.checkers.TextAnswerChecker;
 import classes.quiz_utilities.questions.Question;
 import classes.quiz_utilities.quiz.Quiz;
+import database.achievement.AchievementDAO;
 import database.history.QuizHistoryDAO;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuestionDAO;
@@ -83,8 +84,21 @@ public class EndQuizServlet extends HttpServlet {
             QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
             System.out.println("fdaf;ljkad");
+            AchievementDAO achievementDAO = new AchievementDAO(conn);
+            // 1. Quiz Machine: 10 quiz attempts
+            int attemptCount = quizHist.getUserAttemptCount(session.getAttribute("username").toString());
+            if (attemptCount == 10) {
+                achievementDAO.awardAchievement(session.getAttribute("username").toString(), "Quiz Machine");
+            }
+
+// 2. I am the Greatest: highest score on quiz
+            double bestScore = quizHist.getTopScoreForQuiz(quiz.getID());
+            if (totalScore >= bestScore) {
+                achievementDAO.awardAchievement(session.getAttribute("username").toString(), "I am the Greatest");
+            }
             request.setAttribute("totalScore", totalScore);
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
+
         }catch(SQLException e) {
             throw new RuntimeException("could not connect database");
         }
