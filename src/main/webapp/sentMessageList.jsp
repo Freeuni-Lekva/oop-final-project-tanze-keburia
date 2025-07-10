@@ -46,8 +46,8 @@
 <% } %>
 
 <br/>
-<a href="sent.jsp">Back to Sent</a> |
+<a href="SentServlet">Back to Sent</a> |
 <a href="compose.jsp">Compose New</a> |
-<a href="homepage.jsp">Home</a>
+<a href="Homepage">Home</a>
 </body>
 </html>
