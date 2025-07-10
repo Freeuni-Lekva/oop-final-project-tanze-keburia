@@ -34,6 +34,8 @@ public class AdminAnnouncementsServlet extends HttpServlet {
         response.setDateHeader("Expires", 0);
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            conn.setAutoCommit(true);
+
             AnnouncementDAO announcementDAO = new AnnouncementDAO(conn);
             request.setAttribute("announcements", announcementDAO.getAllAnnouncements());
             request.setAttribute("adminUsername", username);
@@ -59,6 +61,9 @@ public class AdminAnnouncementsServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            // Ensure autocommit is enabled - with autocommit, no manual commit needed
+            conn.setAutoCommit(true);
+
             AnnouncementDAO announcementDAO = new AnnouncementDAO(conn);
 
             if ("create".equals(action)) {
@@ -71,19 +76,22 @@ public class AdminAnnouncementsServlet extends HttpServlet {
                             new Timestamp(System.currentTimeMillis())
                     );
                     announcementDAO.addAnnouncement(announcement);
+
+                    System.out.println("Announcement created: " + body);
                 }
             } else if ("delete".equals(action)) {
                 String announcementId = request.getParameter("announcementId");
                 if (announcementId != null) {
                     announcementDAO.removeAnnouncement(announcementId);
+                    System.out.println("Announcement deleted: " + announcementId);
                 }
             }
+
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             response.setHeader("Pragma", "no-cache");
             response.setDateHeader("Expires", 0);
 
             response.sendRedirect("AdminAnnouncementServlet?t=" + System.currentTimeMillis());
-
 
         } catch (SQLException e) {
             throw new ServletException("Error processing announcement", e);

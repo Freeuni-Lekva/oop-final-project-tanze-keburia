@@ -13,7 +13,7 @@ html, body {
 /* ========== Layout ========== */
 .dashboard {
     max-width: 700px;
-    width: 100%;               /* Make sure it doesn’t shrink */
+    width: 100%;               /* Make sure it doesn't shrink */
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -27,7 +27,6 @@ html, body {
     flex-direction: column;
     justify-content: space-between;
 }
-
 
 /* ========== Buttons ========== */
 .btn {
@@ -49,11 +48,9 @@ html, body {
     background-color: #0056b3;
 }
 
-
 .btn-green {
     background-color: #28a745;
 }
-
 
 .btn-green:hover {
     background-color: #218838;
@@ -66,8 +63,6 @@ html, body {
 .btn-red:hover {
     background-color: #a71d2a;
 }
-
-
 
 .btn-purple {
     background-color: #6c63ff;
@@ -167,12 +162,9 @@ html, body {
     margin-top: -10px;
 }
 
-
 .message-container {
     flex: 1;
 }
-
-
 
 .message-list {
     list-style: none;
@@ -218,6 +210,7 @@ html, body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 /* ========== Form Input Layout ========== */
 .input-full {
     display: block;
@@ -227,8 +220,6 @@ html, body {
     border-radius: 4px;
     border: 1px solid #ccc;
 }
-
-
 
 /* ========== New Announcement Styles ========== */
 .announcement-card {
@@ -249,7 +240,6 @@ textarea.input-full {
 form button[type="submit"] {
     margin-top: 5px;
 }
-
 
 .success-message {
     background-color: #d4edda;
@@ -309,15 +299,6 @@ form button[type="submit"] {
     padding: 20px;
 }
 
-/* Quiz Actions */
-.quiz-actions {
-    margin: 20px 0;
-}
-
-.quiz-actions form {
-    width: 100%;
-}
-
 /* Form Elements */
 select.input-full {
     padding: 10px;
@@ -334,10 +315,14 @@ select.input-full {
     text-decoration: none;
 }
 
-
 /* ========== Quiz Management Styles ========== */
 .quizzes-container {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduced from 20px to 10px */
+}
+
+.quizzes-container h2 {
+    margin-top: 5px;  /* Reduced top margin */
+    margin-bottom: 15px; /* Keep bottom margin for spacing from cards */
 }
 
 .quiz-card {
@@ -376,9 +361,64 @@ select.input-full {
     color: #666;
 }
 
-
-
+/* ========== Utility Classes ========== */
 .mt-20 { margin-top: 20px; }
 .mb-20 { margin-bottom: 20px; }
 .mt-30 { margin-top: 30px; }
 .mb-15 { margin-bottom: 15px; }
+
+/* ========== Login Page Styles ========== */
+.login-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-box input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-box input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.login-box a {
+    display: block;
+    margin-top: 15px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+}

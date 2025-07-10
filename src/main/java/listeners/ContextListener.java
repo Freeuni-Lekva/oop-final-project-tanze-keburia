@@ -2,6 +2,7 @@ package listeners;
 
 import classes.User;
 import database.admin.Admins;
+import database.admin.AnnouncementDAO;
 import database.database_connection.DatabaseConnector;
 import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuestionDAO;
@@ -60,6 +61,8 @@ public class ContextListener implements ServletContextListener {
             questionDAO.initialize();
             QuizHistoryDAO quizHistory = new QuizHistoryDAO(conn, quizDAO);
             quizHistory.initialize();
+            AnnouncementDAO announcementDAO = new AnnouncementDAO(conn);
+            announcementDAO.initialize();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database schema", e);
         } catch (NoSuchAlgorithmException e) {

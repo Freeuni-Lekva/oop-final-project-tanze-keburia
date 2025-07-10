@@ -20,8 +20,10 @@
   <div class="success-message"><%= success %></div>
   <% } %>
 
+  <!-- Moved "All Quizzes" heading closer to "Manage Quizzes" -->
+  <h3 style="margin-top: 5px; margin-bottom: 15px;">All Quizzes</h3>
+
   <div class="quizzes-container">
-    <h2>All Quizzes</h2>
     <%
       List<RealQuiz> quizzes = (List<RealQuiz>) request.getAttribute("quizzes");
       if (quizzes != null && !quizzes.isEmpty()) {

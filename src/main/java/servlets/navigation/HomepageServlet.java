@@ -1,7 +1,5 @@
 package servlets.navigation;
 
-
-
 import database.admin.Admins;
 import classes.admin.Announcement;
 import classes.mail.Mail;
@@ -38,6 +36,9 @@ public class HomepageServlet extends HttpServlet {
         response.setDateHeader("Expires", 0);
 
         try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            // Force autocommit to ensure we see latest data
+            conn.setAutoCommit(true);
+
             AnnouncementDAO announcementDAO = new AnnouncementDAO(conn);
             MailDAO mailDAO = new MailDAO(conn);
 

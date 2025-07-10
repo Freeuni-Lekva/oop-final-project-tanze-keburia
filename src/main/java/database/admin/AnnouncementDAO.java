@@ -33,7 +33,6 @@ public class AnnouncementDAO {
         }
     }
 
-
     public void addAnnouncement(Announcement toAdd) throws SQLException {
         try(PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO announcements(author, body, ID, created_date) VALUES(?, ?, ?, ?)"
@@ -84,7 +83,7 @@ public class AnnouncementDAO {
         return result;
     }
 
-    public  Announcement getLatestAnnouncement() throws SQLException {
+    public Announcement getLatestAnnouncement() throws SQLException {
         String sql = "SELECT * FROM announcements ORDER BY created_date DESC LIMIT 1";
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
