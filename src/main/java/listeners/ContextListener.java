@@ -1,9 +1,17 @@
 package listeners;
 
-import database.*;
+import database.database_connection.DatabaseConnector;
+import database.history.QuizHistoryDAO;
+import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuestionDAO;
+import database.quiz_utilities.RealQuizDAO;
+import database.social.FriendRequestDAO;
+import database.social.FriendsDAO;
+import database.social.MailDAO;
+import database.user.UserDAO;
 
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -29,7 +37,8 @@ public class ContextListener implements ServletContextListener {
             quizDAO.initialize();
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
             questionDAO.initialize();
-
+            QuizHistoryDAO quizHistory = new QuizHistoryDAO(conn, quizDAO);
+            quizHistory.initialize();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database schema", e);
         }

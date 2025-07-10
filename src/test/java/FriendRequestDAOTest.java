@@ -1,9 +1,8 @@
 
 
-import database.DatabaseConnectionPool;
-import database.DatabaseConnector;
-import database.FriendRequestDAO;
-import database.FriendsDAO;
+import database.database_connection.DatabaseConnector;
+import database.social.FriendRequestDAO;
+import database.social.FriendsDAO;
 
 import org.junit.AfterClass;
 import org.junit.Before;

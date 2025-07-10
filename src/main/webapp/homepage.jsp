@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="javax.servlet.http.HttpSession" %>
-<%@ page import="classes.Mail" %>
-<%@ page import="database.MailDAO" %>
+
 <%@ page import="java.util.List" %>
+<%@ page import="classes.mail.Mail" %>
 <%
     String username;
     if (session != null) {

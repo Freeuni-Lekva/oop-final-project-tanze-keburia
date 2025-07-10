@@ -5,7 +5,7 @@
   Time: 5:20 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="classes.Mail" %>
+<%@ page import="classes.mail.Mail" %>
 <%
   String username = (String) session.getAttribute("username");
   if (username == null) {
@@ -15,7 +15,7 @@
 
   String idParam = request.getParameter("id");
   if (idParam == null) {
-    response.sendRedirect("InboxServlet"); // fallback
+    response.sendRedirect("inbox.jsp"); // fallback
     return;
   }
   Mail mail = (Mail) request.getAttribute("mail");

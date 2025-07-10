@@ -1,4 +1,4 @@
-import classes.Hasher;
+import classes.security.Hasher;
 import classes.User;
 import junit.framework.TestCase;
 import org.junit.Test;

@@ -1,8 +1,9 @@
 package database;
 
 import classes.User;
-import database.UserDAO;
 
+import database.database_connection.DatabaseConnector;
+import database.user.UserDAO;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

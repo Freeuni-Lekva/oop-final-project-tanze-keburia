@@ -1,5 +1,7 @@
 package classes;
 
+import classes.security.Hasher;
+
 import java.security.NoSuchAlgorithmException;
 
 public class User {

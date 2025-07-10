@@ -5,9 +5,9 @@
  Time: 2:13 PM
  To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="classes.Mail" %>
-<%@ page import="database.MailDAO" %>
+
 <%@ page import="java.util.List" %>
+<%@ page import="classes.mail.Mail" %>
 <%
   String username = (String) session.getAttribute("username");
   if (username == null) {
@@ -54,3 +54,4 @@
 <a href="Homepage">Home</a>
 </body>
 </html>
+
