@@ -1,4 +1,4 @@
-package classes;
+package classes.social;
 
 public final class Challenge {
     public String sender;

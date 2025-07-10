@@ -30,7 +30,7 @@ public class QuizHistoryDAO {
     }
 
     public void addResult(QuizResult result) {
-        System.out.println("Hello" + result.getQuizId());
+        // System.out.println("Hello" + result.getQuizId());
         if (result == null || result.getUsername() == null) {
             throw new IllegalArgumentException("Invalid quiz result");
         }
@@ -47,6 +47,23 @@ public class QuizHistoryDAO {
         }
     }
 
+    private List<QuizResult> getResults(ResultSet rs) throws SQLException {
+        List<QuizResult> results = new ArrayList<>();
+        while (rs.next()) {
+            String id = rs.getString("quiz_id");
+            Quiz x = quizzes.getQuiz(id);
+            QuizResult result = new QuizResult(
+                    rs.getString("username"),
+                    x.getID(),
+                    x.getName(),
+                    rs.getDouble("score"),
+                    rs.getTimestamp("submit_time")
+            );
+            results.add(result);
+        }
+        return results;
+    }
+
     public List<QuizResult> getUserHistory(String username) {
         if (username == null) {
             throw new IllegalArgumentException("Username cannot be null");
@@ -57,22 +74,48 @@ public class QuizHistoryDAO {
                 "SELECT * FROM quiz_history WHERE username = ? ORDER BY submit_time DESC")) {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    String id = rs.getString("quiz_id");
-                    Quiz x = quizzes.getQuiz(id);
-                    QuizResult result = new QuizResult(
-                            rs.getString("username"),
-                            x.getID(),
-                            x.getName(),
-                            rs.getDouble("score"),
-                            rs.getTimestamp("submit_time")
-                    );
-                    history.add(result);
-                }
+                return getResults(rs);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve quiz history", e);
         }
-        return history;
+
     }
+    //return sorted list of quiz results by points
+
+
+
+    public List<QuizResult> getResultsByQuiz(String quizId) throws SQLException {
+        if (quizId == null) {
+            return null;
+        }
+        String sql = "SELECT * FROM quiz_history WHERE quiz_id = ? ORDER BY score DESC";
+        try(PreparedStatement stmt = conn.prepareStatement(
+                sql
+        )){
+            stmt.setString(1, quizId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                List<QuizResult> results = new ArrayList<>();
+                return getResults(rs);
+            }
+        }
+    }
+
+    public double getMaxResultForUser(String username) throws SQLException{
+        String  sql = "SELECT MAX(score) FROM quiz_history WHERE username = ?";
+        try(PreparedStatement stmt = conn.prepareStatement(
+                sql
+        )) {
+            stmt.setString(1, username);
+            try(ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()) {
+                    return rs.getDouble(1);
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+    }
+
 }

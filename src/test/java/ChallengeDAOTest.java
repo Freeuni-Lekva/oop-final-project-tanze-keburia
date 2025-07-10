@@ -1,5 +1,5 @@
-import classes.Challenge;
-import database.ChallengeDAO;
+import classes.social.Challenge;
+import database.social.ChallengeDAO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

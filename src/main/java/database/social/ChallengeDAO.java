@@ -1,6 +1,6 @@
-package database;
+package database.social;
 
-import classes.Challenge;
+import classes.social.Challenge;
 
 import java.sql.*;
 import java.util.ArrayList;

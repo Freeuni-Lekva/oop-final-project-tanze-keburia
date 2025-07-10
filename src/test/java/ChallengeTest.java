@@ -1,7 +1,7 @@
-import classes.Challenge;
-import classes.QuizResult;
-import classes.quiz_utilities.Quiz;
-import classes.quiz_utilities.RealQuiz;
+import classes.social.Challenge;
+import classes.quiz_result.QuizResult;
+import classes.quiz_utilities.quiz.Quiz;
+import classes.quiz_utilities.quiz.RealQuiz;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
