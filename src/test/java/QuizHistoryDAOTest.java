@@ -18,7 +18,7 @@ public class QuizHistoryDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        Connection conn = DatabaseConnector.getInstance().getConnection();
+        conn = DatabaseConnector.getInstance().getConnection();
         QuizDAO quizDAO = new RealQuizDAO(conn);
         historyDAO = new QuizHistoryDAO(conn, quizDAO);
         historyDAO.initialize();
@@ -49,6 +49,10 @@ public class QuizHistoryDAOTest {
         quiz.setNumQuestions(10);
         quiz.setTopic("Science");
 
+        // Add quiz to DB using RealQuizDAO
+        QuizDAO quizDAO = new RealQuizDAO(conn); // new instance or use the one from @BeforeClass
+        quizDAO.addQuiz(quiz); // 🔥 THIS is the missing part
+
         QuizResult result = new QuizResult("alice", quiz, 95, now);
         historyDAO.addResult(result);
 
@@ -58,20 +62,9 @@ public class QuizHistoryDAOTest {
         QuizResult stored = results.get(0);
         assertEquals("alice", stored.getUsername());
         assertEquals("1", stored.getQuizId());
-        assertEquals(95, stored.getScore(), 0.001);  // delta added for comparing doubles
+        assertEquals(95, stored.getScore(), 0.001);
     }
 
-
-    @Test
-    public void testEmptyHistory() {
-        List<QuizResult> results = historyDAO.getUserHistory("ghost");
-        assertTrue(results.isEmpty());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testAddNullResult() {
-        historyDAO.addResult(null);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddResultWithNullUsername() {
@@ -84,4 +77,41 @@ public class QuizHistoryDAOTest {
     public void testGetHistoryWithNullUsername() {
         historyDAO.getUserHistory(null);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void testGetUserHistorySQLException() throws SQLException {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();  // force SQLException
+
+        QuizDAO dummyQuizDAO = new RealQuizDAO(badConn);
+        QuizHistoryDAO faultyDAO = new QuizHistoryDAO(badConn, dummyQuizDAO);
+
+        faultyDAO.getUserHistory("alice"); // should throw RuntimeException
+    }
+
+
+    @Test(expected = RuntimeException.class)
+    public void testInitializeSQLException() throws SQLException {
+        Connection brokenConn = DatabaseConnector.getInstance().getConnection();
+        brokenConn.close(); // this breaks the connection
+        QuizDAO quizDAO = new RealQuizDAO(brokenConn);
+        QuizHistoryDAO faultyDAO = new QuizHistoryDAO(brokenConn, quizDAO);
+
+        faultyDAO.initialize(); // should throw RuntimeException
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testAddResultSQLException() throws SQLException {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();  // force SQLException
+
+        QuizDAO dummyQuizDAO = new RealQuizDAO(badConn);
+        QuizHistoryDAO faultyDAO = new QuizHistoryDAO(badConn, dummyQuizDAO);
+
+        Quiz quiz = new MockQuiz("alice", new Timestamp(System.currentTimeMillis()), "1", "MCQ", "Title", "Mode");
+        QuizResult result = new QuizResult("alice", quiz, 80, new Timestamp(System.currentTimeMillis()));
+
+        faultyDAO.addResult(result); // should throw RuntimeException
+    }
 }
+

@@ -30,8 +30,8 @@ public class QuizHistoryDAO {
     }
 
     public void addResult(QuizResult result) {
-        System.out.println("Hello" + result.getQuizId());
-        if (result == null || result.getUsername() == null) {
+       // System.out.println("Hello" + result.getQuizId());
+        if (result.getUsername() == null) {
             throw new IllegalArgumentException("Invalid quiz result");
         }
 

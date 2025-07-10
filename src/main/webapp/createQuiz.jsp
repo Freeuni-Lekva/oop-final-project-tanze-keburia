@@ -39,6 +39,13 @@
                 <option value="PictureResponse">Picture-response</option>
             </select>
         </div>
+        <div class="mb-20">
+            <label for="format"><strong>Select Page Format:</strong></label><br>
+            <select id="format" name="format" class="input-full" required>
+                <option value="single-page">Single Page</option>
+                <option value="multi-page">Multiple Page</option>
+            </select>
+        </div>
 
         <button type="submit" class="btn btn-green">Create</button>
     </form>
