@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="classes.quiz_utilities.Quiz" %>
+<%@ page import="classes.quiz_utilities.quiz.Quiz" %>
 <html>
 <head>
   <title>All Quizzes</title>

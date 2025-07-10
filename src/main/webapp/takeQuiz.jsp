@@ -9,6 +9,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="classes.quiz_utilities.*" %>
 <%@ page import="mapper.TypePageMapper" %>
+<%@ page import="classes.quiz_utilities.questions.Question" %>
+<%@ page import="classes.quiz_utilities.quiz.Quiz" %>
 
 <%
   Quiz quiz = (Quiz) request.getAttribute("quiz");

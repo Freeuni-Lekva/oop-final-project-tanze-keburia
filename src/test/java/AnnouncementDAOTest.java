@@ -1,5 +1,5 @@
-import classes.Announcement;
-import database.AnnouncementDAO;
+import classes.admin.Announcement;
+import database.admin.AnnouncementDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,9 @@
-import classes.quiz_utilities.*;
+import classes.quiz_utilities.answer.GeneralAnswer;
+import classes.quiz_utilities.answer.MultipleAnswer;
+import classes.quiz_utilities.answer.SingleAnswer;
+import classes.quiz_utilities.checkers.*;
+import classes.quiz_utilities.options.Option;
+import classes.quiz_utilities.questions.RealQuestion;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.OptionsDAO;
 import database.quiz_utilities.QuestionDAO;

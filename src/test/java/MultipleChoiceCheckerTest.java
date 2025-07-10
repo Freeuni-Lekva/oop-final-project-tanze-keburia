@@ -1,8 +1,7 @@
-import classes.quiz_utilities.GeneralAnswer;
-import classes.quiz_utilities.MultipleAnswer;
-import classes.quiz_utilities.MultipleChoiceChecker;
-import classes.quiz_utilities.Option;
-import database.database_connection.DatabaseConnector;
+import classes.quiz_utilities.answer.GeneralAnswer;
+import classes.quiz_utilities.answer.MultipleAnswer;
+import classes.quiz_utilities.checkers.MultipleChoiceChecker;
+import classes.quiz_utilities.options.Option;
 import database.quiz_utilities.OptionsDAO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

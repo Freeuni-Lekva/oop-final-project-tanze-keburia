@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="javax.servlet.http.HttpSession" %>
-<%@ page import="classes.Mail" %>
-<%@ page import="database.MailDAO" %>
+
 <%@ page import="java.util.List" %>
+<%@ page import="classes.mail.Mail" %>
 <%
     String username;
     if (session != null) {
@@ -73,7 +73,7 @@
                     String formattedTime = sdf.format(mail.getTimestamp());
                 %>
                 <div class="timestamp"><%= formattedTime %></div>
-                <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+                <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
             </li>
             <% } %>
         </ul>

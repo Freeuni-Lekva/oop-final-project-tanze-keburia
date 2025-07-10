@@ -1,5 +1,5 @@
-import classes.quiz_utilities.Question;
-import classes.quiz_utilities.RealQuestion;
+import classes.quiz_utilities.questions.Question;
+import classes.quiz_utilities.questions.RealQuestion;
 
 import database.database_connection.DatabaseConnectionPool;
 import database.quiz_utilities.RealQuestionDAO;

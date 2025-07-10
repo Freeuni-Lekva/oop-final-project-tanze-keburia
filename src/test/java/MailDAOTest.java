@@ -1,6 +1,6 @@
-import classes.Mail;
+import classes.mail.Mail;
 import database.database_connection.DatabaseConnector;
-import database.MailDAO;
+import database.social.MailDAO;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -159,5 +159,57 @@ public class MailDAOTest {
     public void testSendMailNullMailObject() {
         mailDAO.sendMail(null);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void testSendMailSQLException() throws SQLException {
+        // Create a MailDAO with a closed connection to trigger SQLException
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();
+        MailDAO badDAO = new MailDAO(badConn);
+
+        Mail mail = new Mail(0, "a", "b", "s", "c", null);
+        badDAO.sendMail(mail); // should throw RuntimeException
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testGetSentSQLException() throws Exception {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();
+        MailDAO badDAO = new MailDAO(badConn);
+        badDAO.getSent("guga");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testGetInboxSQLException() throws Exception {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();
+        MailDAO badDAO = new MailDAO(badConn);
+        badDAO.getInbox("ako");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testDeleteMailSQLException() throws Exception {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();
+        MailDAO badDAO = new MailDAO(badConn);
+        badDAO.deleteMail(1, "bob");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testDeleteSentMailSQLException() throws Exception {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();
+        MailDAO badDAO = new MailDAO(badConn);
+        badDAO.deleteSentMail(1, "davit");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testInitializeSQLException() throws Exception {
+        Connection badConn = DatabaseConnector.getInstance().getConnection();
+        badConn.close();
+        MailDAO badDAO = new MailDAO(badConn);
+        badDAO.initialize();
+    }
+
 
 }

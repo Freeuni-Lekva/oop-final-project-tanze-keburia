@@ -1,5 +1,6 @@
 
-import classes.quiz_utilities.*;
+import classes.quiz_utilities.quiz.Quiz;
+import classes.quiz_utilities.quiz.RealQuiz;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.RealQuizDAO;
 import org.junit.*;

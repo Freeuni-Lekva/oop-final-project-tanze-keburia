@@ -6,7 +6,7 @@
     To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="classes.QuizResult" %>
+<%@ page import="classes.quiz_result.QuizResult" %>
 <%@ page import="java.util.List" %>
 <%@ page import="database.quiz_utilities.RealQuizDAO" %>
 <%@ page import="java.sql.Timestamp" %>

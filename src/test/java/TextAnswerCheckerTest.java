@@ -1,5 +1,8 @@
-import classes.quiz_utilities.*;
-import database.database_connection.DatabaseConnector;
+import classes.quiz_utilities.answer.MultipleAnswer;
+import classes.quiz_utilities.answer.SingleAnswer;
+import classes.quiz_utilities.checkers.TextAnswerChecker;
+import classes.quiz_utilities.questions.Question;
+import classes.quiz_utilities.questions.RealQuestion;
 import database.quiz_utilities.QuestionDAO;
 import database.quiz_utilities.RealQuestionDAO;
 import org.junit.jupiter.api.BeforeAll;

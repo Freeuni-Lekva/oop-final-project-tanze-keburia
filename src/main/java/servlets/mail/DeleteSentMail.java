@@ -1,10 +1,9 @@
 package servlets.mail;
 
-import classes.Mail;
+import classes.mail.Mail;
 import database.database_connection.DatabaseConnector;
-import database.MailDAO;
+import database.social.MailDAO;
 
-import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;

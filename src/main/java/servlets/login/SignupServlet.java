@@ -3,9 +3,8 @@ package servlets.login;
 
 import classes.User;
 import database.database_connection.DatabaseConnector;
-import database.UserDAO;
+import database.user.UserDAO;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
