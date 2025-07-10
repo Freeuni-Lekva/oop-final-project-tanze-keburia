@@ -1,14 +1,23 @@
 package servlets.navigation;
 
+
+
+import database.admin.Admins;
+import classes.admin.Announcement;
 import classes.mail.Mail;
 import database.database_connection.DatabaseConnector;
+import database.admin.AnnouncementDAO;
 import database.social.MailDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/Homepage")
@@ -23,14 +32,34 @@ public class HomepageServlet extends HttpServlet {
         }
 
         String username = (String) session.getAttribute("username");
-        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
-            MailDAO mailDAO = new MailDAO(conn);
-            List<Mail> inboxPreview = mailDAO.getInbox(username);
-            request.setAttribute("inboxPreview", inboxPreview);
-        } catch (Exception e) {
-            throw new ServletException("Error loading inbox", e);
-        }
 
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            AnnouncementDAO announcementDAO = new AnnouncementDAO(conn);
+            MailDAO mailDAO = new MailDAO(conn);
+
+            Announcement latestAnnouncement = announcementDAO.getLatestAnnouncement();
+            List<Mail> inboxPreview = mailDAO.getInbox(username);
+
+            request.setAttribute("latestAnnouncement", latestAnnouncement);
+            request.setAttribute("inboxPreview", inboxPreview);
+
+            if (Admins.isAdmin(username)) {
+                request.getRequestDispatcher("adminHomepage.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("homepage.jsp").forward(request, response);
+            }
+        } catch (SQLException e) {
+            throw new ServletException("Error loading homepage data", e);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
     }
 }

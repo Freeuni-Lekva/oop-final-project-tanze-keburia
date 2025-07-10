@@ -1,5 +1,7 @@
 package listeners;
 
+import classes.User;
+import database.admin.Admins;
 import database.database_connection.DatabaseConnector;
 import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuestionDAO;
@@ -15,18 +17,37 @@ import database.user.UserDAO;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
+
     @Override
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = DatabaseConnector.getInstance();
+        final String DEFAULT_ADMIN_USERNAME = "admin";
+        final String DEFAULT_ADMIN_PASSWORD = "123"; // Change this to a secure password
+
 
         try (Connection conn = dbc.getConnection()) {
             UserDAO userDAO = new UserDAO(conn);
             userDAO.initialize();
+
+
+            if (!userDAO.userExists(DEFAULT_ADMIN_USERNAME)) {
+                User adminUser = new User(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD);
+                userDAO.addUser(adminUser);
+                userDAO.setAdminStatus(DEFAULT_ADMIN_USERNAME, true); // Set admin status in DB
+                Admins.addAdmin(DEFAULT_ADMIN_USERNAME); // Add to in-memory list
+                System.out.println("Created default admin user: " + DEFAULT_ADMIN_USERNAME);
+            } else if (!Admins.isAdmin(DEFAULT_ADMIN_USERNAME)) {
+                userDAO.setAdminStatus(DEFAULT_ADMIN_USERNAME, true);
+                Admins.addAdmin(DEFAULT_ADMIN_USERNAME);
+                System.out.println("Updated existing user to admin: " + DEFAULT_ADMIN_USERNAME);
+            }
+
             MailDAO mailDAO = new MailDAO(conn);
             mailDAO.initialize();
             FriendsDAO friendsDAO = new FriendsDAO(conn);
@@ -41,6 +62,8 @@ public class ContextListener implements ServletContextListener {
             quizHistory.initialize();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database schema", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 

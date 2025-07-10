@@ -51,7 +51,14 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setString(7, quiz.getTopic());
             stmt.setString(8, quiz.getType());
             stmt.setString(9, quiz.getPageFormat());
-
+            String pageFormat = "All Questions on One Page";
+            if (quiz instanceof RealQuiz) {
+                RealQuiz realQuiz = (RealQuiz) quiz;
+                if (realQuiz.getPageFormat() != null) {
+                    pageFormat = realQuiz.getPageFormat();
+                }
+            }
+            stmt.setString(9, pageFormat);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to add quiz", e);
@@ -166,13 +173,10 @@ public class RealQuizDAO implements QuizDAO {
                 rs.getString("quiz_name"),
                 rs.getString("page_format")
         );
-
         quiz.setNumQuestions(rs.getInt("question_quantity"));
         quiz.setTopic(rs.getString("topic"));
         quiz.setTimeLimit(rs.getInt("time_limit"));
         quiz.setPageFormat(rs.getString("page_format"));
-
-
         if (rs.getBoolean("visible")) {
             quiz.setVisible(true);
         }
