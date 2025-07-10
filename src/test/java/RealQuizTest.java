@@ -1,4 +1,4 @@
-import classes.quiz_utilities.RealQuiz;
+import classes.RealQuiz;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -9,13 +9,12 @@ public class RealQuizTest extends TestCase {
     @Test
     public void testQuiz(){
         Date date = new Date(System.currentTimeMillis());
-        RealQuiz quiz = new RealQuiz("Mzare", date, "0", "multipleChoise", "Mzare's Quiz", "Default");
+        RealQuiz quiz = new RealQuiz("Mzare", date, "0", "multipleChoise", "Mzare's Quiz");
         assertEquals("Mzare's Quiz", quiz.getName());
         assertEquals("0", quiz.getID());
         assertEquals("Mzare", quiz.getAuthor());
         assertEquals(date, quiz.getCreationDate());
         assertEquals("multipleChoise", quiz.getType());
-        assertEquals("Default", quiz.getPageFormat());
         quiz.setNumQuestions(2);
         assertEquals(2, quiz.getNumQuestions());
         quiz.setTopic("math");

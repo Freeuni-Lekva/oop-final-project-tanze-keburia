@@ -1,6 +1,7 @@
 
 
-import database.database_connection.DatabaseConnector;
+import database.DatabaseConnectionPool;
+import database.DatabaseConnector;
 import database.FriendRequestDAO;
 import database.FriendsDAO;
 

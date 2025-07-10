@@ -1,7 +1,7 @@
 package servlets;
 
 import classes.Mail;
-import database.database_connection.DatabaseConnector;
+import database.DatabaseConnector;
 import database.MailDAO;
 
 import javax.servlet.ServletException;

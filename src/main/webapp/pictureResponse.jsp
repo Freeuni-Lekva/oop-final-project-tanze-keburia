@@ -5,18 +5,21 @@
   Time: 01:36
 --%>
 
-<%@ page import="classes.quiz_utilities.Question" %>
-<%@ page import="database.quiz_utilities.QuestionDAO" %>
+<%@ page import="classes.Question" %>
+<%@ page import="database.QuestionDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
   String questionId = request.getParameter("id");
   String quizId = request.getParameter("quizID");
-  Question question = (Question)request.getAttribute("question");
+  ServletContext context = application;
+  QuestionDAO questionDAO = (QuestionDAO) context.getAttribute("questions");
+
+  Question question = questionDAO.getQuestion(questionId);
   if (question == null) {
 %>
 <p style="color:red;">Question not found.</p>
-<a href="ConfigureQuiz?id=<%= quizId %>">Back</a>
+<a href="configureQuiz.jsp?id=<%= quizId %>">Back</a>
 <%
     return;
   }
@@ -55,7 +58,7 @@
 </form>
 
 <br>
-<a href="ConfigureQuiz?id=<%= quizId %>">Back to Quiz Configuration</a>
+<a href="configureQuiz.jsp?id=<%= quizId %>">Back to Quiz Configuration</a>
 
 </body>
 </html>

@@ -1,10 +1,7 @@
 import classes.QuizResult;
 import database.DatabaseConnectionPull;
-import database.database_connection.DatabaseConnectionPool;
-import database.database_connection.DatabaseConnector;
+import database.DatabaseConnector;
 import database.QuizHistoryDAO;
-import database.quiz_utilities.QuizDAO;
-import database.quiz_utilities.RealQuizDAO;
 import org.junit.*;
 
 import java.sql.*;
@@ -18,11 +15,14 @@ public class QuizHistoryDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        Connection conn = DatabaseConnector.getInstance().getConnection();
-        QuizDAO quizDAO = new RealQuizDAO(conn);
-        historyDAO = new QuizHistoryDAO(conn, quizDAO);
+        DatabaseConnector.getInstance(
+                DatabaseConnectionPull.url,
+                DatabaseConnectionPull.username,
+                DatabaseConnectionPull.password
+        );
+        conn = DatabaseConnector.getConnection();
+        historyDAO = new QuizHistoryDAO(conn);
         historyDAO.initialize();
-        quizDAO.initialize();
     }
 
     @AfterClass
@@ -36,7 +36,6 @@ public class QuizHistoryDAOTest {
     public void clearTable() throws SQLException {
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("DELETE FROM quiz_history");
-            stmt.execute("DELETE FROM quizzes");
         }
     }
 

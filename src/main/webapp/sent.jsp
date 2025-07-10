@@ -14,8 +14,7 @@
         response.sendRedirect("login.jsp");
         return;
     }
-    MailDAO mailDAO = (MailDAO) application.getAttribute("mails");
-    List<Mail> sent = mailDAO.getSent(username);
+    List<Mail> sent = (List<Mail>) request.getAttribute("sentMails");
 %>
 <html>
 <head><title>Sent Messages</title></head>
@@ -56,7 +55,7 @@
 
 
 <a href="compose.jsp">Compose New</a> |
-<a href="inbox.jsp">Inbox</a> |
-<a href="homepage.jsp">Home</a>
+<a href="InboxServlet">Inbox</a> |
+<a href="Homepage">Home</a>
 </body>
 </html>

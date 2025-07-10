@@ -24,6 +24,6 @@
   <textarea name="content" rows="6" cols="50" required></textarea><br/>
   <input type="submit" value="Send" />
 </form>
-<a href="homepage.jsp">Back to Home</a>
+<a href="Homepage">Back to Home</a>
 </body>
 </html>
