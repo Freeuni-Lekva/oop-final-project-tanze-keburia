@@ -3,6 +3,7 @@ package servlets.quiz_participation;
 
 import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
+import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuestionDAO;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuizDAO;
@@ -36,6 +37,7 @@ public class StartQuizServlet extends HttpServlet {
         try(Connection connection = DatabaseConnector.getInstance().getConnection()){
             QuizDAO quizDAO = new RealQuizDAO(connection);
             QuestionDAO questionDAO= new RealQuestionDAO(connection);
+            QuizHistoryDAO history = new QuizHistoryDAO(connection, quizDAO);
             System.out.println(quizId);
             Quiz quiz = quizDAO.getQuiz(quizId);
             if (quiz == null) {
@@ -46,6 +48,7 @@ public class StartQuizServlet extends HttpServlet {
             int questionCount = questionDAO.getQuiz(quizId).size();
             System.out.println(questionCount);
             request.setAttribute("quiz", quiz);
+            request.setAttribute("leaderboard", history.getResultsByQuiz(quizId));
             request.setAttribute("questionCount", questionCount);
             request.getRequestDispatcher("/WEB-INF/startQuiz.jsp").forward(request, response);
         }catch(SQLException e) {
