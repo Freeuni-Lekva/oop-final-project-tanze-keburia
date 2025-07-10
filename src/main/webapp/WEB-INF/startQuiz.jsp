@@ -77,16 +77,16 @@
                     <td><%=score%></td>
                     <td><%=time%></td>
                 </tr>
-            <%
-            }}
-        else{
 
-        %>
+            <%
+            }  %>
+        </tbody>
+    </table>
+    <%} else{%>
         <p>No participants yet</p>
-        <%}
+    <%}
     %>
-    </tbody>
-</table>
+
 <br>
 <a href="viewAllQuizzes">Back to All Quizzes</a>
 

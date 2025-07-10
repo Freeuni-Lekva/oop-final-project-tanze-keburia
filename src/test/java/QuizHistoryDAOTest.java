@@ -106,7 +106,7 @@ public class QuizHistoryDAOTest {
         assertEquals(0, historyDAO.getResultsByQuiz("1").size());
         QuizResult result = new QuizResult("alice", "1", "ab", 105, new Timestamp(System.currentTimeMillis()));
         historyDAO.addResult(result);
-        assertEquals(105, historyDAO.getMaxResultForUser("alice"), 1e-6);
-        assertEquals(0, historyDAO.getMaxResultForUser("bob"), 1e-6);
+        assertEquals(105, historyDAO.getMaxResultForUser("alice", "1"), 1e-6);
+        assertEquals(0, historyDAO.getMaxResultForUser("bob", "1"), 1e-6);
     }
 }

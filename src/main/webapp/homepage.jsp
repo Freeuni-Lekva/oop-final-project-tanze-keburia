@@ -91,6 +91,8 @@
             <button type="submit" class="btn btn-purple">Compose</button>
         </form>
     </div>
+    <a href="ViewChallenges?username=<%=username%>">View Challenges</a>
 </div>
+
 </body>
 </html>

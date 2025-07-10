@@ -16,9 +16,9 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DROP TABLE IF EXISTS quizzes");
+            //  stmt.executeUpdate("DROP TABLE IF EXISTS quizzes");
 
-            stmt.executeUpdate("CREATE TABLE quizzes (" +
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS quizzes (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "quiz_id VARCHAR(255) NOT NULL UNIQUE, " +
                     "quiz_name VARCHAR(255) NOT NULL, " +

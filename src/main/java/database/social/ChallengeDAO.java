@@ -15,34 +15,40 @@ public class ChallengeDAO {
         try(Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP TABLE IF EXISTS challenges");
             stmt.executeUpdate("CREATE TABLE challenges(" +
-                    "challenge_id VARCHAR(255), " +
+                    "challenge_id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "sender VARCHAR(255), " +
                     "receiver VARCHAR(255), " +
                     "quiz_id VARCHAR(255), "+
                     "quiz_name VARCHAR(255), "+
-                    "score DOUBLE, "+
-                    "PRIMARY KEY (challenge_id))");
+                    "score DOUBLE)");
         }
     }
     public void addChallenge(Challenge x) throws SQLException {
         try(PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO challenges (challenge_id, sender, receiver, " +
-                        "quiz_id, quiz_name, score) VALUES(?, ?, ?, ?, ?, ?)"
+                "INSERT INTO challenges ( sender, receiver, " +
+                        "quiz_id, quiz_name, score) VALUES( ?, ?, ?, ?, ?)"
         )){
-            stmt.setString(1, x.getId());
-            stmt.setString(2, x.getSender());
-            stmt.setString(3, x.getReceiver());
-            stmt.setString(4, x.getQuizID());
-            stmt.setString(5, x.getQuizName());
-            stmt.setDouble(6, x.getScore());
+
+            stmt.setString(1, x.getSender());
+            stmt.setString(2, x.getReceiver());
+            stmt.setString(3, x.getQuizID());
+            stmt.setString(4, x.getQuizName());
+            stmt.setDouble(5, x.getScore());
             stmt.executeUpdate();
         }
     }
-    public void removeChallenge(String ChallengeID) throws SQLException {
+
+    public void removeChallenge(Challenge x) throws SQLException {
         try(PreparedStatement stmt = conn.prepareStatement(
-                "DELETE FROM challenges WHERE challenge_id = ?"
+                "DELETE FROM challenges WHERE quiz_id = ? " +
+                        "and sender = ? and receiver = ? " +
+                        "and score = ? and quiz_name = ?"
         )){
-           stmt.setString(1, ChallengeID);
+           stmt.setString(1, x.getQuizID());
+           stmt.setString(2, x.getSender());
+           stmt.setString(3, x.getReceiver());
+           stmt.setDouble(4, x.getScore());
+           stmt.setString(5, x.getQuizName());
            stmt.executeUpdate();
         }
     }
@@ -58,7 +64,6 @@ public class ChallengeDAO {
                 challenges.add(new Challenge(
                         rs.getString("sender"),
                         rs.getString("receiver"),
-                        rs.getString("challenge_id"),
                         rs.getString("quiz_id"),
                         rs.getString("quiz_name"),
                         rs.getDouble("score")
@@ -67,6 +72,18 @@ public class ChallengeDAO {
             return challenges;
         }
 
+    }
+    public boolean ChallengeExists(Challenge challenge) throws SQLException {
+        try(PreparedStatement stmt = conn.prepareStatement(
+                "SELECT *  FROM challenges WHERE quiz_id = ? and sender = ? and receiver = ? and score = ?"
+        )){
+            stmt.setString(1, challenge.getQuizID());
+            stmt.setString(2, challenge.getSender());
+            stmt.setString(3, challenge.getReceiver());
+            stmt.setDouble(4, challenge.getScore());
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        }
     }
 
 }

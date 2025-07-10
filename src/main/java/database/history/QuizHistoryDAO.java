@@ -101,12 +101,13 @@ public class QuizHistoryDAO {
         }
     }
 
-    public double getMaxResultForUser(String username) throws SQLException{
-        String  sql = "SELECT MAX(score) FROM quiz_history WHERE username = ?";
+    public double getMaxResultForUser(String username, String quizID) throws SQLException{
+        String  sql = "SELECT MAX(score) FROM quiz_history WHERE username = ? and quiz_id = ?";
         try(PreparedStatement stmt = conn.prepareStatement(
                 sql
         )) {
             stmt.setString(1, username);
+            stmt.setString(2, quizID);
             try(ResultSet rs = stmt.executeQuery()) {
                 if(rs.next()) {
                     return rs.getDouble(1);
