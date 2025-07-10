@@ -1,5 +1,9 @@
-import database.quiz_utilities.MockQuizDAO;
+import classes.MockQuestion;
+import classes.Question;
+import database.MockQuizDAO;
 import junit.framework.TestCase;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 public class MockQuizDAOTest extends TestCase {
    private MockQuizDAO mockQuizDAO;

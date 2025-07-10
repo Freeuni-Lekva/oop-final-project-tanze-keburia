@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="classes.quiz_utilities.Quiz" %>
+<%@ page import="classes.Quiz" %>
 <html>
 <head>
   <title>All Quizzes</title>
@@ -42,7 +42,7 @@
 %>
 
 <br>
-<a href="homepage.jsp">Back to Homepage</a>
+<a href="Homepage">Back to Homepage</a>
 
 </body>
 </html>

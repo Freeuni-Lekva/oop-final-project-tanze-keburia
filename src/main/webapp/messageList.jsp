@@ -41,8 +41,8 @@
 <% } %>
 
 <br/>
-<a href="inbox.jsp">Back to Inbox</a> |
+<a href="InboxServlet">Back to Inbox</a> |
 <a href="compose.jsp">Compose New</a> |
-<a href="homepage.jsp">Home</a>
+<a href="Homepage">Home</a>
 </body>
 </html>

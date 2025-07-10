@@ -1,15 +1,10 @@
 package servlets;
 
 import Validation.OwnershipChecker;
-import classes.quiz_utilities.Question;
-import classes.quiz_utilities.Quiz;
+import classes.Question;
+import classes.Quiz;
 import com.mysql.cj.Session;
 import database.*;
-import database.database_connection.DatabaseConnector;
-import database.quiz_utilities.QuestionDAO;
-import database.quiz_utilities.QuizDAO;
-import database.quiz_utilities.RealQuestionDAO;
-import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
