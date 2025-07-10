@@ -11,10 +11,15 @@
 <%@ page import="mapper.TypePageMapper" %>
 <%@ page import="classes.quiz_utilities.questions.Question" %>
 <%@ page import="classes.quiz_utilities.quiz.Quiz" %>
+<%@ page import="database.admin.Admins" %>
 
 <%
   Quiz quiz = (Quiz) request.getAttribute("quiz");
   List<Question> questions = (List<Question>) request.getAttribute("questions");
+
+  // Check if user is admin
+  String username = (String) session.getAttribute("username");
+  boolean isAdmin = username != null && Admins.isAdmin(username);
 %>
 
 <html>
@@ -77,9 +82,11 @@
 </form>
 
 <br>
+<% if (isAdmin) { %>
+<a href="AdminQuizzesServlet">Back to Quiz List</a>
+<% } else { %>
 <a href="viewAllQuizzes">Back to Quiz List</a>
+<% } %>
 
 </body>
 </html>
-
-
