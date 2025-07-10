@@ -13,17 +13,43 @@
     return;
   }
 %>
+<!DOCTYPE html>
 <html>
-<head><title>Compose Mail</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Compose Mail</title>
+  <link rel="stylesheet" href="dashboardStyle.css">
+</head>
 <body>
-<h2>Compose Message</h2>
-<form method="post" action="SendMail">
-  To: <input type="text" name="receiver" required /><br/>
-  Subject: <input type="text" name="subject" required /><br/>
-  Message:<br/>
-  <textarea name="content" rows="6" cols="50" required></textarea><br/>
-  <input type="submit" value="Send" />
-</form>
-<a href="Homepage">Back to Home</a>
+<div class="dashboard">
+  <div class="header-row">
+    <h2>Compose Message</h2>
+    <a href="MyProfileServlet" class="link link-blue">My Profile</a>
+  </div>
+
+  <form method="post" action="SendMail" class="mt-20">
+    <div class="mb-15">
+      <label for="receiver"><strong>To:</strong></label><br>
+      <input type="text" name="receiver" id="receiver" class="input-full" placeholder="Enter username" required />
+    </div>
+
+    <div class="mb-15">
+      <label for="subject"><strong>Subject:</strong></label><br>
+      <input type="text" name="subject" id="subject" class="input-full" placeholder="Subject" required />
+    </div>
+
+    <div class="mb-20">
+      <label for="content"><strong>Message:</strong></label><br>
+      <textarea name="content" id="content" class="input-full" rows="8" placeholder="Write your message..." required
+                style="resize: none; overflow-y: auto;"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-purple">Send</button>
+  </form>
+
+  <div class="bottom-bar mt-30">
+    <a href="Homepage" class="link link-blue">Back to Home</a>
+  </div>
+</div>
 </body>
 </html>
