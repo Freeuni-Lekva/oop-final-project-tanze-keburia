@@ -101,6 +101,10 @@ public class EndQuizServlet extends HttpServlet {
             }
             ChallengeMailSender automaticSender = new ChallengeMailSender(mailDAO);
             automaticSender.sendMail(challenge, totalScore, new Timestamp(System.currentTimeMillis()));
+            if(challenge != null){
+                challenges.removeChallenge(challenge);
+                challenge = null;
+            }
             QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), quiz.getID(), quiz.getName(), totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
            // System.out.println(getBestScore(username, quizHist, quiz.getID()));
