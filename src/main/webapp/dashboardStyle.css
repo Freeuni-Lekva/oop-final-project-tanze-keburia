@@ -417,6 +417,57 @@ select.input-full {
     text-decoration: underline;
 }
 
+.quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quiz-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.quiz-header h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.quiz-author {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.quiz-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.quiz-actions form {
+    flex: 1;
+}
+
+.quiz-actions button {
+    width: 100%;
+}
+
+.no-quizzes {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px dashed #ddd;
+}
+
+
 .error {
     color: red;
     font-weight: bold;
