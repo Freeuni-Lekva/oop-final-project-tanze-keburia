@@ -110,15 +110,19 @@ public class EndQuizServlet extends HttpServlet {
             QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), quiz.getID(), quiz.getName(), totalScore, new Timestamp(System.currentTimeMillis()));
             Quiz x =  quizDAO.getQuiz(quiz.getID());
 
+            quizDAO.incrementPlayCount(quiz.getID());
+            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
-            System.out.println("fdaf;ljkad");
+
+
+            quizHist.addResult(quizResult);
             AchievementDAO achievementDAO = new AchievementDAO(conn);
             AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizDAO, quizHist);
             awarder.checkQuizParticipationAchievements(username, quiz.getID(), totalScore);
-           // System.out.println(getBestScore(username, quizHist, quiz.getID()));
             double bestScore = getBestScore(username,quizHist, quiz.getID());
             request.setAttribute("bestScore", bestScore);
             List<String>friends = friendsDAO.getFriends(username);
+
             request.setAttribute("totalScore", totalScore);
             request.setAttribute("quiz", quiz);
             request.setAttribute("friends", friends);

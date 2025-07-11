@@ -369,6 +369,25 @@ select.input-full {
     margin-top: 10px; /* Reduced from 20px to 10px */
 }
 
+
+.meta-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.meta-box {
+    background-color: #f4f4f4;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.85em;
+    color: #333;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+
 .quizzes-container h2 {
     margin-top: 5px;  /* Reduced top margin */
     margin-bottom: 15px; /* Keep bottom margin for spacing from cards */
@@ -409,6 +428,7 @@ select.input-full {
     padding: 30px;
     color: #666;
 }
+
 
 /* ========== Utility Classes ========== */
 .mt-20 { margin-top: 20px; }
