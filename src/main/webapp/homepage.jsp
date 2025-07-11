@@ -54,9 +54,9 @@
 
 
     <div class="latest-announcement mt-20">
-        <div class="announcement-header-with-link">
+        <div class="announcement-header-container">
             <h3>Latest Announcement</h3>
-            <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
+            <a href="AllAnnouncementsServlet" class="btn btn-purple">All Announcements</a>
         </div>
         <%
             Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
@@ -108,7 +108,7 @@
 
     <div class="mail-links mt-20 mb-20">
         <a href="InboxServlet" class="link link-blue">View Inbox</a>
-        <a href="SentServlet" class="link link-blue">View Sent Mails</a>
+        <a href="SentServlet" class="link link-blue link link-right">View Sent Mails</a>
     </div>
 
     <div class="bottom-bar mt-30">

@@ -5,9 +5,6 @@
   Time: 11:42 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="database.social.FriendsDAO" %>
-<%@ page import="database.social.FriendRequestDAO" %>
-<%@ page import="javax.servlet.ServletContext" %>
 <%@ page import="java.util.List" %>
 <%
     String currentUser = (String) session.getAttribute("username");
@@ -31,46 +28,53 @@
 <head>
     <meta charset="UTF-8">
     <title><%= profileUser %>'s Profile</title>
+    <link rel="stylesheet" href="dashboardStyle.css">
 </head>
 <body>
+<div class="profile-view">
+    <div class="profile-header">
+        <h2><%= profileUser %>'s Profile</h2>
+        <div class="profile-actions">
+            <% if (isFriend) { %>
+            <form method="post" action="RemoveFriendServlet">
+                <input type="hidden" name="receiverUsername" value="<%= profileUser %>" />
+                <input type="submit" value="Remove Friend" class="btn btn-red"/>
+            </form>
+            <% } else if (requestAlreadySent) { %>
+            <form method="post" action="FriendRequestResponse">
+                <input type="hidden" name="receiver" value="<%= profileUser %>" />
+                <input type="hidden" name="sender" value="<%= currentUser %>" />
+                <input type="hidden" name="status" value="cancel" />
+                <input type="submit" value="Cancel Request" class="btn btn-red"/>
+            </form>
+            <% } else { %>
+            <form method="post" action="AddServlet">
+                <input type="hidden" name="receiverUsername" value="<%= profileUser %>" />
+                <input type="submit" value="Add Friend" class="btn btn-blue"/>
+            </form>
+            <% } %>
+        </div>
+    </div>
 
-<h2><%= profileUser %>'s Profile</h2>
+    <div class="friends-section">
+        <h3><%= profileUser %>'s Friends</h3>
+        <% if (profileFriends == null || profileFriends.isEmpty()) { %>
+        <p class="no-friends">No friends yet.</p>
+        <% } else { %>
+        <ul class="friends-list">
+            <% for (String friend : profileFriends) { %>
+            <li><a href="ProfileServlet?username=<%= friend %>"><%= friend %></a></li>
+            <% } %>
+        </ul>
+        <% } %>
+    </div>
 
-<% if (isFriend) { %>
-<form method="post" action="RemoveFriendServlet">
-    <input type="hidden" name="receiverUsername" value="<%= profileUser %>" />
-    <input type="submit" value="Remove Friend" />
-</form>
-<% } else if (requestAlreadySent) { %>
-<form method="post" action="FriendRequestResponse">
-    <input type="hidden" name="receiver" value="<%= profileUser %>" />
-    <input type="hidden" name="sender" value="<%= currentUser %>" />
-    <input type="hidden" name="status" value="cancel" />
-    <input type="submit" value="Cancel Request" />
-</form>
-<% } else { %>
-<form method="post" action="AddServlet">
-    <input type="hidden" name="receiverUsername" value="<%= profileUser %>" />
-    <input type="submit" value="Add Friend" />
-</form>
-<% } %>
-
-<h3><%= profileUser %>'s Friends</h3>
-<% if (profileFriends == null || profileFriends.isEmpty()) { %>
-<p>No friends yet.</p>
-<% } else { %>
-<ul>
-    <% for (String friend : profileFriends) { %>
-    <li><a href="ProfileServlet?username=<%= friend %>"><%= friend %></a></li>
-    <% } %>
-</ul>
-<% } %>
-
-<%  if(isFriend){ %>
-<p><a href="QuizHistoryServlet?username=<%= profileUser %>">View Quiz History</a></p>
-<%} %>
-
-<p><a href="Homepage">Back to Home</a></p>
-
+    <div class="profile-links">
+        <% if(isFriend){ %>
+        <p><a href="QuizHistoryServlet?username=<%= profileUser %>">View Quiz History</a></p>
+        <%} %>
+        <p><a href="Homepage">Back to Home</a></p>
+    </div>
+</div>
 </body>
 </html>
