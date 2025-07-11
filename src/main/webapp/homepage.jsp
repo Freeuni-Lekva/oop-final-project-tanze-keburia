@@ -35,6 +35,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script>
+        function confirmStartQuiz(quizId) {
+            const confirmed = confirm("Do you want to start this quiz?");
+            if (confirmed) {
+                window.location.href = "StartActualQuizServlet?id=" + encodeURIComponent(quizId);
+            }
+        }
+    </script>
+
+
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
@@ -104,8 +114,11 @@
         <ul class="quiz-list">
             <% for (Quiz quiz : recentQuizzes) { %>
             <li class="card quiz-card">
-                <a href="TakeQuizServlet?quizID=<%= quiz.getID() %>" class="link link-blue">
+                <a href="#" class="link link-blue"
+                   onclick="confirmStartQuiz('<%= quiz.getID() %>'); return false;">
                     <%= quiz.getName() %>
+                </a>
+
                 </a>
                 <div class="quiz-meta">
                     by <%= quiz.getAuthor() %> — <%= quiz.getCreationDate() %>
@@ -124,8 +137,11 @@
         <ul class="quiz-list">
             <% for (Quiz quiz : popularQuizzes) { %>
             <li class="card quiz-card">
-                <a href="TakeQuizServlet?quizID=<%= quiz.getID() %>" class="link link-blue">
+                <a href="#" class="link link-blue"
+                   onclick="confirmStartQuiz('<%= quiz.getID() %>'); return false;">
                     <%= quiz.getName() %>
+                </a>
+
                 </a>
                 <div class="quiz-meta">
                     Played <%= quiz.getPlayCount() %> times
