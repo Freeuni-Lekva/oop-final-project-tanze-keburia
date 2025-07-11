@@ -13,7 +13,7 @@
 <div class="dashboard">
   <div class="header-row">
     <h2>Admin Dashboard</h2>
-    <p>Welcome, <strong><%= request.getAttribute("adminUsername") %></strong></p>
+    <a href="MyProfileServlet" class="link link-blue">My Profile</a>
   </div>
 
   <div class="nav-links mb-20">
@@ -29,33 +29,20 @@
   </div>
   <% } %>
 
-  <div class="card">
+  <div class="recent-messages mt-20">
     <h3>Site Statistics</h3>
-    <p>Total Users: <strong><%= request.getAttribute("totalUsers") %></strong></p>
-    <p>Total Quizzes: <strong><%= request.getAttribute("totalQuizzes") %></strong></p>
+    <ul class="message-list">
+      <li class="card message-card">
+        <p>Total Users: <strong><%= request.getAttribute("totalUsers") %></strong></p>
+        <p>Total Quizzes: <strong><%= request.getAttribute("totalQuizzes") %></strong></p>
+      </li>
+    </ul>
   </div>
 
-  <div class="mt-20">
-    <h3>Recent Announcements</h3>
-    <%
-      List<Announcement> announcements = (List<Announcement>) request.getAttribute("announcements");
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-      if (announcements != null && !announcements.isEmpty()) {
-        for (Announcement a : announcements) {
-    %>
-    <div class="card announcement-card">
-      <p><strong><%= a.getAuthor() %></strong>: <%= a.getBody() %></p>
-      <div class="timestamp"><%= sdf.format(a.getPublishDate()) %></div>
-    </div>
-    <%
-      }
-    } else {
-    %>
-    <div class="card">
-      <p>No announcements found</p>
-    </div>
-    <% } %>
+  <div class="bottom-bar mt-30">
+    <a href="Homepage" class="link link-blue">Home</a>
   </div>
 </div>
 </body>
+
 </html>

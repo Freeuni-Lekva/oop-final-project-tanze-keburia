@@ -18,7 +18,7 @@ public class RealQuestionDAO implements QuestionDAO{
 
     public void initialize() {
         try (Statement statement = connection.createStatement()) {
-           // statement.executeUpdate("Drop table if exists questions");
+            statement.executeUpdate("Drop table if exists questions");
             statement.execute("CREATE TABLE IF NOT EXISTS questions (" +
                     "question_statement VARCHAR(1000), " +
                     "question_answer VARCHAR(255), " +
