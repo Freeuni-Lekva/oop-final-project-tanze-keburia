@@ -1,6 +1,8 @@
 package servlets.navigation;
 
+import classes.achievement.Achievement;
 import classes.mail.Mail;
+import database.achievement.AchievementDAO;
 import database.database_connection.DatabaseConnector;
 import database.social.MailDAO;
 
@@ -27,6 +29,10 @@ public class HomepageServlet extends HttpServlet {
             MailDAO mailDAO = new MailDAO(conn);
             List<Mail> inboxPreview = mailDAO.getInbox(username);
             request.setAttribute("inboxPreview", inboxPreview);
+            AchievementDAO achievementDAO = new AchievementDAO(conn);
+            List<Achievement> achievements = achievementDAO.getUserAchievements(username);
+            request.setAttribute("achievements", achievements);
+
         } catch (Exception e) {
             throw new ServletException("Error loading inbox", e);
         }

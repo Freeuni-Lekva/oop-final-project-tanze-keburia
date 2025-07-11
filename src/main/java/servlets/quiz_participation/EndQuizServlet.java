@@ -1,12 +1,14 @@
 package servlets.quiz_participation;
 
 
+import classes.achievement.AchievementAwarder;
 import classes.quiz_result.QuizResult;
 import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.answer.SingleAnswer;
 import classes.quiz_utilities.checkers.TextAnswerChecker;
 import classes.quiz_utilities.questions.Question;
 import classes.quiz_utilities.quiz.Quiz;
+import database.achievement.AchievementDAO;
 import database.history.QuizHistoryDAO;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuestionDAO;
@@ -80,11 +82,16 @@ public class EndQuizServlet extends HttpServlet {
                 }
             }
             Quiz x =  quizDAO.getQuiz(quiz.getID());
-            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
+            String username = (String) session.getAttribute("username");
+            QuizResult quizResult = new QuizResult(username, x, totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
             System.out.println("fdaf;ljkad");
+            AchievementDAO achievementDAO = new AchievementDAO(conn);
+            AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizDAO, quizHist);
+            awarder.checkQuizParticipationAchievements(username, quiz.getID(), totalScore);
             request.setAttribute("totalScore", totalScore);
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
+
         }catch(SQLException e) {
             throw new RuntimeException("could not connect database");
         }

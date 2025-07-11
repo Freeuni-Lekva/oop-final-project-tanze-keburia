@@ -1,4 +1,6 @@
 import classes.quiz_result.QuizResult;
+import classes.quiz_utilities.quiz.MockQuiz;
+import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
 import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuizDAO;
@@ -43,6 +45,13 @@ public class QuizHistoryDAOTest {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         QuizResult result = new QuizResult("alice", "1", 95, now);
+
+        // Create mock quiz
+        Quiz quiz = new MockQuiz("alice", now, "1", "Multiple Choice", "Sample Quiz", "Page-by-page");
+        quiz.setNumQuestions(10);
+        quiz.setTopic("Science");
+
+        //QuizResult result = new QuizResult("alice", quiz, 95, now);
         historyDAO.addResult(result);
 
         List<QuizResult> results = historyDAO.getUserHistory("alice");
@@ -53,6 +62,7 @@ public class QuizHistoryDAOTest {
         assertEquals("1", stored.getQuizId());
         assertEquals(95, stored.getScore());
     }
+
 
     @Test
     public void testEmptyHistory() {
