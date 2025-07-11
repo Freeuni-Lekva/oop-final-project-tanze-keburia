@@ -74,4 +74,24 @@ public class QuizHistoryDAO {
         }
         return history;
     }
+    public int getUserAttemptCount(String username) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM quiz_history WHERE username = ?")) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return 0;
+    }
+
+    public double getTopScoreForQuiz(String quizID) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(score) FROM quiz_history WHERE quiz_id = ?")) {
+            ps.setString(1, quizID);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getDouble(1);
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return 0.0;
+    }
+
 }

@@ -38,6 +38,13 @@
                 <option value="FillBlank">Fill in the Blank</option>
                 <option value="PictureResponse">Picture-response</option>
             </select>
+            <div class = "mb-20">
+                <label for="format">Choose page format:</label>
+                <select id="format" name="format" required>
+                    <option value="All Questions on One Page">All Questions on One Page</option>
+                    <option value="One Question at a Time">One Question at a Time</option>
+                </select>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-green">Create</button>
