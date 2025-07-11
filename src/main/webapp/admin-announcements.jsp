@@ -22,7 +22,7 @@
     </div>
 
     <h2>Create New Announcement</h2>
-    <a href="adminHomepage.jsp" class="link link-blue">Back to Admin Homepage</a>
+    <a href="Homepage?t=<%= System.currentTimeMillis() %>" class="link link-blue">Back to Admin Homepage</a>
     <form method="post" action="AdminAnnouncementServlet">
         <input type="hidden" name="action" value="create">
         <textarea class="input-full" name="body" required placeholder="Enter announcement text..."></textarea><br>
