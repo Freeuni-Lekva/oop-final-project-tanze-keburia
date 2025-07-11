@@ -97,6 +97,103 @@ public class RealQuizDAOTest {
         assertEquals(45, modified.getTimeLimit());
     }
 
+    @Test
+    public void testGetRecentQuizzes() {
+        long now = System.currentTimeMillis();
+        Quiz q1 = new RealQuiz("Author1", new Date(now - 100000), "quiz1", "typeA", "Quiz 1", "page");
+        Quiz q2 = new RealQuiz("Author2", new Date(now - 50000), "quiz2", "typeA", "Quiz 2", "page");
+        Quiz q3 = new RealQuiz("Author3", new Date(now), "quiz3", "typeA", "Quiz 3", "page");
+
+        q1.setNumQuestions(5);
+        q2.setNumQuestions(5);
+        q3.setNumQuestions(5);
+
+        quizDAO.addQuiz(q1);
+        quizDAO.addQuiz(q2);
+        quizDAO.addQuiz(q3);
+
+        try {
+            List<Quiz> recents = quizDAO.getRecentQuizzes(2);
+            assertEquals(2, recents.size());
+            assertEquals("quiz3", recents.get(0).getID());
+            assertEquals("quiz2", recents.get(1).getID());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        quizDAO.removeQuiz(q1);
+        quizDAO.removeQuiz(q2);
+        quizDAO.removeQuiz(q3);
+    }
+
+    @Test
+    public void testGetPopularQuizzes() throws SQLException {
+        Date now = new Date();
+
+        Quiz quiz1 = new RealQuiz("Author1", now, "quiz1", "typeA", "Quiz One", "format");
+        quiz1.setNumQuestions(5);
+        quiz1.setTopic("Topic1");
+        quiz1.setTimeLimit(10);
+        quiz1.setPageFormat("one-pager");
+        quiz1.setPlayCount(10);
+
+        Quiz quiz2 = new RealQuiz("Author2", now, "quiz2", "typeA", "Quiz Two", "format");
+        quiz2.setNumQuestions(5);
+        quiz2.setTopic("Topic2");
+        quiz2.setTimeLimit(15);
+        quiz2.setPageFormat("one-pager");
+        quiz2.setPlayCount(50);
+
+        Quiz quiz3 = new RealQuiz("Author3", now, "quiz3", "typeA", "Quiz Three", "format");
+        quiz3.setNumQuestions(5);
+        quiz3.setTopic("Topic3");
+        quiz3.setTimeLimit(20);
+        quiz3.setPageFormat("one-pager");
+        quiz3.setPlayCount(30);
+
+        quizDAO.addQuiz(quiz1);
+        quizDAO.addQuiz(quiz2);
+        quizDAO.addQuiz(quiz3);
+
+        List<Quiz> popular = quizDAO.getPopularQuizzes(2);
+
+        assertEquals(2, popular.size());
+        assertEquals("quiz2", popular.get(0).getID());
+        assertEquals("quiz3", popular.get(1).getID());
+
+        quizDAO.removeQuiz(quiz1);
+        quizDAO.removeQuiz(quiz2);
+        quizDAO.removeQuiz(quiz3);
+    }
+
+
+    @Test
+    public void testIncrementPlayCount() throws SQLException {
+        Date now = new Date();
+
+        Quiz quiz = new RealQuiz("Author", now, "quizTest", "type", "Increment Test Quiz", "format");
+        quiz.setNumQuestions(5);
+        quiz.setTopic("Testing");
+        quiz.setTimeLimit(10);
+        quiz.setPageFormat("one-pager");
+        quiz.setPlayCount(0);
+
+        quizDAO.addQuiz(quiz);
+
+        quizDAO.incrementPlayCount("quizTest");
+        quizDAO.incrementPlayCount("quizTest");
+        quizDAO.incrementPlayCount("quizTest");
+
+        Quiz updatedQuiz = quizDAO.getQuiz("quizTest");
+
+        assertNotNull(updatedQuiz);
+        assertEquals(3, updatedQuiz.getPlayCount());
+
+        quizDAO.removeQuiz(updatedQuiz);
+    }
+
+
+
 
 
 }

@@ -40,4 +40,7 @@ public interface Quiz {
     void setTimeLimit(int timeLimit);
     void setName(String newName);
 
+    int getPlayCount();
+    void setPlayCount(int playCount);
+
 }
