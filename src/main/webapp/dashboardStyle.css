@@ -570,3 +570,18 @@ select.input-full {
     white-space: normal;
 }
 
+.quiz-announcements-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.quiz-box.equal-height {
+    min-height: 180px; /* adjust as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+

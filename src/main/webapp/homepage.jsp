@@ -151,62 +151,84 @@
 
     <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
 
-    <div class="quiz-sections-container">
-        <!-- Recent Messages Block -->
-        <div class="quiz-box">
-            <h3>Recent Messages</h3>
-            <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
-            <p>No new messages</p>
-            <% } else { %>
-            <ul class="quiz-list">
-                <% int shown = 0;
-                    for (Mail mail : inboxPreview) {
-                        if (shown >= 3) break;
-                        shown++; %>
-                <li class="quiz-card">
-                    <strong>From:</strong> <%= mail.getSender() %><br>
-                    <strong>Subject:</strong> <%= mail.getSubject() %><br>
-                    <%
-                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        String formattedTime = sdf.format(mail.getTimestamp());
-                    %>
-                    <div class="quiz-meta-box"><%= formattedTime %></div>
-                    <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
-                </li>
-                <% } %>
-            </ul>
-            <% } %>
-        </div>
+        <div class="quiz-announcements-container">
+            <!-- Recent Messages -->
+            <div class="quiz-box equal-height">
+                <h3>Recent Messages</h3>
+                <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
+                <div style="text-align: center;">
+                    <img src="assets/nomessages.webp" alt="No Messages" style="max-width: 100px; margin-bottom: 10px;" />
+                    <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                        No new messages
+                    </p>
 
-        <!-- Latest Announcement Block -->
-        <div class="quiz-box">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="margin: 0;">Latest Announcement</h3>
-                <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
-            </div>
-            <%
-                Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
-                if (latestAnnouncement != null) {
-            %>
-            <div class="quiz-card" style="margin-top: 10px;">
-                <p><%= latestAnnouncement.getBody() %></p>
-                <div class="quiz-meta-box">
-                    Posted on:
-                    <%
-                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
-                    %>
-                    <%= formattedTime %>
                 </div>
+                <% } else { %>
+
+                <ul class="quiz-list">
+                    <% int shown = 0;
+                        for (Mail mail : inboxPreview) {
+                            if (shown >= 3) break;
+                            shown++; %>
+                    <li class="quiz-card">
+                        <strong>From:</strong> <%= mail.getSender() %><br>
+                        <strong>Subject:</strong> <%= mail.getSubject() %><br>
+                        <%
+                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            String formattedTime = sdf.format(mail.getTimestamp());
+                        %>
+                        <div class="quiz-meta-box"><%= formattedTime %></div>
+                        <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+                    </li>
+                    <% } %>
+                </ul>
+                <% } %>
             </div>
-            <% } else { %>
-            <p style="margin-top: 10px;">No announcements yet</p>
-            <% } %>
+
+            <!-- Latest Announcement -->
+            <div class="quiz-box equal-height">
+                <h3>Latest Announcement</h3>
+                <%
+                    Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
+                    if (latestAnnouncement != null) {
+                %>
+                <div class="quiz-card">
+                    <p><%= latestAnnouncement.getBody() %></p>
+                    <div class="quiz-meta-box">
+                        Posted on:
+                        <%
+                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
+                        %>
+                        <%= formattedTime %>
+                    </div>
+                </div>
+                <% } else { %>
+                <div style="text-align: center;">
+                    <img src="assets/noannoucments.webp" alt="No Announcements" style="max-width: 100px; margin-bottom: 10px;" />
+                    <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                        No announcements yet.
+                    </p>
+
+                </div>
+                <% } %>
+
+            </div>
+
+            <!-- All Announcements -->
+            <div class="quiz-box equal-height">
+                <h3>All Announcements</h3>
+                <div style="text-align: center;">
+                    <img src="assets/annoucments.webp" alt="All Announcements" style="max-width: 100px; margin-bottom: 10px;" />
+                </div>
+                <a href="AllAnnouncementsServlet" class="btn btn-blue">View All</a>
+
+            </div>
         </div>
-    </div>
 
 
-    <div class="mail-links mt-20 mb-20">
+
+        <div class="mail-links mt-20 mb-20">
     <div class="inbox-wrapper">
         <a href="InboxServlet" class="link link-blue inbox-link">
             <div class="icon-badge-container">
@@ -245,7 +267,12 @@
                 <% } %>
             </ul>
             <% } else { %>
-            <p>No recent quizzes available.</p>
+            <div style="text-align: center;">
+                <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                    No recent quizzes available.
+                </p>
+            </div>
+
             <% } %>
         </div>
 
@@ -265,7 +292,12 @@
                 <% } %>
             </ul>
             <% } else { %>
-            <p>No popular quizzes available.</p>
+            <div style="text-align: center;">
+                <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                    No popular quizzes available.
+                </p>
+            </div>
+
             <% } %>
         </div>
 
@@ -285,7 +317,12 @@
                 <% } %>
             </ul>
             <% } else { %>
-            <p>You haven't created any quizzes yet.</p>
+            <div style="text-align: center;">
+                <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                    You haven't created any quizzes yet.
+                </p>
+            </div>
+
             <% } %>
         </div>
     </div>
@@ -293,7 +330,7 @@
     <div class="bottom-bar mt-30">
         <a href="logout.jsp" class="link link-red">Log out</a>
         <form action="compose.jsp" method="get" class="bottom-right">
-            <button type="submit" class="btn btn-purple">Compose</button>
+            <button type="submit" class="btn btn-blue">Compose</button>
         </form>
     </div>
     <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");
