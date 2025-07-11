@@ -1,6 +1,7 @@
 package servlets.quiz_participation;
 
 
+import classes.achievement.AchievementAwarder;
 import classes.quiz_result.QuizResult;
 import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.answer.SingleAnswer;
@@ -81,21 +82,13 @@ public class EndQuizServlet extends HttpServlet {
                 }
             }
             Quiz x =  quizDAO.getQuiz(quiz.getID());
-            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
+            String username = (String) session.getAttribute("username");
+            QuizResult quizResult = new QuizResult(username, x, totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
             System.out.println("fdaf;ljkad");
             AchievementDAO achievementDAO = new AchievementDAO(conn);
-            // 1. Quiz Machine: 10 quiz attempts
-            int attemptCount = quizHist.getUserAttemptCount(session.getAttribute("username").toString());
-            if (attemptCount == 10) {
-                achievementDAO.awardAchievement(session.getAttribute("username").toString(), "Quiz Machine");
-            }
-
-// 2. I am the Greatest: highest score on quiz
-            double bestScore = quizHist.getTopScoreForQuiz(quiz.getID());
-            if (totalScore >= bestScore) {
-                achievementDAO.awardAchievement(session.getAttribute("username").toString(), "I am the Greatest");
-            }
+            AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizDAO, quizHist);
+            awarder.checkQuizParticipationAchievements(username, quiz.getID(), totalScore);
             request.setAttribute("totalScore", totalScore);
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
 

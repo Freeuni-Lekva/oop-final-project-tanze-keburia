@@ -35,23 +35,12 @@ public class StartMakingQuiz extends HttpServlet {
         try(Connection conn = DatabaseConnector.getInstance().getConnection()){
        // Integer numQuizes = (Integer)(servletContext.getAttribute("numQuizes"));
             quizDAO = new RealQuizDAO(conn);
-            AchievementDAO achievementDAO = new AchievementDAO(conn);
             String username = session.getAttribute("username").toString();
             Date now = new Date();
             String id = UUID.randomUUID().toString();
             String format = request.getParameter("format");
             Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"), format);
             quizDAO.addQuiz(newQuiz);
-            int createdCount = quizDAO.getCreatedQuizCount(username);
-
-            if (createdCount == 1) {
-                achievementDAO.awardAchievement(username, "Amateur Author");
-            } else if (createdCount == 5) {
-                achievementDAO.awardAchievement(username, "Prolific Author");
-            } else if (createdCount == 10) {
-                achievementDAO.awardAchievement(username, "Prodigious Author");
-            }
-
             response.sendRedirect("ConfigureQuiz?id=" + id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
