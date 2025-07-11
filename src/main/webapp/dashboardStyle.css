@@ -210,6 +210,10 @@ html, body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
 
 /* ========== Form Input Layout ========== */
 .input-full {
@@ -366,4 +370,3 @@ select.input-full {
 .mb-20 { margin-bottom: 20px; }
 .mt-30 { margin-top: 30px; }
 .mb-15 { margin-bottom: 15px; }
-
