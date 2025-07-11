@@ -2,6 +2,7 @@ package servlets.quiz_participation;
 
 
 import classes.User;
+import classes.mail.ChallengeMailSender;
 import classes.quiz_result.QuizResult;
 import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.answer.SingleAnswer;
@@ -17,6 +18,7 @@ import database.quiz_utilities.RealQuestionDAO;
 import database.quiz_utilities.RealQuizDAO;
 import database.social.ChallengeDAO;
 import database.social.FriendsDAO;
+import database.social.MailDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,19 +58,11 @@ public class EndQuizServlet extends HttpServlet {
             return;
         }
         try(Connection conn = DatabaseConnector.getInstance().getConnection()) {
+            MailDAO mailDAO = new MailDAO(conn);
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
             QuizDAO quizDAO = new RealQuizDAO(conn);
             QuizHistoryDAO quizHist = new QuizHistoryDAO(conn, quizDAO);
             ChallengeDAO challenges = new ChallengeDAO(conn);
-            if(challenge != null) {
-                System.out.println("Score: " + challenge.getScore());
-                System.out.println("Sender: " + challenge.getSender());
-                System.out.println("Name:" + challenge.getQuizName());
-                System.out.println("ID:" + challenge.getQuizID());
-                System.out.println("Receiver:" + challenge.getReceiver());
-                challenges.removeChallenge(challenge);
-                challenge = null;
-            }
             FriendsDAO friendsDAO = new FriendsDAO(conn);
             if (questionDAO == null) {
                 throw new ServletException("QuestionDAO not found in context.");
@@ -105,10 +99,8 @@ public class EndQuizServlet extends HttpServlet {
                     }
                 }
             }
-
-
-            //Map<String> friends = friendsDAO.getFriends(username);
-
+            ChallengeMailSender automaticSender = new ChallengeMailSender(mailDAO);
+            automaticSender.sendMail(challenge, totalScore, new Timestamp(System.currentTimeMillis()));
             QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), quiz.getID(), quiz.getName(), totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
            // System.out.println(getBestScore(username, quizHist, quiz.getID()));
