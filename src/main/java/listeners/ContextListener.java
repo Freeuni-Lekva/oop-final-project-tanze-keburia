@@ -3,12 +3,14 @@ package listeners;
 import classes.User;
 import database.admin.Admins;
 import database.admin.AnnouncementDAO;
+import database.achievement.AchievementDAO;
 import database.database_connection.DatabaseConnector;
 import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuestionDAO;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuestionDAO;
 import database.quiz_utilities.RealQuizDAO;
+import database.social.ChallengeDAO;
 import database.social.FriendRequestDAO;
 import database.social.FriendsDAO;
 import database.social.MailDAO;
@@ -63,6 +65,10 @@ public class ContextListener implements ServletContextListener {
             quizHistory.initialize();
             AnnouncementDAO announcementDAO = new AnnouncementDAO(conn);
             announcementDAO.initialize();
+            ChallengeDAO cdao =new ChallengeDAO(conn);
+            cdao.initialize();
+            AchievementDAO achievementDAO = new AchievementDAO(conn);
+            achievementDAO.initialize();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database schema", e);
         } catch (NoSuchAlgorithmException e) {

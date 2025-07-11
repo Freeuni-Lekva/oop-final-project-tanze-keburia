@@ -2,7 +2,9 @@ package servlets.navigation;
 
 import database.admin.Admins;
 import classes.admin.Announcement;
+import classes.achievement.Achievement;
 import classes.mail.Mail;
+import database.achievement.AchievementDAO;
 import database.database_connection.DatabaseConnector;
 import database.admin.AnnouncementDAO;
 import database.social.MailDAO;
@@ -47,6 +49,9 @@ public class HomepageServlet extends HttpServlet {
 
             request.setAttribute("latestAnnouncement", latestAnnouncement);
             request.setAttribute("inboxPreview", inboxPreview);
+            AchievementDAO achievementDAO = new AchievementDAO(conn);
+            List<Achievement> achievements = achievementDAO.getUserAchievements(username);
+            request.setAttribute("achievements", achievements);
 
             if (Admins.isAdmin(username)) {
                 request.getRequestDispatcher("adminHomepage.jsp").forward(request, response);

@@ -8,6 +8,8 @@
 <%@ page import="classes.mail.Mail" %>
 <%@ page import="java.util.List" %>
 <%@ page import="classes.admin.Announcement" %>
+<%@ page import="classes.achievement.Achievement" %>
+
 <%
     String username;
     if (session != null) {
@@ -117,6 +119,23 @@
             <button type="submit" class="btn btn-purple">Compose</button>
         </form>
     </div>
+    <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");
+        if (achievements != null && !achievements.isEmpty()) { %>
+    <h3>Achievements</h3>
+    <ul class="achievement-list">
+        <% for (Achievement ach : achievements) { %>
+        <li class="card achievement-card">
+            <strong><%= ach.getType() %></strong><br/>
+            <small>Awarded at: <%= ach.getAwardedAt() %></small>
+        </li>
+        <% } %>
+    </ul>
+    <% } else { %>
+    <p>No achievements yet.</p>
+    <% } %>
+
+    <a href="ViewChallenges?username=<%=username%>">View Challenges</a>
 </div>
+
 </body>
 </html>
