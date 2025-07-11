@@ -29,19 +29,6 @@
   <meta charset="UTF-8">
   <title>All Announcements</title>
   <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
-  <style>
-    .announcement-card {
-      margin-bottom: 20px;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    .timestamp {
-      color: #666;
-      font-size: 0.9em;
-      margin-top: 5px;
-    }
-  </style>
 </head>
 <body>
 <div class="dashboard">
@@ -50,27 +37,33 @@
     <a href="Homepage" class="link link-blue">Back to Homepage</a>
   </div>
 
-  <div class="announcements-list mt-20">
+  <div class="recent-messages mt-20">
+    <h3>Announcements</h3>
+
     <%
       List<Announcement> announcements = (List<Announcement>) request.getAttribute("announcements");
       if (announcements != null && !announcements.isEmpty()) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        for (Announcement announcement : announcements) {
     %>
-    <div class="card announcement-card">
-      <p><%= announcement.getBody() %></p>
-      <div class="timestamp">
-        Posted by <%= announcement.getAuthor() %> on <%= sdf.format(announcement.getPublishDate()) %>
-      </div>
-    </div>
-    <%
-      }
-    } else {
-    %>
+    <ul class="message-list">
+      <% for (Announcement announcement : announcements) { %>
+      <li class="card message-card">
+        <p><%= announcement.getBody() %></p>
+        <div class="timestamp">
+          Posted by <%= announcement.getAuthor() %> on <%= sdf.format(announcement.getPublishDate()) %>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+    <% } else { %>
     <p>No announcements found.</p>
     <% } %>
   </div>
 
+  <div class="bottom-bar mt-30">
+    <a href="Homepage" class="link link-blue">Home</a>
+  </div>
 </div>
 </body>
+
 </html>
