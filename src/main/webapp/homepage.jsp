@@ -101,7 +101,7 @@
                     String formattedTime = sdf.format(mail.getTimestamp());
                 %>
                 <div class="timestamp"><%= formattedTime %></div>
-                <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+                <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
             </li>
             <% } %>
         </ul>
