@@ -7,6 +7,7 @@ import database.quiz_utilities.QuestionDAO;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuestionDAO;
 import database.quiz_utilities.RealQuizDAO;
+import database.social.ChallengeDAO;
 import database.social.FriendRequestDAO;
 import database.social.FriendsDAO;
 import database.social.MailDAO;
@@ -40,6 +41,8 @@ public class ContextListener implements ServletContextListener {
             questionDAO.initialize();
             QuizHistoryDAO quizHistory = new QuizHistoryDAO(conn, quizDAO);
             quizHistory.initialize();
+            ChallengeDAO cdao =new ChallengeDAO(conn);
+            cdao.initialize();
             AchievementDAO achievementDAO = new AchievementDAO(conn);
             achievementDAO.initialize();
         } catch (SQLException e) {

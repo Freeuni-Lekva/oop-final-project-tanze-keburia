@@ -111,6 +111,8 @@ String username;
     <p>No achievements yet.</p>
     <% } %>
 
+    <a href="ViewChallenges?username=<%=username%>">View Challenges</a>
 </div>
+
 </body>
 </html>

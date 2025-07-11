@@ -15,6 +15,7 @@
         response.sendRedirect("login.jsp");
         return;
     }
+
 %>
 <html>
 <head>
@@ -49,6 +50,7 @@
                 </select>
             </div>
         </div>
+
 
         <button type="submit" class="btn btn-green">Create</button>
     </form>
