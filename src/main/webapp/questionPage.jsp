@@ -12,9 +12,7 @@
 <%@ page import="classes.quiz_utilities.questions.Question" %>
 
 <%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    response.setHeader("Pragma", "no-cache");
-    response.setDateHeader("Expires", 0);
+
     List<Question> questions = (List<Question>) session.getAttribute("questionList");
     Integer index = (Integer) session.getAttribute("currentIndex");
     Map<String, GeneralAnswer> savedAnswers = (Map<String, GeneralAnswer>) session.getAttribute("savedAnswers");
