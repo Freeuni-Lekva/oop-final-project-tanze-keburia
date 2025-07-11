@@ -3,6 +3,7 @@ package servlets.quiz_participation;
 
 import classes.User;
 import classes.mail.ChallengeMailSender;
+import classes.achievement.AchievementAwarder;
 import classes.quiz_result.QuizResult;
 import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.answer.SingleAnswer;
@@ -10,6 +11,7 @@ import classes.quiz_utilities.checkers.TextAnswerChecker;
 import classes.quiz_utilities.questions.Question;
 import classes.quiz_utilities.quiz.Quiz;
 import classes.social.Challenge;
+import database.achievement.AchievementDAO;
 import database.history.QuizHistoryDAO;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuestionDAO;
@@ -106,7 +108,13 @@ public class EndQuizServlet extends HttpServlet {
                 challenge = null;
             }
             QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), quiz.getID(), quiz.getName(), totalScore, new Timestamp(System.currentTimeMillis()));
+            Quiz x =  quizDAO.getQuiz(quiz.getID());
+
             quizHist.addResult(quizResult);
+            System.out.println("fdaf;ljkad");
+            AchievementDAO achievementDAO = new AchievementDAO(conn);
+            AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizDAO, quizHist);
+            awarder.checkQuizParticipationAchievements(username, quiz.getID(), totalScore);
            // System.out.println(getBestScore(username, quizHist, quiz.getID()));
             double bestScore = getBestScore(username,quizHist, quiz.getID());
             request.setAttribute("bestScore", bestScore);
