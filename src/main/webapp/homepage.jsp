@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+
 
 <%@ page import="java.util.List" %>
 <%@ page import="classes.mail.Mail" %>
@@ -24,6 +26,11 @@
     List<Mail> inboxPreview = (List<Mail>) request.getAttribute("inboxPreview");
 
 %>
+
+<%
+    response.setContentType("text/html; charset=UTF-8");
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -84,6 +91,53 @@
         <a href="InboxServlet" class="link link-blue">View Inbox</a>
         <a href="SentServlet" class="link link-blue">View Sent Mails</a>
     </div>
+
+    <%@ page import="classes.quiz_utilities.quiz.Quiz" %>
+    <%
+        List<Quiz> recentQuizzes = (List<Quiz>) request.getAttribute("recentQuizzes");
+        List<Quiz> popularQuizzes = (List<Quiz>) request.getAttribute("popularQuizzes");
+    %>
+
+    <div class="quiz-section mt-20">
+        <h3>Most Recent Quizzes</h3>
+        <% if (recentQuizzes != null && !recentQuizzes.isEmpty()) { %>
+        <ul class="quiz-list">
+            <% for (Quiz quiz : recentQuizzes) { %>
+            <li class="card quiz-card">
+                <a href="TakeQuizServlet?quizID=<%= quiz.getID() %>" class="link link-blue">
+                    <%= quiz.getName() %>
+                </a>
+                <div class="quiz-meta">
+                    by <%= quiz.getAuthor() %> — <%= quiz.getCreationDate() %>
+                </div>
+            </li>
+            <% } %>
+        </ul>
+        <% } else { %>
+        <p>No recent quizzes available.</p>
+        <% } %>
+    </div>
+
+    <div class="quiz-section mt-20">
+        <h3>Most Popular Quizzes</h3>
+        <% if (popularQuizzes != null && !popularQuizzes.isEmpty()) { %>
+        <ul class="quiz-list">
+            <% for (Quiz quiz : popularQuizzes) { %>
+            <li class="card quiz-card">
+                <a href="TakeQuizServlet?quizID=<%= quiz.getID() %>" class="link link-blue">
+                    <%= quiz.getName() %>
+                </a>
+                <div class="quiz-meta">
+                    Played <%= quiz.getPlayCount() %> times
+                </div>
+            </li>
+            <% } %>
+        </ul>
+        <% } else { %>
+        <p>No popular quizzes available.</p>
+        <% } %>
+    </div>
+
 
     <div class="bottom-bar mt-30">
         <a href="logout.jsp" class="link link-red">Log out</a>

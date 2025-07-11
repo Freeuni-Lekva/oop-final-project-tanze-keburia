@@ -84,6 +84,7 @@ public class EndQuizServlet extends HttpServlet {
             quizHist.addResult(quizResult);
             System.out.println("fdaf;ljkad");
             request.setAttribute("totalScore", totalScore);
+            quizDAO.incrementPlayCount(quiz.getID());
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
         }catch(SQLException e) {
             throw new RuntimeException("could not connect database");
