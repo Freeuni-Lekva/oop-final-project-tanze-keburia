@@ -38,7 +38,17 @@
 <body>
 
 <h2>Question <%= index + 1 %> of <%= questions.size() %></h2>
-<p><%= currentQuestion.getStatement() %></p>
+<%
+    // For picture response, check and split statement
+    String[] parts = currentQuestion.getStatement().split(";;");
+    String prompt = parts[0];
+    String imageUrl = parts.length > 1 ? parts[1] : "";
+%>
+
+<p><%= prompt %></p>
+<% if (!imageUrl.isEmpty()) { %>
+<img src="<%= imageUrl %>" alt="Question Image" width="300"><br><br>
+<% } %>
 
 <form method="post" action="saveAnswer">
     <input type="hidden" name="questionId" value="<%= currentQuestion.getID() %>" />

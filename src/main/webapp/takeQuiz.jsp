@@ -62,8 +62,16 @@
     <%
     } else if ("PictureResponse".equalsIgnoreCase(type)) {
     %>
-    <p><%= q.getAnswer() == null || q.getAnswer().isEmpty() ? "Write what is shown in the picture:" : q.getAnswer() %></p>
-    <img src="<%= q.getStatement() %>" alt="Question image" width="300" /><br>
+    <%
+      // Extract prompt and image from statement
+      String[] parts = q.getStatement().split(";;");
+      String prompt = parts.length > 0 ? parts[0] : "";
+      String image = parts.length > 1 ? parts[1] : "";
+    %>
+    <p><%= prompt %></p>
+    <% if (!image.isEmpty()) { %>
+    <img src="<%= image %>" alt="Question image" width="300" /><br>
+    <% } %>
     <input type="text" name="answer_<%= q.getID() %>" placeholder="Your answer here..." />
     <%
     } else {
