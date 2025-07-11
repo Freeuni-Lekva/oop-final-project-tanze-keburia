@@ -20,41 +20,47 @@
   <div class="success-message"><%= success %></div>
   <% } %>
 
-  <!-- Moved "All Quizzes" heading closer to "Manage Quizzes" -->
-  <h3 style="margin-top: 5px; margin-bottom: 15px;">All Quizzes</h3>
+  <div class="recent-messages mt-20">
+    <h3>All Quizzes</h3>
 
-  <div class="quizzes-container">
     <%
       List<RealQuiz> quizzes = (List<RealQuiz>) request.getAttribute("quizzes");
       if (quizzes != null && !quizzes.isEmpty()) {
-        for (RealQuiz quiz : quizzes) {
     %>
-    <div class="quiz-card card">
-      <div class="quiz-header">
-        <h3><%= quiz.getName() %></h3>
-        <p class="quiz-author">Author: <%= quiz.getAuthor() %></p>
-      </div>
-      <div class="quiz-actions">
-        <form method="get" action="StartActualQuizServlet" class="play-form">
-          <input type="hidden" name="id" value="<%= quiz.getID() %>">
-          <button type="submit" class="btn btn-green">Play Quiz</button>
-        </form>
-        <form method="post" action="AdminQuizzesServlet" onsubmit="return confirm('Are you sure you want to delete this quiz?');">
-          <input type="hidden" name="action" value="deleteQuiz">
-          <input type="hidden" name="quizId" value="<%= quiz.getID() %>">
-          <button type="submit" class="btn btn-red">Delete Quiz</button>
-        </form>
-      </div>
-    </div>
-    <%
-      }
-    } else {
-    %>
-    <div class="card no-quizzes">
-      <p>No quizzes found</p>
-    </div>
+    <ul class="message-list">
+      <% for (RealQuiz quiz : quizzes) { %>
+      <li class="card message-card">
+        <div>
+          <strong>Quiz Name:</strong> <%= quiz.getName() %><br/>
+          <strong>Author:</strong> <%= quiz.getAuthor() %>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <form method="get" action="StartActualQuizServlet" style="display:inline;">
+            <input type="hidden" name="id" value="<%= quiz.getID() %>">
+            <button type="submit" class="btn btn-green">Play Quiz</button>
+          </form>
+
+          <form method="post" action="AdminQuizzesServlet"
+                onsubmit="return confirm('Are you sure you want to delete this quiz?');"
+                style="display:inline; margin-left: 10px;">
+            <input type="hidden" name="action" value="deleteQuiz">
+            <input type="hidden" name="quizId" value="<%= quiz.getID() %>">
+            <button type="submit" class="btn btn-red">Delete Quiz</button>
+          </form>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+    <% } else { %>
+    <p>No quizzes found.</p>
     <% } %>
+  </div>
+
+  <div class="bottom-bar mt-30">
+    <a href="Homepage" class="link link-blue">Home</a>
   </div>
 </div>
 </body>
+
 </html>
