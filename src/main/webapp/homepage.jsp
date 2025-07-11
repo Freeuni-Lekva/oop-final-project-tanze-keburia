@@ -54,6 +54,7 @@
         </form>
     </div>
 
+    <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
 
     <div class="latest-announcement mt-20">
         <div class="announcement-header-with-link">
@@ -79,7 +80,6 @@
         <p>No announcements yet</p>
         <% } %>
     </div>
-
 
     <div class="recent-messages mt-20">
         <h3>Recent Messages</h3>
@@ -133,8 +133,6 @@
     <% } else { %>
     <p>No achievements yet.</p>
     <% } %>
-
-    <a href="ViewChallenges?username=<%=username%>">View Challenges</a>
 </div>
 
 </body>
