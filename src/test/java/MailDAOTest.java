@@ -14,6 +14,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class MailDAOTest {
     private static Connection conn;
@@ -41,8 +43,8 @@ public class MailDAOTest {
 
     @Test
     public void testSendAndGetInbox() {
-        Mail mail1 = new Mail(0, "tarashi", "ako", "Hala", "real goat", null);
-        Mail mail2 = new Mail(0, "mzare", "ako", "test", "practice", null);
+        Mail mail1 = new Mail(0, "tarashi", "ako", "Hala", "real goat", null, false);
+        Mail mail2 = new Mail(0, "mzare", "ako", "test", "practice", null, false);
 
         mailDAO.sendMail(mail1);
         mailDAO.sendMail(mail2);
@@ -56,8 +58,8 @@ public class MailDAOTest {
 
     @Test
     public void testGetSent() {
-        Mail mail1 = new Mail(0, "guga", "nini", "present", "buy accessories for lizi", null);
-        Mail mail2 = new Mail(0, "guga", "sandro", "present", "buy a watch for luka", null);
+        Mail mail1 = new Mail(0, "guga", "nini", "present", "buy accessories for lizi", null, false);
+        Mail mail2 = new Mail(0, "guga", "sandro", "present", "buy a watch for luka", null, false);
 
         mailDAO.sendMail(mail1);
         mailDAO.sendMail(mail2);
@@ -71,8 +73,8 @@ public class MailDAOTest {
 
     @Test
     public void testDeleteMail() {
-        Mail mail1 = new Mail(0, "alice", "bob", "hello", "hi bob", null);
-        Mail mail2 = new Mail(0, "alice", "bob", "second", "another message", null);
+        Mail mail1 = new Mail(0, "alice", "bob", "hello", "hi bob", null, false);
+        Mail mail2 = new Mail(0, "alice", "bob", "second", "another message", null, false);
 
         mailDAO.sendMail(mail1);
         mailDAO.sendMail(mail2);
@@ -91,7 +93,7 @@ public class MailDAOTest {
     @Test
     public void testMailGetters() {
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        Mail mail = new Mail(42, "alice", "bob", "hello", "hi bob", now);
+        Mail mail = new Mail(42, "alice", "bob", "hello", "hi bob", now, true);
 
         assertEquals(42, mail.getId());
         assertEquals("alice", mail.getSender());
@@ -99,10 +101,11 @@ public class MailDAOTest {
         assertEquals("hello", mail.getSubject());
         assertEquals("hi bob", mail.getContent());
         assertEquals(now, mail.getTimestamp());
+        assertTrue(mail.isRead());
     }
     @Test
     public void testDeleteSentMail() {
-        Mail mail = new Mail(0, "davit", "mari", "update", "see you soon", null);
+        Mail mail = new Mail(0, "davit", "mari", "update", "see you soon", null, false);
         mailDAO.sendMail(mail);
 
         List<Mail> sentBefore = mailDAO.getSent("davit");
@@ -117,25 +120,25 @@ public class MailDAOTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSendMailWithNullSender() {
-        Mail mail = new Mail(0, null, "receiver", "subject", "content", null);
+        Mail mail = new Mail(0, null, "receiver", "subject", "content", null, false);
         mailDAO.sendMail(mail);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSendMailWithNullReceiver() {
-        Mail mail = new Mail(0, "sender", null, "subject", "content", null);
+        Mail mail = new Mail(0, "sender", null, "subject", "content", null, false);
         mailDAO.sendMail(mail);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSendMailWithNullSubject() {
-        Mail mail = new Mail(0, "sender", "receiver", null, "content", null);
+        Mail mail = new Mail(0, "sender", "receiver", null, "content", null, false);
         mailDAO.sendMail(mail);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSendMailWithNullContent() {
-        Mail mail = new Mail(0, "sender", "receiver", "subject", null, null);
+        Mail mail = new Mail(0, "sender", "receiver", "subject", null, null, false);
         mailDAO.sendMail(mail);
     }
 
@@ -167,7 +170,7 @@ public class MailDAOTest {
         badConn.close();
         MailDAO badDAO = new MailDAO(badConn);
 
-        Mail mail = new Mail(0, "a", "b", "s", "c", null);
+        Mail mail = new Mail(0, "a", "b", "s", "c", null, false);
         badDAO.sendMail(mail); // should throw RuntimeException
     }
 
@@ -210,6 +213,51 @@ public class MailDAOTest {
         MailDAO badDAO = new MailDAO(badConn);
         badDAO.initialize();
     }
+
+    @Test
+    public void testCountUnreadMails() {
+        Mail mail1 = new Mail(0, "zaza", "gio", "subject1", "body1", null, false);
+        Mail mail2 = new Mail(0, "nika", "gio", "subject2", "body2", null, false);
+        Mail mail3 = new Mail(0, "sopo", "gio", "subject3", "body3", null, false);
+
+        mailDAO.sendMail(mail1);
+        mailDAO.sendMail(mail2);
+        mailDAO.sendMail(mail3);
+
+        List<Mail> inbox = mailDAO.getInbox("gio");
+        int idToMarkRead = inbox.get(0).getId(); // Most recent one
+        mailDAO.markAsRead(idToMarkRead, "gio");
+
+        int unreadCount = mailDAO.countUnreadMails("gio");
+
+        assertEquals(2, unreadCount);
+    }
+
+
+    @Test
+    public void testMarkAsRead() {
+        Mail mail = new Mail(0, "ana", "luka", "reminder", "project meeting", null, false);
+        mailDAO.sendMail(mail);
+
+        List<Mail> inbox = mailDAO.getInbox("luka");
+        assertFalse(inbox.isEmpty());
+
+        int mailId = inbox.get(0).getId();
+
+        mailDAO.markAsRead(mailId, "luka"); // Updated to pass username
+
+        // Re-fetch inbox to verify change
+        List<Mail> updatedInbox = mailDAO.getInbox("luka");
+        Mail updatedMail = updatedInbox.stream()
+                .filter(m -> m.getId() == mailId)
+                .findFirst()
+                .orElse(null);
+
+        assertNotNull(updatedMail);
+        assertTrue(updatedMail.isRead());
+    }
+
+
 
 
 }

@@ -43,9 +43,12 @@ public class ViewMailServlet extends HttpServlet {
 
             // Search in inbox
             Mail mail = null;
+            boolean isInboxMail = false;
+
             for (Mail m : mailDAO.getInbox(username)) {
                 if (m.getId() == mailId) {
                     mail = m;
+                    isInboxMail = true;
                     break;
                 }
             }
@@ -54,6 +57,7 @@ public class ViewMailServlet extends HttpServlet {
                 for (Mail m : mailDAO.getSent(username)) {
                     if (m.getId() == mailId) {
                         mail = m;
+                        mailDAO.markAsRead(mailId, username);
                         break;
                     }
                 }
@@ -62,6 +66,10 @@ public class ViewMailServlet extends HttpServlet {
             if (mail == null) {
                 response.getWriter().write("Message not found or access denied.");
                 return;
+            }
+
+            if (isInboxMail && !mail.isRead()) {
+                mailDAO.markAsRead(mailId, username);
             }
 
             request.setAttribute("mail", mail);

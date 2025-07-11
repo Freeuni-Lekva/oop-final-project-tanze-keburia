@@ -4,9 +4,15 @@ import database.admin.Admins;
 import classes.admin.Announcement;
 import classes.achievement.Achievement;
 import classes.mail.Mail;
-import database.achievement.AchievementDAO;
+
+import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
+import database.quiz_utilities.QuizDAO;
+import database.quiz_utilities.RealQuizDAO;
+
+import database.achievement.AchievementDAO;
 import database.admin.AnnouncementDAO;
+
 import database.social.MailDAO;
 
 import javax.servlet.ServletException;
@@ -22,6 +28,9 @@ import java.util.List;
 
 @WebServlet("/Homepage")
 public class HomepageServlet extends HttpServlet {
+    private static final int DISPLAY_LIMIT = 5;
+    private static final int USERS_QUIZ_LIMIT = 3;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,6 +58,23 @@ public class HomepageServlet extends HttpServlet {
 
             request.setAttribute("latestAnnouncement", latestAnnouncement);
             request.setAttribute("inboxPreview", inboxPreview);
+
+            int unreadCount = mailDAO.countUnreadMails(username);
+            request.setAttribute("unreadCount", unreadCount);
+
+            QuizDAO quizDAO = new RealQuizDAO(conn);
+
+            int totalQuizCount = quizDAO.getNumQuizes();
+            int limit = Math.min(DISPLAY_LIMIT, totalQuizCount);
+
+            List<Quiz> recentQuizzes = quizDAO.getRecentQuizzes(limit);
+            List<Quiz> popularQuizzes = quizDAO.getPopularQuizzes(limit);
+            List<Quiz> recentCreatedQuizzes = ((RealQuizDAO) quizDAO).getRecentlyCreatedQuizzesByUser(username, USERS_QUIZ_LIMIT);
+
+            request.setAttribute("recentQuizzes", recentQuizzes);
+            request.setAttribute("popularQuizzes", popularQuizzes);
+            request.setAttribute("recentCreatedQuizzes", recentCreatedQuizzes);
+       
             AchievementDAO achievementDAO = new AchievementDAO(conn);
             List<Achievement> achievements = achievementDAO.getUserAchievements(username);
             request.setAttribute("achievements", achievements);

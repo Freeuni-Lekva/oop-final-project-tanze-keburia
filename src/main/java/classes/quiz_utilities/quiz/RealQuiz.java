@@ -13,6 +13,7 @@ public class RealQuiz implements Quiz {
     private int timeLimit;
     private boolean visible;
     private String pageFormat;
+    private int playCount;
 
     public RealQuiz(String author, Date date, String id, String type, String name, String pageFormat) {
         this.author = author;
@@ -98,4 +99,13 @@ public class RealQuiz implements Quiz {
     public void setPageFormat(String pageFormat) {
         this.pageFormat = pageFormat;
     }
+
+    @Override
+    public int getPlayCount() { return playCount; }
+
+    @Override
+    public void setPlayCount(int playCount) { this.playCount = playCount; }
+
+
+
 }

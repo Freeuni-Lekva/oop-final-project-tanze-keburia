@@ -23,7 +23,8 @@ public class MailDAO {
                     "content TEXT NOT NULL, " +
                     "sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
                     "receiver_deleted BOOLEAN DEFAULT FALSE, " +
-                    "sender_deleted BOOLEAN DEFAULT FALSE)");
+                    "sender_deleted BOOLEAN DEFAULT FALSE, " +
+                    "is_read BOOLEAN DEFAULT FALSE)");
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize mails table", e);
         }
@@ -61,7 +62,8 @@ public class MailDAO {
                             rs.getString("receiver"),
                             rs.getString("subject"),
                             rs.getString("content"),
-                            rs.getTimestamp("sent_at")
+                            rs.getTimestamp("sent_at"),
+                            rs.getBoolean("is_read")
                     ));
                 }
             }
@@ -89,7 +91,8 @@ public class MailDAO {
                             rs.getString("receiver"),
                             rs.getString("subject"),
                             rs.getString("content"),
-                            rs.getTimestamp("sent_at")
+                            rs.getTimestamp("sent_at"),
+                            rs.getBoolean("is_read")
                     ));
                 }
             }
@@ -121,5 +124,30 @@ public class MailDAO {
             throw new RuntimeException("Failed to delete sent mail", e);
         }
     }
+
+    public int countUnreadMails(String username) {
+        try (PreparedStatement ps = conn.prepareStatement(
+                "SELECT COUNT(*) FROM mails WHERE receiver = ? AND receiver_deleted = FALSE AND is_read = FALSE")) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to count unread mails", e);
+        }
+        return 0;
+    }
+
+    public void markAsRead(int mailId, String username) {
+        try (PreparedStatement ps = conn.prepareStatement(
+                "UPDATE mails SET is_read = TRUE WHERE id = ? AND receiver = ?")) {
+            ps.setInt(1, mailId);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to mark mail as read", e);
+        }
+    }
+
 
 }
