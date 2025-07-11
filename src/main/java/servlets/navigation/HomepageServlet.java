@@ -33,6 +33,8 @@ public class HomepageServlet extends HttpServlet {
             MailDAO mailDAO = new MailDAO(conn);
             List<Mail> inboxPreview = mailDAO.getInbox(username);
             request.setAttribute("inboxPreview", inboxPreview);
+            int unreadCount = mailDAO.countUnreadMails(username);
+            request.setAttribute("unreadCount", unreadCount);
 
             QuizDAO quizDAO = new RealQuizDAO(conn);
 
