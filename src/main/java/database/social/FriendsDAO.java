@@ -13,6 +13,7 @@ public class FriendsDAO {
     }
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
+        //    stmt.execute("DROP TABLE IF EXISTS friends");
             stmt.execute("CREATE TABLE IF NOT EXISTS friends (" +
                     "user_a VARCHAR(255), " +
                     "user_b VARCHAR(255), " +
