@@ -8,6 +8,9 @@
 <%@ page import="classes.mail.Mail" %>
 <%@ page import="java.util.List" %>
 <%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  response.setHeader("Pragma", "no-cache");
+  response.setDateHeader("Expires", 0);
   String username = (String) session.getAttribute("username");
   if (username == null) {
     response.sendRedirect("login.jsp");

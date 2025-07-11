@@ -11,7 +11,11 @@
 <%@ page import="classes.mail.Mail" %>
 <%@ page import="classes.achievement.Achievement" %>
 <%
-    String username;
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+
+String username;
     if (session != null) {
         username = (String) session.getAttribute("username");
     } else {
@@ -87,7 +91,7 @@
     </div>
 
     <div class="bottom-bar mt-30">
-        <a href="logout.jsp" class="link link-red">Log out</a>
+        <a href="Logout" class="link link-red">Log out</a>
         <form action="compose.jsp" method="get" class="bottom-right">
             <button type="submit" class="btn btn-purple">Compose</button>
         </form>

@@ -9,6 +9,9 @@
 <%@ page import="classes.mail.Mail" %>
 <%@ page import="java.util.List" %>
 <%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  response.setHeader("Pragma", "no-cache");
+  response.setDateHeader("Expires", 0);
   String currentUser = (String) request.getAttribute("currentUser");
   String otherUser = (String) request.getAttribute("otherUser");
   List<Mail> conversation = (List<Mail>) request.getAttribute("conversation");

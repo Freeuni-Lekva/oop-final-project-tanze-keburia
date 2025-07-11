@@ -15,6 +15,9 @@
 
 <p><strong>Time Taken:</strong> To be calculated</p>
 <%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  response.setHeader("Pragma", "no-cache");
+  response.setDateHeader("Expires", 0);
   Object scoreObj = request.getAttribute("totalScore");
   double score = (scoreObj instanceof Double) ? (Double) scoreObj : 0.0;
 %>
