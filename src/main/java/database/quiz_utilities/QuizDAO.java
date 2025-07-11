@@ -34,4 +34,6 @@ public interface QuizDAO {
 
     void incrementPlayCount(String quizId);
 
+    List<Quiz> getRecentlyCreatedQuizzesByUser(String username, int limit) throws SQLException;
+
 }

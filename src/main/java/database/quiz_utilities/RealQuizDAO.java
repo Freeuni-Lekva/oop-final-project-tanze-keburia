@@ -245,6 +245,21 @@ public class RealQuizDAO implements QuizDAO {
     }
 
 
+    @Override
+    public List<Quiz> getRecentlyCreatedQuizzesByUser(String username, int limit) throws SQLException {
+        String sql = "SELECT * FROM quizzes WHERE author = ? ORDER BY creation_date DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setInt(2, limit);
+            ResultSet rs = stmt.executeQuery();
+            return mapResultSetToQuizzes(rs);
+        } catch(SQLException e) {
+            throw new RuntimeException("Failed to get recently created quizzes", e);
+        }
+    }
+
+
+
     private List<Quiz> mapResultSetToQuizzes(ResultSet rs) throws SQLException {
         List<Quiz> quizzes = new ArrayList<>();
         while(rs.next()) {

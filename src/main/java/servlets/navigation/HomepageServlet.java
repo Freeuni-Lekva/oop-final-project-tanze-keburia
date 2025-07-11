@@ -17,6 +17,7 @@ import java.util.List;
 @WebServlet("/Homepage")
 public class HomepageServlet extends HttpServlet {
     private static final int DISPLAY_LIMIT = 5;
+    private static final int USERS_QUIZ_LIMIT = 3;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,9 +41,11 @@ public class HomepageServlet extends HttpServlet {
 
             List<Quiz> recentQuizzes = quizDAO.getRecentQuizzes(limit);
             List<Quiz> popularQuizzes = quizDAO.getPopularQuizzes(limit);
+            List<Quiz> recentCreatedQuizzes = ((RealQuizDAO) quizDAO).getRecentlyCreatedQuizzesByUser(username, USERS_QUIZ_LIMIT);
 
             request.setAttribute("recentQuizzes", recentQuizzes);
             request.setAttribute("popularQuizzes", popularQuizzes);
+            request.setAttribute("recentCreatedQuizzes", recentCreatedQuizzes);
         } catch (Exception e) {
             throw new ServletException("Error loading inbox", e);
         }

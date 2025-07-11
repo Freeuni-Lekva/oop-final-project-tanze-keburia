@@ -7,6 +7,8 @@
 --%>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="classes.quiz_utilities.quiz.Quiz" %>
+<%@ page import="java.util.List" %>
 
 
 <%@ page import="java.util.List" %>
@@ -24,6 +26,7 @@
         return;
     }
     List<Mail> inboxPreview = (List<Mail>) request.getAttribute("inboxPreview");
+    List<Quiz> recentCreatedQuizzes = (List<Quiz>) request.getAttribute("recentCreatedQuizzes");
 
 %>
 
@@ -153,6 +156,28 @@
         <p>No popular quizzes available.</p>
         <% } %>
     </div>
+
+    <div class="quiz-section mt-20">
+        <h3>Quizzes You Created Recently</h3>
+        <% if (recentCreatedQuizzes != null && !recentCreatedQuizzes.isEmpty()) { %>
+        <ul class="quiz-list">
+            <% for (Quiz quiz : recentCreatedQuizzes) { %>
+            <li class="card quiz-card">
+                <a href="#" class="link link-blue"
+                   onclick="confirmStartQuiz('<%= quiz.getID() %>'); return false;">
+                    <%= quiz.getName() %>
+                </a>
+                <div class="quiz-meta">
+                    Created on <%= quiz.getCreationDate() %>
+                </div>
+            </li>
+            <% } %>
+        </ul>
+        <% } else { %>
+        <p>You haven't created any quizzes yet.</p>
+        <% } %>
+    </div>
+
 
 
     <div class="bottom-bar mt-30">

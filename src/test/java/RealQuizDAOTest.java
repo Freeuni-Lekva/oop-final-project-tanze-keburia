@@ -193,6 +193,38 @@ public class RealQuizDAOTest {
     }
 
 
+    @Test
+    public void testGetRecentlyCreatedQuizzesByUser() throws SQLException {
+        long now = System.currentTimeMillis();
+
+        Quiz q1 = new RealQuiz("testUser", new Date(now - 100000), "quizA", "typeX", "Quiz A", "one-pager");
+        Quiz q2 = new RealQuiz("testUser", new Date(now - 50000), "quizB", "typeX", "Quiz B", "one-pager");
+        Quiz q3 = new RealQuiz("testUser", new Date(now), "quizC", "typeX", "Quiz C", "one-pager");
+        Quiz q4 = new RealQuiz("otherUser", new Date(now), "quizD", "typeX", "Quiz D", "one-pager");
+
+        q1.setNumQuestions(5);
+        q2.setNumQuestions(5);
+        q3.setNumQuestions(5);
+        q4.setNumQuestions(5);
+
+        quizDAO.addQuiz(q1);
+        quizDAO.addQuiz(q2);
+        quizDAO.addQuiz(q3);
+        quizDAO.addQuiz(q4);
+
+        List<Quiz> recentByTestUser = quizDAO.getRecentlyCreatedQuizzesByUser("testUser", 2);
+
+        assertEquals(2, recentByTestUser.size());
+        assertEquals("quizC", recentByTestUser.get(0).getID());
+        assertEquals("quizB", recentByTestUser.get(1).getID());
+
+        quizDAO.removeQuiz(q1);
+        quizDAO.removeQuiz(q2);
+        quizDAO.removeQuiz(q3);
+        quizDAO.removeQuiz(q4);
+    }
+
+
 
 
 

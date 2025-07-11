@@ -75,6 +75,15 @@ public class MockQuizDAO implements QuizDAO{
         }
     }
 
+    @Override
+    public List<Quiz> getRecentlyCreatedQuizzesByUser(String username, int limit) throws SQLException {
+        return quizzes.stream()
+                .filter(q -> q.getAuthor().equals(username))
+                .sorted((q1, q2) -> q2.getCreationDate().compareTo(q1.getCreationDate()))
+                .limit(limit)
+                .toList();
+    }
+
     public List<Quiz> getAll() {
         return new ArrayList<>(quizzes);
     }
