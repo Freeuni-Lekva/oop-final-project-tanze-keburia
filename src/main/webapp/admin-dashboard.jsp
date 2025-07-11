@@ -19,8 +19,7 @@
   <div class="nav-links mb-20">
     <a href="Homepage?t=<%= System.currentTimeMillis() %>" class="link link-blue">Back to Admin Homepage</a> |
     <a href="AdminAnnouncementServlet" class="link link-blue">Announcements</a> |
-    <a href="AdminUserServlet" class="link link-blue">Users</a> |
-    <a href="AdminQuizzesServlet" class="link link-blue">Quizzes</a>
+    <a href="AdminUserServlet" class="link link-blue">Users</a>
   </div>
 
   <% String error = (String) request.getAttribute("error");
