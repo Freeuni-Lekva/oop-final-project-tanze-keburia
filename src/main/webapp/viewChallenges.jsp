@@ -20,10 +20,11 @@
       <table border = "1" cellpadding = "8" cellspacing = "0">
         <thead>
         <tr>
-          <th>Quiz</th>
-          <th>Sender</th>
-          <th>Score</th>
-          <th></th>
+            <th>Quiz</th>
+            <th>Sender</th>
+            <th>Score</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -48,6 +49,16 @@
               <input type = "submit" value ="Reject Challenge(PUSSY)">
             </form>
           </td>
+            <td>
+                <form action = "AcceptChallenge" method = "get">
+                    <input type = "hidden" name = "quiz_id" value = "<%=id%>">
+                    <input type = "hidden" name = "score" value = "<%=score%>">
+                    <input type = "hidden" name = "quiz_name" value = <%=quiz_name%>>
+                    <input type = "hidden" name = "sender" value = "<%=sender%>">
+                    <input type = "submit" value = "Accept Challenge">
+                </form>
+            </td>
+
         </tr>
 
         <%

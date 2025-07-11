@@ -50,7 +50,7 @@ public class EndQuizServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         Quiz quiz = (Quiz) session.getAttribute("quiz");
         String username = session.getAttribute("username").toString();
-
+        Challenge challenge = (Challenge) session.getAttribute("challenge");
         if (quiz == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Quiz not found in session.");
             return;
@@ -60,6 +60,15 @@ public class EndQuizServlet extends HttpServlet {
             QuizDAO quizDAO = new RealQuizDAO(conn);
             QuizHistoryDAO quizHist = new QuizHistoryDAO(conn, quizDAO);
             ChallengeDAO challenges = new ChallengeDAO(conn);
+            if(challenge != null) {
+                System.out.println("Score: " + challenge.getScore());
+                System.out.println("Sender: " + challenge.getSender());
+                System.out.println("Name:" + challenge.getQuizName());
+                System.out.println("ID:" + challenge.getQuizID());
+                System.out.println("Receiver:" + challenge.getReceiver());
+                challenges.removeChallenge(challenge);
+                challenge = null;
+            }
             FriendsDAO friendsDAO = new FriendsDAO(conn);
             if (questionDAO == null) {
                 throw new ServletException("QuestionDAO not found in context.");
