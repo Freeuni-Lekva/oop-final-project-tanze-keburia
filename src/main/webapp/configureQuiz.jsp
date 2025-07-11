@@ -35,7 +35,7 @@
 <body>
 <div class="dashboard">
     <div class="header-row">
-        <button class="btn btn-secondary" onclick="window.location.href='<%= backUrl %>'">Back</button>
+        <button class="btn btn-blue" onclick="window.location.href='Homepage'">Back</button>
         <h2><%= quizName != null ? quizName : "Unnamed Quiz" %></h2>
     </div>
 
