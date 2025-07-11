@@ -29,7 +29,9 @@ public class RealQuizDAO implements QuizDAO {
                     "topic VARCHAR(255),  " +
                     "type VARCHAR(255) NOT NULL, " +
                     "visible BOOLEAN NOT NULL DEFAULT FALSE, " +
-                    "page_format VARCHAR(255) NOT NULL DEFAULT 'All Questions on One Page')");
+                    "page_format VARCHAR(255) NOT NULL DEFAULT 'All Questions on One Page', " +
+                    "play_count INT NOT NULL DEFAULT 0" +
+                    ")");
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize quiz database", e);
         }
@@ -38,8 +40,8 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void addQuiz(Quiz quiz) {
         String sql = "INSERT INTO quizzes (quiz_id, quiz_name, creation_date, author, " +
-                "time_limit, question_quantity, topic, type, page_format) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "time_limit, question_quantity, topic, type, page_format, play_count) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, quiz.getID());
@@ -51,7 +53,7 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setString(7, quiz.getTopic());
             stmt.setString(8, quiz.getType());
             stmt.setString(9, quiz.getPageFormat());
-
+            stmt.setInt(10, quiz.getPlayCount());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to add quiz", e);
@@ -108,7 +110,7 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void modifyQuiz(Quiz newQuiz) {
         String sql = "UPDATE quizzes SET quiz_name = ?, creation_date = ?, author = ?, " +
-                "time_limit = ?, question_quantity = ?, topic = ?, type = ?, page_format = ? " +
+                "time_limit = ?, question_quantity = ?, topic = ?, type = ?, page_format = ?, play_count = ? " +
                 "WHERE quiz_id = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -120,7 +122,8 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setString(6, newQuiz.getTopic());
             stmt.setString(7, newQuiz.getType());
             stmt.setString(8, newQuiz.getPageFormat());
-            stmt.setString(9, newQuiz.getID());
+            stmt.setInt(9, newQuiz.getPlayCount());
+            stmt.setString(10, newQuiz.getID());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -166,11 +169,11 @@ public class RealQuizDAO implements QuizDAO {
                 rs.getString("quiz_name"),
                 rs.getString("page_format")
         );
-
         quiz.setNumQuestions(rs.getInt("question_quantity"));
         quiz.setTopic(rs.getString("topic"));
         quiz.setTimeLimit(rs.getInt("time_limit"));
         quiz.setPageFormat(rs.getString("page_format"));
+        quiz.setPlayCount(rs.getInt("play_count"));
 
 
         if (rs.getBoolean("visible")) {
@@ -213,5 +216,61 @@ public class RealQuizDAO implements QuizDAO {
         } catch (SQLException e) {
             System.err.println("Error closing connection: " + e.getMessage());
         }
+    }
+
+
+    @Override
+    public List<Quiz> getRecentQuizzes(int limit) throws SQLException {
+        String sql = "SELECT * FROM quizzes ORDER BY creation_date DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+            return mapResultSetToQuizzes(rs);
+        }
+    }
+
+    @Override
+    public List<Quiz> getPopularQuizzes(int limit) throws SQLException {
+        String sql = "SELECT * FROM quizzes ORDER BY play_count DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, limit);
+            ResultSet rs = stmt.executeQuery();
+            return mapResultSetToQuizzes(rs);
+        }
+    }
+
+    @Override
+    public void incrementPlayCount(String quizId) {
+        String sql = "UPDATE quizzes SET play_count = play_count + 1 WHERE quiz_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, quizId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to increment play count", e);
+        }
+    }
+
+
+    @Override
+    public List<Quiz> getRecentlyCreatedQuizzesByUser(String username, int limit) throws SQLException {
+        String sql = "SELECT * FROM quizzes WHERE author = ? ORDER BY creation_date DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setInt(2, limit);
+            ResultSet rs = stmt.executeQuery();
+            return mapResultSetToQuizzes(rs);
+        } catch(SQLException e) {
+            throw new RuntimeException("Failed to get recently created quizzes", e);
+        }
+    }
+
+
+
+    private List<Quiz> mapResultSetToQuizzes(ResultSet rs) throws SQLException {
+        List<Quiz> quizzes = new ArrayList<>();
+        while(rs.next()) {
+            quizzes.add(createQuizFromResultSet(rs));
+        }
+        return quizzes;
     }
 }

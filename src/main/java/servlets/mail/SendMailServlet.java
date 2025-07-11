@@ -41,13 +41,13 @@ public class SendMailServlet extends HttpServlet {
             if (!userDAO.userExists(receiver)) {
                 String errorSubject = "Failed to deliver mail to '" + receiver + "'";
                 String errorContent = "Your message was not sent because user '" + receiver + "' does not exist.";
-                Mail errorMail = new Mail(0, "System", sender, errorSubject, errorContent, null);
+                Mail errorMail = new Mail(0, "System", sender, errorSubject, errorContent, null, false);
                 mailDAO.sendMail(errorMail);
                 response.sendRedirect("Homepage");
                 return;
             }
 
-            mailDAO.sendMail(new Mail(0, sender, receiver, subject, content, null));
+            mailDAO.sendMail(new Mail(0, sender, receiver, subject, content, null, false));
             response.sendRedirect("SentServlet");
 
         } catch (SQLException e) {

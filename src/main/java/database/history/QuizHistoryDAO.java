@@ -129,6 +129,7 @@ public class QuizHistoryDAO {
         return 0;
     }
 
+
     public double getTopScoreForQuiz(String quizID) {
         try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(score) FROM quiz_history WHERE quiz_id = ?")) {
             ps.setString(1, quizID);

@@ -14,7 +14,7 @@ public class MailTest extends TestCase {
             String content = "xodze xar?";
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-            Mail mail = new Mail(id, sender, receiver, subject, content, timestamp);
+            Mail mail = new Mail(id, sender, receiver, subject, content, timestamp, false);
 
             assertEquals(id, mail.getId());
             assertEquals(sender, mail.getSender());
@@ -22,5 +22,6 @@ public class MailTest extends TestCase {
             assertEquals(subject, mail.getSubject());
             assertEquals(content, mail.getContent());
             assertEquals(timestamp, mail.getTimestamp());
+            assertFalse(mail.isRead());
     }
 }

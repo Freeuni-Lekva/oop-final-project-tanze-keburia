@@ -13,6 +13,7 @@ public class MockQuiz implements Quiz{
     private String type;
     private boolean visible;
     private String format;
+    private int playCount = 0;
     public MockQuiz(String author, Date created, String id,  String type, String name, String format){
         this.id = id;
         this.author = author;
@@ -25,6 +26,13 @@ public class MockQuiz implements Quiz{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int getPlayCount() { return playCount; }
+
+    @Override
+    public void setPlayCount(int playCount) { this.playCount = playCount; }
+
     public void setTopic(String topic) {
         this.topic = topic;
     }
@@ -75,4 +83,6 @@ public class MockQuiz implements Quiz{
     public void setPageFormat(String pageFormat) {
         format = pageFormat;
     }
+
+
 }

@@ -50,6 +50,15 @@ public class RealQuestion implements Question {
     public void setPoints(double points) {
         this.points = Double.toString(points);
     }
+    public String getPrompt() {
+        String[] parts = this.statement.split(";;");
+        return parts.length > 0 ? parts[0] : "";
+    }
+
+    public String getImageURL() {
+        String[] parts = this.statement.split(";;");
+        return parts.length > 1 ? parts[1] : "";
+    }
 
     @Override
     public boolean equals(Object o) {
