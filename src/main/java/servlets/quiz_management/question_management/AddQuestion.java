@@ -1,4 +1,4 @@
-package servlets;
+package servlets.quiz_management.question_management;
 
 import Validation.OwnershipChecker;
 
@@ -61,8 +61,8 @@ public class AddQuestion extends HttpServlet {
             questionDAO.addQuestion(question);
             System.out.println(questionDAO.getAllQuestions().size());
             request.setAttribute("question", question);
-           // request.setAttribute("questions", questionDAO);
-          //  response.sendRedirect(jsp+"?id="+id+"&quizID="+quizID);
+            request.setAttribute("questionID", id);
+            request.setAttribute("quizID", quizID);
             request.getRequestDispatcher(jsp+"?id="+id+"&quizID="+quizID).forward(request, response);
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -13,7 +13,7 @@ html, body {
 /* ========== Layout ========== */
 .dashboard {
     max-width: 700px;
-    width: 100%;               /* Make sure it doesn’t shrink */
+    width: 100%;               /* Make sure it doesn't shrink */
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -27,7 +27,6 @@ html, body {
     flex-direction: column;
     justify-content: space-between;
 }
-
 
 /* ========== Buttons ========== */
 .btn {
@@ -64,8 +63,6 @@ html, body {
 .btn-red:hover {
     background-color: #a71d2a;
 }
-
-
 
 .btn-purple {
     background-color: #6c63ff;
@@ -165,12 +162,9 @@ html, body {
     margin-top: -10px;
 }
 
-
 .message-container {
     flex: 1;
 }
-
-
 
 .message-list {
     list-style: none;
@@ -251,10 +245,281 @@ html, body {
     color: #555;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+.center-form {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.center-form form {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.center-form input[type="text"],
+.center-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
 
+/* ========== New Announcement Styles ========== */
+.announcement-card {
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.announcement-card p {
+    margin: 5px 0;
+}
+
+textarea.input-full {
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+/* ========== Button Alignment ========== */
+form button[type="submit"] {
+    margin-top: 5px;
+}
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* ========== Quiz Configuration Styles ========== */
+.quiz-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quiz-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.quiz-info {
+    flex-grow: 1;
+}
+
+.no-quizzes {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.time-limit {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.time-limit p {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.publish-form {
+    padding: 20px;
+}
+
+/* Form Elements */
+select.input-full {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* ========== Navigation Links ========== */
+.nav-links {
+    margin: 20px 0;
+}
+
+.nav-links a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+/* ========== Quiz Management Styles ========== */
+.quizzes-container {
+    margin-top: 10px; /* Reduced from 20px to 10px */
+}
+
+.quizzes-container h2 {
+    margin-top: 5px;  /* Reduced top margin */
+    margin-bottom: 15px; /* Keep bottom margin for spacing from cards */
+}
+
+.quiz-card {
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.quiz-header {
+    margin-bottom: 15px;
+}
+
+.quiz-header h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.quiz-author {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.quiz-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.play-form {
+    flex-grow: 1;
+}
+
+.no-quizzes {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
 
 /* ========== Utility Classes ========== */
 .mt-20 { margin-top: 20px; }
 .mb-20 { margin-bottom: 20px; }
 .mt-30 { margin-top: 30px; }
 .mb-15 { margin-bottom: 15px; }
+
+
+/* ========== Login Page Styles ========== */
+.login-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-box input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-box input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.login-box a {
+    display: block;
+    margin-top: 15px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
+
+.quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quiz-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.quiz-header h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.quiz-author {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.quiz-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.quiz-actions form {
+    flex: 1;
+}
+
+.quiz-actions button {
+    width: 100%;
+}
+
+.no-quizzes {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px dashed #ddd;
+}
+
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
