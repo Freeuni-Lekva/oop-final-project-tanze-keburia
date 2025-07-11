@@ -21,7 +21,6 @@ public class DeleteSentMail extends HttpServlet {
             int mailId = Integer.parseInt(idParam);
             try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
                 MailDAO mailDAO = new MailDAO(conn);
-                // Check if mail belongs to user's sent mails
                 List<Mail> sentMails = mailDAO.getSent(username);
                 boolean ownsMail = false;
                 for (Mail mail : sentMails) {

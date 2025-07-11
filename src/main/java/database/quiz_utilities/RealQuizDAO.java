@@ -16,9 +16,9 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("DROP TABLE IF EXISTS quizzes");
+             stmt.executeUpdate("DROP TABLE IF EXISTS quizzes");
 
-            stmt.executeUpdate("CREATE TABLE quizzes (" +
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS quizzes (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "quiz_id VARCHAR(255) NOT NULL UNIQUE, " +
                     "quiz_name VARCHAR(255) NOT NULL, " +
@@ -54,8 +54,6 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setString(8, quiz.getType());
             stmt.setString(9, quiz.getPageFormat());
             stmt.setInt(10, quiz.getPlayCount());
-
-
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to add quiz", e);
@@ -171,7 +169,6 @@ public class RealQuizDAO implements QuizDAO {
                 rs.getString("quiz_name"),
                 rs.getString("page_format")
         );
-
         quiz.setNumQuestions(rs.getInt("question_quantity"));
         quiz.setTopic(rs.getString("topic"));
         quiz.setTimeLimit(rs.getInt("time_limit"));
@@ -200,6 +197,15 @@ public class RealQuizDAO implements QuizDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get quiz name", e);
         }
+    }
+    public int getCreatedQuizCount(String username) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM quizzes WHERE author = ?")) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return 0;
     }
 
     public void close() {

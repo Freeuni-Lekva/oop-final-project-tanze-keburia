@@ -117,5 +117,13 @@ public class MockQuizDAO implements QuizDAO{
     public int getNumQuizes() {
         return quizzes.size();
     }
-
+    public int getCreatedQuizCount(String username) {
+        int count = 0;
+        for (Quiz q : quizzes) {
+            if (q.getAuthor().equals(username)) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

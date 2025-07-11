@@ -29,11 +29,14 @@ public interface QuizDAO {
 
     String getQuizNameById(String quizId);
 
+
     List<Quiz> getRecentQuizzes(int limit) throws SQLException;
     List<Quiz> getPopularQuizzes(int limit) throws SQLException;
 
     void incrementPlayCount(String quizId);
 
     List<Quiz> getRecentlyCreatedQuizzesByUser(String username, int limit) throws SQLException;
+
+    int getCreatedQuizCount(String username);
 
 }

@@ -4,6 +4,7 @@ package servlets.quiz_creation;
 
 import classes.quiz_utilities.quiz.Quiz;
 import classes.quiz_utilities.quiz.RealQuiz;
+import database.achievement.AchievementDAO;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuizDAO;
@@ -40,7 +41,6 @@ public class StartMakingQuiz extends HttpServlet {
             String format = request.getParameter("format");
             Quiz newQuiz = new RealQuiz(username, now, id, request.getParameter("type"), request.getParameter("quizName"), format);
             quizDAO.addQuiz(newQuiz);
-
             response.sendRedirect("ConfigureQuiz?id=" + id);
         } catch (SQLException e) {
             throw new RuntimeException(e);

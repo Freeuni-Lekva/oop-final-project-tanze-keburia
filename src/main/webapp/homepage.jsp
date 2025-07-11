@@ -1,9 +1,20 @@
-
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="classes.quiz_utilities.quiz.Quiz" %>
 <%@ page import="java.util.List" %>
+
+<%--
+  Created by IntelliJ IDEA.
+  User: GUGA
+  Date: 6/18/2025
+  Time: 10:13 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="classes.mail.Mail" %>
+<%@ page import="java.util.List" %>
+<%@ page import="classes.admin.Announcement" %>
+<%@ page import="classes.achievement.Achievement" %>
+
 
 <%
     String username;
@@ -125,6 +136,33 @@
         </form>
     </div>
 
+    <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
+
+    <div class="latest-announcement mt-20">
+        <div class="announcement-header-with-link">
+            <h3>Latest Announcement</h3>
+            <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
+        </div>
+        <%
+            Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
+            if (latestAnnouncement != null) {
+        %>
+        <div class="card announcement-card">
+            <p><%= latestAnnouncement.getBody() %></p>
+            <div class="timestamp">
+                Posted on:
+                <%
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
+                %>
+                <%= formattedTime %>
+            </div>
+        </div>
+        <% } else { %>
+        <p>No announcements yet</p>
+        <% } %>
+    </div>
+
     <div class="recent-messages mt-20">
         <h3>Recent Messages</h3>
         <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
@@ -242,6 +280,21 @@
             <button type="submit" class="btn btn-purple">Compose</button>
         </form>
     </div>
+    <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");
+        if (achievements != null && !achievements.isEmpty()) { %>
+    <h3>Achievements</h3>
+    <ul class="achievement-list">
+        <% for (Achievement ach : achievements) { %>
+        <li class="card achievement-card">
+            <strong><%= ach.getType() %></strong><br/>
+            <small>Awarded at: <%= ach.getAwardedAt() %></small>
+        </li>
+        <% } %>
+    </ul>
+    <% } else { %>
+    <p>No achievements yet.</p>
+    <% } %>
 </div>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-package servlets;
+package servlets.quiz_management.question_management;
 
 import Validation.OwnershipChecker;
 import classes.quiz_utilities.questions.Question;
@@ -32,6 +32,11 @@ public class ModifyQuestion extends HttpServlet {
         String quizId = request.getParameter("quizID");
         String answer = request.getParameter("answer");
         String statement = request.getParameter("statement");
+        String prompt = request.getParameter("prompt");
+        String imageUrl = request.getParameter("imageUrl");
+        if (prompt != null && imageUrl != null) {
+            statement = prompt + ";;" + imageUrl;
+        }
         ServletContext context = getServletContext();
         QuestionDAO questionDAO = null;
         QuizDAO quizDAO = null;
