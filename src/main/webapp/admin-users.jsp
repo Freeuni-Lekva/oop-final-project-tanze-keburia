@@ -14,8 +14,6 @@
     <a href="AdminDashboardServlet" class="link link-blue">Dashboard</a>
   </div>
 
-  <p>Welcome, <strong><%= request.getAttribute("currentUser") %></strong></p>
-
   <% String success = (String) session.getAttribute("statusMessage");
     if (success != null) {
       session.removeAttribute("statusMessage"); %>
@@ -27,8 +25,9 @@
   <div class="error-message"><%= error %></div>
   <% } %>
 
-  <div class="quizzes-container">
-    <h2>All Users</h2>
+  <div class="recent-messages mt-20">
+    <h3>All Users</h3>
+
     <%
       List<String> allUsers = (List<String>) request.getAttribute("allUsers");
       List<String> admins = (List<String>) request.getAttribute("admins");
@@ -36,48 +35,51 @@
 
       if (allUsers != null && !allUsers.isEmpty()) {
     %>
-    <div class="quiz-list">
+    <ul class="message-list">
       <% for (String user : allUsers) {
         boolean isAdmin = admins != null && admins.contains(user);
       %>
-      <div class="quiz-card">
-        <div class="quiz-header">
-          <h3><%= user %></h3>
+      <li class="card message-card">
+        <div>
+          <strong><a href="ProfileServlet?username=<%= user %>" class="link link-blue"><%= user %></a></strong>
           <% if (isAdmin) { %>
-          <p class="quiz-author">(Admin)</p>
+          <span class="tag tag-purple">(Admin)</span>
           <% } %>
         </div>
-        <div class="quiz-actions">
-          <% if (!user.equals(currentUser)) { %>
-          <form method="post" action="AdminUserServlet">
+
+        <% if (!user.equals(currentUser)) { %>
+        <div style="margin-top: 10px;">
+          <form method="post" action="AdminUserServlet" style="display:inline;">
             <input type="hidden" name="action" value="removeUser">
             <input type="hidden" name="userToRemove" value="<%= user %>">
             <button type="submit" class="btn btn-red">Remove User</button>
           </form>
-          <% } %>
 
-          <% if (!isAdmin && !user.equals(currentUser)) { %>
-          <form method="post" action="AdminUserServlet">
+          <% if (!isAdmin) { %>
+          <form method="post" action="AdminUserServlet" style="display:inline; margin-left:10px;">
             <input type="hidden" name="action" value="promoteUser">
             <input type="hidden" name="userToPromote" value="<%= user %>">
             <button type="submit" class="btn btn-green">Promote to Admin</button>
           </form>
-          <% } else if (isAdmin && !user.equals(currentUser)) { %>
-          <form method="post" action="AdminUserServlet">
+          <% } else { %>
+          <form method="post" action="AdminUserServlet" style="display:inline; margin-left:10px;">
             <input type="hidden" name="action" value="demoteUser">
             <input type="hidden" name="userToDemote" value="<%= user %>">
             <button type="submit" class="btn btn-purple">Remove Admin Rights</button>
           </form>
           <% } %>
         </div>
-      </div>
+        <% } %>
+      </li>
       <% } %>
-    </div>
+    </ul>
     <% } else { %>
-    <div class="no-quizzes">
-      <p>No users found</p>
-    </div>
+    <p>No users found</p>
     <% } %>
+  </div>
+
+  <div class="bottom-bar mt-30">
+    <a href="Homepage" class="link link-blue">Home</a>
   </div>
 </div>
 </body>
