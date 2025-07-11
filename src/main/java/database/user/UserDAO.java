@@ -17,7 +17,7 @@ public class UserDAO {
     public void initialize() throws SQLException {
         String sql = "DROP TABLE IF EXISTS users";
         Statement stmt = conn.createStatement();
-       // stmt.execute(sql);
+        stmt.execute(sql);
         sql =
                 "CREATE TABLE IF NOT EXISTS users (" +
                         "userName VARCHAR(50) PRIMARY KEY, " +

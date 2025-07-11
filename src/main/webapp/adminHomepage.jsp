@@ -12,6 +12,7 @@
 <%@ page import="classes.mail.Mail" %>
 <%@ page import="java.util.List" %>
 <%@ page import="classes.admin.Announcement" %>
+<%@ page import="classes.achievement.Achievement" %>
 
 <%
   response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
@@ -72,6 +73,7 @@
     </form>
   </div>
 
+  <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
 
   <div class="latest-announcement mt-20">
     <div class="announcement-header-with-link">
@@ -120,7 +122,7 @@
           String formattedTime = sdf.format(mail.getTimestamp());
         %>
         <div class="timestamp"><%= formattedTime %></div>
-        <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+        <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
       </li>
       <% } %>
     </ul>
@@ -138,6 +140,20 @@
       <button type="submit" class="btn btn-purple">Compose</button>
     </form>
   </div>
+  <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");
+    if (achievements != null && !achievements.isEmpty()) { %>
+  <h3>Achievements</h3>
+  <ul class="achievement-list">
+    <% for (Achievement ach : achievements) { %>
+    <li class="card achievement-card">
+      <strong><%= ach.getType() %></strong><br/>
+      <small>Awarded at: <%= ach.getAwardedAt() %></small>
+    </li>
+    <% } %>
+  </ul>
+  <% } else { %>
+  <p>No achievements yet.</p>
+  <% } %>
 </div>
 </body>
 </html>

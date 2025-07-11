@@ -61,6 +61,8 @@ public class AddQuestion extends HttpServlet {
             questionDAO.addQuestion(question);
             System.out.println(questionDAO.getAllQuestions().size());
             request.setAttribute("question", question);
+            request.setAttribute("questionID", id);
+            request.setAttribute("quizID", quizID);
             request.getRequestDispatcher(jsp+"?id="+id+"&quizID="+quizID).forward(request, response);
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,44 +1,50 @@
-<%@ page import="database.quiz_utilities.QuestionDAO" %>
-<%@ page import="classes.quiz_utilities.questions.Question" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="classes.quiz_utilities.questions.Question" %>
 <%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+
     String questionId = request.getParameter("id");
     String quizID = request.getParameter("quizID");
-    Question question = (Question)request.getAttribute("question");
-    String description = question != null ? question.getStatement() : "";
-    String answer = question != null ? question.getAnswer() : "";
+    Question question = (Question) request.getAttribute("question");
+    String description = question.getStatement();
+    String answer = question.getAnswer();
 %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Question</title>
+    <meta charset="UTF-8">
+    <title>Edit Question</title>
     <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
 <body>
 <div class="dashboard">
     <div class="header-row">
-        <h2 class="link-blue">Edit Question</h2>
-        <a href="ConfigureQuiz?id=<%=quizID%>" class="btn btn-blue">Back to Quiz</a>
+        <h2>Modify Question</h2>
     </div>
 
-    <form action='ModifyQuestion' method='post' class="card">
-        <input type="hidden" name="questionID" value="<%=questionId%>">
-        <input type="hidden" name="quizID" value="<%=quizID%>">
+    <div class="center-form">
+        <form action="ModifyQuestion" method="post">
+            <input type="hidden" name="questionID" value="<%= questionId %>">
+            <input type="hidden" name="quizID" value="<%= quizID %>">
 
-        <div class="input-group mb-20">
-            <label class="link-blue">Statement:</label>
-            <input type="text" name="statement" value="<%=description%>" class="input-full" required>
-        </div>
+            <label>Statement:</label>
+            <input type="text" name="statement" value="<%= description %>" required>
 
-        <div class="input-group mb-20">
-            <label class="link-blue">Answer:</label>
-            <input type="text" name="answer" value="<%=answer%>" class="input-full" required>
-        </div>
+            <label>Answer:</label>
+            <input type="text" name="answer" value="<%= answer %>" required>
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn-blue">Save Changes</button>
-            <a href="ConfigureQuiz?id=<%=quizID%>" class="btn btn-blue">Back to Quiz</a>
-        </div>
-    </form>
+            <input type="submit" value="Submit" class="btn btn-blue">
+        </form>
+    </div>
+
+    <div class="bottom-bar">
+        <form action="GoBackToQuiz" method="get" style="margin-top: 10px;">
+            <input type="hidden" name="quizID" value="<%= quizID %>">
+            <button type="submit" class="btn btn-red">Back to Quiz</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

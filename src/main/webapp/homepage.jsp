@@ -54,6 +54,7 @@
         </form>
     </div>
 
+    <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
 
     <div class="latest-announcement mt-20">
         <div class="announcement-header-with-link">
@@ -80,7 +81,6 @@
         <% } %>
     </div>
 
-
     <div class="recent-messages mt-20">
         <h3>Recent Messages</h3>
         <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
@@ -101,7 +101,7 @@
                     String formattedTime = sdf.format(mail.getTimestamp());
                 %>
                 <div class="timestamp"><%= formattedTime %></div>
-                <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+                <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
             </li>
             <% } %>
         </ul>
@@ -133,8 +133,6 @@
     <% } else { %>
     <p>No achievements yet.</p>
     <% } %>
-
-    <a href="ViewChallenges?username=<%=username%>">View Challenges</a>
 </div>
 
 </body>

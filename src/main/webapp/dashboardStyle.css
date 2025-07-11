@@ -245,6 +245,30 @@ html, body {
     color: #555;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+.center-form {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.center-form form {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.center-form input[type="text"],
+.center-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
 
 /* ========== New Announcement Styles ========== */
 .announcement-card {
@@ -499,5 +523,3 @@ select.input-full {
     font-weight: bold;
     margin-bottom: 15px;
 }
-
->>>>>>> f56af6ab9822d5aa6131053617a8ff2fad437ac2
