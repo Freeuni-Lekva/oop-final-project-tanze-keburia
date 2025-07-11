@@ -74,7 +74,10 @@
 
 
   <div class="latest-announcement mt-20">
-    <h3>Latest Announcement</h3>
+    <div class="announcement-header-with-link">
+      <h3>Latest Announcement</h3>
+      <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
+    </div>
     <%
       Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
       if (latestAnnouncement != null) {
