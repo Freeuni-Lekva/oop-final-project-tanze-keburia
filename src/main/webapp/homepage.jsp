@@ -117,10 +117,23 @@
 </head>
 <body>
 <div class="dashboard">
-    <div class="header-row">
-        <h2>Welcome, <%= username %>!</h2>
-        <a href="MyProfileServlet" class="link link-blue">My Profile</a>
+    <div style="position: relative; margin-bottom: 20px;">
+        <img src="assets/welcome.webp" alt="Welcome Banner" style="max-width: 100%; height: auto;" />
+
+        <div class="speech-bubble">
+            <div class="speech-text">
+                Welcome <%= username %>!
+            </div>
+        </div>
+
+
+
+        <div style="text-align: right; margin-bottom: 20px;">
+        <a href="MyProfileServlet" class="link link-blue" style="font-weight: 500;">My Profile</a>
     </div>
+
+
+
 
     <form method="get" action="SearchServlet" class="search-form">
         <input type="text" name="username" placeholder="Enter username" required />
@@ -138,57 +151,60 @@
 
     <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
 
-    <div class="latest-announcement mt-20">
-        <div class="announcement-header-with-link">
-            <h3>Latest Announcement</h3>
-            <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
+    <div class="quiz-sections-container">
+        <!-- Recent Messages Block -->
+        <div class="quiz-box">
+            <h3>Recent Messages</h3>
+            <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
+            <p>No new messages</p>
+            <% } else { %>
+            <ul class="quiz-list">
+                <% int shown = 0;
+                    for (Mail mail : inboxPreview) {
+                        if (shown >= 3) break;
+                        shown++; %>
+                <li class="quiz-card">
+                    <strong>From:</strong> <%= mail.getSender() %><br>
+                    <strong>Subject:</strong> <%= mail.getSubject() %><br>
+                    <%
+                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        String formattedTime = sdf.format(mail.getTimestamp());
+                    %>
+                    <div class="quiz-meta-box"><%= formattedTime %></div>
+                    <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+                </li>
+                <% } %>
+            </ul>
+            <% } %>
         </div>
-        <%
-            Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
-            if (latestAnnouncement != null) {
-        %>
-        <div class="card announcement-card">
-            <p><%= latestAnnouncement.getBody() %></p>
-            <div class="timestamp">
-                Posted on:
-                <%
-                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
-                %>
-                <%= formattedTime %>
+
+        <!-- Latest Announcement Block -->
+        <div class="quiz-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0;">Latest Announcement</h3>
+                <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
             </div>
+            <%
+                Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
+                if (latestAnnouncement != null) {
+            %>
+            <div class="quiz-card" style="margin-top: 10px;">
+                <p><%= latestAnnouncement.getBody() %></p>
+                <div class="quiz-meta-box">
+                    Posted on:
+                    <%
+                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
+                    %>
+                    <%= formattedTime %>
+                </div>
+            </div>
+            <% } else { %>
+            <p style="margin-top: 10px;">No announcements yet</p>
+            <% } %>
         </div>
-        <% } else { %>
-        <p>No announcements yet</p>
-        <% } %>
     </div>
 
-    <div class="recent-messages mt-20">
-        <h3>Recent Messages</h3>
-        <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
-        <p>No new messages</p>
-        <% } else { %>
-        <ul class="message-list">
-            <% int shown = 0;
-                for (Mail mail : inboxPreview) {
-                    if (shown >= 3) break;
-                    shown++; %>
-            <li class="card message-card">
-                <div>
-                    <strong>From:</strong> <%= mail.getSender() %><br>
-                    <strong>Subject:</strong> <%= mail.getSubject() %>
-                </div>
-                <%
-                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    String formattedTime = sdf.format(mail.getTimestamp());
-                %>
-                <div class="timestamp"><%= formattedTime %></div>
-                <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
-            </li>
-            <% } %>
-        </ul>
-        <% } %>
-    </div>
 
     <div class="mail-links mt-20 mb-20">
     <div class="inbox-wrapper">
