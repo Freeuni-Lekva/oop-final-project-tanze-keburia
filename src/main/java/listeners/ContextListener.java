@@ -28,7 +28,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         DatabaseConnector dbc = DatabaseConnector.getInstance();
-        final String DEFAULT_ADMIN_USERNAME = "admin";
+        final String DEFAULT_ADMIN_USERNAME = "mzare";
         final String DEFAULT_ADMIN_PASSWORD = "123";
 
 
