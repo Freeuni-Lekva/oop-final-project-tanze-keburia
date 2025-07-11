@@ -1,4 +1,4 @@
-package servlets;
+package servlets.quiz_management.question_management;
 
 import Validation.OwnershipChecker;
 import classes.quiz_utilities.questions.Question;

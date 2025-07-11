@@ -5,11 +5,11 @@
   Time: 10:13 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="javax.servlet.http.HttpSession" %>
-
-<%@ page import="java.util.List" %>
 <%@ page import="classes.mail.Mail" %>
+<%@ page import="java.util.List" %>
+<%@ page import="classes.admin.Announcement" %>
 <%@ page import="classes.achievement.Achievement" %>
+
 <%
     String username;
     if (session != null) {
@@ -54,6 +54,33 @@
         </form>
     </div>
 
+
+    <div class="latest-announcement mt-20">
+        <div class="announcement-header-with-link">
+            <h3>Latest Announcement</h3>
+            <a href="AllAnnouncementsServlet" class="link link-purple">All Announcements</a>
+        </div>
+        <%
+            Announcement latestAnnouncement = (Announcement) request.getAttribute("latestAnnouncement");
+            if (latestAnnouncement != null) {
+        %>
+        <div class="card announcement-card">
+            <p><%= latestAnnouncement.getBody() %></p>
+            <div class="timestamp">
+                Posted on:
+                <%
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    String formattedTime = sdf.format(latestAnnouncement.getPublishDate());
+                %>
+                <%= formattedTime %>
+            </div>
+        </div>
+        <% } else { %>
+        <p>No announcements yet</p>
+        <% } %>
+    </div>
+
+
     <div class="recent-messages mt-20">
         <h3>Recent Messages</h3>
         <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
@@ -74,7 +101,7 @@
                     String formattedTime = sdf.format(mail.getTimestamp());
                 %>
                 <div class="timestamp"><%= formattedTime %></div>
-                <a href="ViewMail?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
+                <a href="message.jsp?id=<%= mail.getId() %>" class="link link-blue">View Message</a>
             </li>
             <% } %>
         </ul>
