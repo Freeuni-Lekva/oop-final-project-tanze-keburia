@@ -1,8 +1,11 @@
 package servlets.quiz_creation;
 
 import Validation.OwnershipChecker;
+import classes.achievement.AchievementAwarder;
 import classes.quiz_utilities.quiz.Quiz;
+import database.achievement.AchievementDAO;
 import database.database_connection.DatabaseConnector;
+import database.history.QuizHistoryDAO;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuizDAO;
 
@@ -31,7 +34,9 @@ public class PublishQuiz extends HttpServlet {
         QuizDAO quizzes = null;
         try (Connection connection = DatabaseConnector.getInstance().getConnection()){
             quizzes = new RealQuizDAO(connection);
-
+            AchievementDAO achievementDAO = new AchievementDAO(connection);
+            QuizHistoryDAO quizHistoryDAO = new QuizHistoryDAO(connection, quizzes);
+            AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizzes, quizHistoryDAO);
             String quizID =  request.getParameter("quizID");
             String quizTopic = request.getParameter("topic");
             Quiz quiz = quizzes.getQuiz(quizID);
@@ -45,6 +50,8 @@ public class PublishQuiz extends HttpServlet {
             quiz.setTopic(quizTopic);
             quiz.setVisible(true);
             quizzes.modifyQuiz(quiz);
+            String username = (String) session.getAttribute("username");
+            awarder.checkQuizCreationAchievements(username);
             response.sendRedirect("Homepage");
         } catch (SQLException e) {
             throw new RuntimeException(e);

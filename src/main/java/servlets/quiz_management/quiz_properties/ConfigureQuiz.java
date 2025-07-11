@@ -19,31 +19,52 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
 @WebServlet("/ConfigureQuiz")
 public class ConfigureQuiz extends HttpServlet {
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session =  request.getSession(false);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
         if(session == null || session.getAttribute("username") == null){
             response.sendRedirect("login.jsp");
             return;
         }
+
         String quizID = request.getParameter("id");
-        try(Connection conn = DatabaseConnector.getInstance().getConnection()){
+        if(quizID == null || quizID.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Quiz ID is required");
+            return;
+        }
+
+        try (Connection conn = DatabaseConnector.getInstance().getConnection()) {
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
-            QuizDAO quizzes =  new RealQuizDAO(conn);
-            List<Question> questions = questionDAO.getQuiz(quizID);
-            Quiz quiz = quizzes.getQuiz(quizID);
-            if(!OwnershipChecker.checkOwnershipByQuiz(quiz, request, response, (String)session.getAttribute("username"))) {
+            QuizDAO quizDAO = new RealQuizDAO(conn);
+
+            Quiz quiz = quizDAO.getQuiz(quizID);
+            if(quiz == null) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Quiz not found");
                 return;
             }
-            String quizName = quiz.getName();
-            request.setAttribute("quizName", quizName);
+
+            // Check ownership
+            String username = (String)session.getAttribute("username");
+            if(!OwnershipChecker.checkOwnershipByQuiz(quiz, request, response, username)) {
+                return;
+            }
+
+            List<Question> questions = questionDAO.getQuiz(quizID);
+
+            // Set attributes for JSP
+            request.setAttribute("quizName", quiz.getName());
             request.setAttribute("questions", questions);
             request.setAttribute("id", quizID);
             request.setAttribute("quiz", quiz);
-        }catch(SQLException e) {
-            throw new ServletException(e);
+
+            request.getRequestDispatcher("configureQuiz.jsp").forward(request, response);
+
+        } catch (SQLException e) {
+            throw new ServletException("Database error", e);
         }
-        request.getRequestDispatcher("configureQuiz.jsp").forward(request, response);
     }
 }
