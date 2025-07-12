@@ -158,7 +158,7 @@
       <h3>Recent Messages</h3>
       <% if (inboxPreview == null || inboxPreview.isEmpty()) { %>
       <div style="text-align: center;">
-        <h3>Recent Messages</h3>
+<%--        <h3>Recent Messages</h3>--%>
         <img src="assets/nomessages.webp" alt="No Messages" style="max-width: 100px; margin-bottom: 10px;" />
         <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
           No new messages

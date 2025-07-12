@@ -70,4 +70,8 @@ public class FriendsDAOTest {
         assertEquals(0, bobFriends.size());
     }
 
+    void testRemoveUser() {
+
+    }
+
 }
