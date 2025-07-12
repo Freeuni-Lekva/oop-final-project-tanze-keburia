@@ -4,15 +4,12 @@ import database.admin.Admins;
 import classes.admin.Announcement;
 import classes.achievement.Achievement;
 import classes.mail.Mail;
-
 import classes.quiz_utilities.quiz.Quiz;
+import database.achievement.AchievementDAO;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuizDAO;
-
-import database.achievement.AchievementDAO;
 import database.admin.AnnouncementDAO;
-
 import database.social.MailDAO;
 
 import javax.servlet.ServletException;
@@ -32,7 +29,7 @@ public class HomepageServlet extends HttpServlet {
     private static final int USERS_QUIZ_LIMIT = 3;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
@@ -58,7 +55,6 @@ public class HomepageServlet extends HttpServlet {
 
             request.setAttribute("latestAnnouncement", latestAnnouncement);
             request.setAttribute("inboxPreview", inboxPreview);
-
             int unreadCount = mailDAO.countUnreadMails(username);
             request.setAttribute("unreadCount", unreadCount);
 
@@ -74,7 +70,7 @@ public class HomepageServlet extends HttpServlet {
             request.setAttribute("recentQuizzes", recentQuizzes);
             request.setAttribute("popularQuizzes", popularQuizzes);
             request.setAttribute("recentCreatedQuizzes", recentCreatedQuizzes);
-       
+
             AchievementDAO achievementDAO = new AchievementDAO(conn);
             List<Achievement> achievements = achievementDAO.getUserAchievements(username);
             request.setAttribute("achievements", achievements);
@@ -90,7 +86,7 @@ public class HomepageServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
