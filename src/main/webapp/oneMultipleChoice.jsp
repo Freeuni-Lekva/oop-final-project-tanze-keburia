@@ -16,7 +16,6 @@
 </head>
 <body>
 <h2><%= session.getAttribute("quiz") %></h2>
-
 <form method="post" action="SubmitQuizServlet">
     <% for (int i = 0; i < questions.size(); i++) {
         MultipleChoiceQuestion question = questions.get(i);

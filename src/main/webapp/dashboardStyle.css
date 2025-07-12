@@ -569,7 +569,52 @@ select.input-full {
     word-wrap: break-word;
     white-space: normal;
 }
+full-height {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
+.quiz-center-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-form {
+    width: 100%;
+    max-width: 800px;
+}
+
+.text-area {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.no-resize {
+    resize: none;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 .quiz-announcements-container {
     display: flex;
     gap: 20px;
@@ -1205,6 +1250,180 @@ input[type="submit"]:hover {
 .reject-button:hover {
     background-color: #c82333;
 }
+.quiz-center-container.vertical-align {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.quiz-list-container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.no-quizzes-msg {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+}
+
+.quiz-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quiz-item {
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quiz-item:hover {
+    background-color: #f5f9ff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.quiz-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.quiz-link:hover {
+    text-decoration: underline;
+}
+
+.quiz-author {
+    font-size: 14px;
+    color: #666;
+}
+
+.back-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+.full-height {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-center-container.vertical-align {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.quiz-details-container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.start-quiz-form {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.leaderboard-title {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.leaderboard-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.leaderboard-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.leaderboard-table tr:hover {
+    background-color: #f1f7ff;
+}
+
+.no-quizzes-msg {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin-top: 10px;
+}
+
+.back-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.btn-blue {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-gray {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
 
 .no-challenges {
     font-size: 18px;
