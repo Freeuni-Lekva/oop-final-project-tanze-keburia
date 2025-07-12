@@ -888,6 +888,99 @@ body {
 }
 
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f9ff;
+    padding: 30px;
+}
+
+h2 {
+    margin-bottom: 25px;
+}
+
+.flex-container {
+    display: flex;
+    gap: 30px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 300px;
+    position: relative;
+}
+
+.box h3 {
+    margin-top: 0;
+}
+
+.box img {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 70px;
+    height: 70px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+form {
+    display: inline;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.bottom-links {
+    margin-top: 30px;
+}
+
+.icon-with-badge {
+    position: relative;
+    display: inline-block;
+    margin-top: -30px;
+}
+
+
+.icon-with-badge img {
+    width: 70px;
+    height: 70px;
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    box-shadow: 0 0 0 2px white;
+}
+
+
 
 
 
