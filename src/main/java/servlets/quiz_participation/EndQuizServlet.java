@@ -111,4 +111,3 @@ public class EndQuizServlet extends HttpServlet {
         doPost(request, response);
     }
 }
-

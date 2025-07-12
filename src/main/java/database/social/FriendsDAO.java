@@ -9,11 +9,7 @@ public class FriendsDAO {
 
     public FriendsDAO(Connection conn) {
         this.conn = conn;
-
-    }
-    public void initialize() {
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS friends");
             stmt.execute("CREATE TABLE IF NOT EXISTS friends (" +
                     "user_a VARCHAR(255), " +
                     "user_b VARCHAR(255), " +
@@ -23,6 +19,20 @@ public class FriendsDAO {
             throw new RuntimeException("Failed to initialize database", e);
         }
     }
+
+    public void initialize() {
+        try (Statement stmt = conn.createStatement()) {
+                stmt.execute("DROP TABLE IF EXISTS friends");
+            stmt.execute("CREATE TABLE IF NOT EXISTS friends (" +
+                    "user_a VARCHAR(255), " +
+                    "user_b VARCHAR(255), " +
+                    "PRIMARY KEY (user_a, user_b), " +
+                    "CHECK (user_a < user_b))");
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to initialize database", e);
+        }
+    }
+
     public void addFriends(String username, String friendUsername) {
         if(username == null || friendUsername == null || username.equals(friendUsername)) {
             throw new IllegalArgumentException("Invalid usernames");
@@ -92,5 +102,20 @@ public class FriendsDAO {
         return friends;
     }
 
+    public void removeUser(String username) throws SQLException{
+        try(PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM friends WHERE user_a = ?"
+        )){
+            ps.setString(1, username);
+            ps.executeUpdate();
+        }
+        try(PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM friends WHERE user_b = ?"
+
+        )){
+            ps.setString(1, username);
+            ps.executeUpdate();
+        }
+    }
 
 }

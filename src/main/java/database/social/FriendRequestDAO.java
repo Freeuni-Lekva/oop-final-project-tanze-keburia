@@ -17,7 +17,7 @@ public class FriendRequestDAO {
     }
     public void initialize(){
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS friends");
+            stmt.execute("DROP TABLE IF EXISTS requests");
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (" +
                     "sender VARCHAR(255) NOT NULL, " +
                     "receiver VARCHAR(255) NOT NULL, " +
@@ -28,18 +28,14 @@ public class FriendRequestDAO {
             throw new RuntimeException("Failed to initialize requests database", e);
         }
     }
-    public void createRequest(String sender, String receiver) {
+    public void createRequest(String sender, String receiver) throws SQLException {
         if (sender == null || receiver == null || sender.equals(receiver)) {
             throw new IllegalArgumentException("Invalid sender or receiver");
         }
 
-        if (areAlreadyFriends(sender, receiver)) {
-            throw new IllegalStateException("Users are already friends");
-        }
+        if (areAlreadyFriends(sender, receiver)) {throw new IllegalStateException("Users are already friends");}
 
-        if (requestExists(sender, receiver)) {
-            throw new IllegalStateException("Friend request already exists");
-        }
+        if (requestExists(sender, receiver)) {throw new IllegalStateException("Friend request already exists");}
 
         try (PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO requests (sender, receiver) VALUES (?, ?)")) {
@@ -51,7 +47,7 @@ public class FriendRequestDAO {
         }
     }
 
-    private boolean areAlreadyFriends(String user1, String user2) {
+    private boolean areAlreadyFriends(String user1, String user2) throws SQLException {
         List<String> user1Friends = friendsDAO.getFriends(user1);
         return user1Friends.contains(user2);
     }
@@ -64,9 +60,7 @@ public class FriendRequestDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to check request existence", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to check request existence", e);}
     }
 
     public void removeRequest(String sender, String receiver) {
@@ -79,15 +73,11 @@ public class FriendRequestDAO {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete friend request", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to delete friend request", e);}
     }
 
     public List<String> getRequestList(String username) {
-        if (username == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
+        if (username == null) {throw new IllegalArgumentException("Username cannot be null");}
 
         List<String> requests = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(
@@ -103,9 +93,16 @@ public class FriendRequestDAO {
                     requests.add(rs.getString("sender"));
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get request list", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get request list", e);}
         return requests;
+    }
+    public void removeUser(String username) throws SQLException {
+        try(PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM requests WHERE sender = ? OR receiver = ?"
+        )){
+            ps.setString(1, username);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        }
     }
 }
