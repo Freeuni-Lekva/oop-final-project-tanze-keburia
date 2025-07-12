@@ -578,10 +578,54 @@ select.input-full {
 }
 
 .quiz-box.equal-height {
-    min-height: 180px; /* adjust as needed */
+    /*min-height: 180px; !* adjust as needed *!*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
+
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    min-height: 250px;
 }
+
+.unread-badge-circle {
+    display: inline-block;
+    min-width: 22px;
+    padding: 3px 6px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+    border: 2px solid red;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    line-height: 1;
+}
+.icon-badge-container {
+    position: relative;
+    display: inline-block;
+}
+
+.quiz-box.equal-height h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 18px;
+}
+
+
+
 
 
