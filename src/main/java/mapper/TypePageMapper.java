@@ -2,7 +2,7 @@ package mapper;
 
 public enum TypePageMapper {
     TEXT("Text", "textQuestion.jsp"),
-    MULTIPLE_CHOICE("MultipleChoice", "multipleQuestion.jsp"),
+    MULTIPLE_CHOICE("MultipleChoice", "/multipleChoice"),
     FILL_BLANK("FillBlank", "fillBlank.jsp"),
     PICTURE_RESPONSE("PictureResponse", "pictureResponse.jsp"),
     UNKNOWN("Unknown", "unknownType.jsp");
