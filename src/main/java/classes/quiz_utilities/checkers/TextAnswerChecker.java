@@ -3,7 +3,9 @@ package classes.quiz_utilities.checkers;
 import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.questions.Question;
 import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.RealQuestionDAO;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class TextAnswerChecker implements AnswerChecker {
@@ -26,7 +28,10 @@ public class TextAnswerChecker implements AnswerChecker {
         }
 
         ArrayList<String> userAns = new ArrayList<>(userAnswer.getAnswers());
-        if (userAns.size() != 1) {
+        if(userAns.isEmpty()) {
+            return 0.0;
+        }
+        if (userAns.size() > 1) {
             throw new RuntimeException("Exactly 1 answer is allowed");
         }
 
@@ -34,7 +39,9 @@ public class TextAnswerChecker implements AnswerChecker {
         if (q == null) {
             return 0.0;
         }
-
+        if(userAns.get(0) == null) {
+            return 0.0;
+        }
         String correctAnswer = q.getAnswer().trim();
         String userSubmitted = userAns.get(0).trim();
 
@@ -44,4 +51,5 @@ public class TextAnswerChecker implements AnswerChecker {
 
         return 0.0;
     }
+    public void setDAO(Connection conn){this.questions = new RealQuestionDAO(conn);}
 }

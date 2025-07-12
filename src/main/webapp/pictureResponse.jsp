@@ -1,18 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Ako
-  Date: 7/5/2025
-  Time: 01:36
---%>
-
-<%@ page import="classes.quiz_utilities.questions.Question" %>
-<%@ page import="database.quiz_utilities.QuestionDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="classes.quiz_utilities.questions.Question" %>
 
 <%
+  String username = (String) session.getAttribute("username");
+  if (username == null) {
+    response.sendRedirect("login.jsp");
+    return;
+  }
+
   String questionId = request.getParameter("id");
   String quizId = request.getParameter("quizID");
-  Question question = (Question)request.getAttribute("question");
+  Question question = (Question) request.getAttribute("question");
+
   if (question == null) {
 %>
 <p style="color:red;">Question not found.</p>
@@ -27,38 +26,48 @@
   String imageUrl = parts.length > 1 ? parts[1] : "";
 %>
 
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Edit Picture-Response Question</title>
+  <link rel="stylesheet" href="dashboardStyle.css">
 </head>
 <body>
+<div class="dashboard">
 
-<h2>Edit Picture-Response Question</h2>
+  <div class="header-row">
+    <h2>Edit Picture-Response Question</h2>
+    <a href="Homepage" class="link link-blue">Home</a>
+  </div>
 
-<form action="ModifyQuestion" method="post">
-  <input type="hidden" name="questionID" value="<%= questionId %>">
-  <input type="hidden" name="quizID" value="<%= quizId %>">
+  <div class="center-form">
+    <form action="ModifyQuestion" method="post">
+      <input type="hidden" name="questionID" value="<%= questionId %>">
+      <input type="hidden" name="quizID" value="<%= quizId %>">
 
-  <label for="prompt">Question Statement:</label><br>
-  <input type="text" id="prompt" name="prompt" value="<%= prompt %>" size="60"><br><br>
+      <label for="prompt"><strong>Question Prompt:</strong></label>
+      <input type="text" id="prompt" name="prompt" value="<%= prompt %>" class="input-full" required />
 
-  <label for="imageUrl">Image URL:</label><br>
-  <input type="text" id="imageUrl" name="imageUrl" value="<%= imageUrl %>" size="60"><br><br>
+      <label for="imageUrl"><strong>Image URL:</strong></label>
+      <input type="text" id="imageUrl" name="imageUrl" value="<%= imageUrl %>" class="input-full" required />
 
-  <label for="answer">Correct Answer:</label><br>
-  <input type="text" id="answer" name="answer" value="<%= question.getAnswer() %>"><br><br>
+      <label for="answer"><strong>Correct Answer:</strong></label>
+      <input type="text" id="answer" name="answer" value="<%= question.getAnswer() %>" class="input-full" required />
 
-  <p>Preview:</p>
-  <img src="<%= imageUrl %>" alt="Question Image" width="300"><br><br>
+      <% if (!imageUrl.isEmpty()) { %>
+      <p><strong>Preview:</strong></p>
+      <img src="<%= imageUrl %>" alt="Question Image" width="300" style="margin-bottom:15px;"><br>
+      <% } %>
 
-  <input type="submit" value="Save">
-</form>
+      <input type="submit" value="Save" class="btn btn-green" />
+    </form>
+  </div>
 
-<br>
-<a href="ConfigureQuiz?id=<%= quizId %>">Back to Quiz Configuration</a>
+  <div class="bottom-bar mt-30">
+    <a href="ConfigureQuiz?id=<%= quizId %>" class="link link-blue">Back to Quiz Configuration</a>
+  </div>
 
+</div>
 </body>
 </html>
-
-
-
