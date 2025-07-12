@@ -392,11 +392,8 @@
                     Log out
                 </a>
             </div>
-
         </div>
-
-
     </div>
-
+</div>
 </body>
 </html>
