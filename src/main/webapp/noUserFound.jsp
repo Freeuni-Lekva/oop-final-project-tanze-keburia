@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: GUGA
-  Date: 6/19/2025
-  Time: 8:00 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
   String username = (String) session.getAttribute("username");
@@ -12,16 +5,31 @@
     response.sendRedirect("login.jsp");
     return;
   }
+
+  String searchedUsername = (String) request.getAttribute("searchedUsername"); // optional, pass from servlet
 %>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Not Found</title>
+  <title>Searching...</title>
   <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
-<div class="dashboard">
-  <h2>User Not Found</h2>
-  <p>No user with that name exists!</p>
-  <p><a href="Homepage" class="link-blue">Back to Home</a></p>
+<body>
+<div class="search-container">
+  <div class="search-header">
+    <img src="assets/searchicon.webp" alt="Search Icon" class="search-icon">
+    SEARCHING...
+  </div>
+
+  <div class="result-row">
+    <img src="assets/notfound.webp" alt="Not Found" class="tick-icon">
+    User not found<% if (searchedUsername != null) { %>: <strong><%= searchedUsername %></strong><% } %>
+  </div>
+
+  <a href="Homepage" class="back-link">
+    <img src="assets/backtohomepage.webp" alt="Back" class="back-icon">
+    Back to Homepage
+  </a>
 </div>
+</body>
 </html>

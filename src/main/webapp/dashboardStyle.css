@@ -627,5 +627,83 @@ select.input-full {
 
 
 
+body {
+    background-color: #e6f7ff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.search-container {
+    max-width: 380px;
+    margin: 100px auto;
+    padding: 25px 30px 50px 30px;
+    background-color: #f8faff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+}
+
+.search-header {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.search-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.result-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.result-row a {
+    font-weight: bold;
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.result-row a:hover {
+    text-decoration: underline;
+}
+
+.tick-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a73e8;
+}
+
+.back-icon {
+    width: 18px;
+    height: 18px;
+}
+
+
+
+
 
 

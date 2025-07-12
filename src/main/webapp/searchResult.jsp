@@ -1,10 +1,4 @@
-<%@ page import="classes.User" %><%--
-  Created by IntelliJ IDEA.
-  User: GUGA
-  Date: 6/18/2025
-  Time: 11:28 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="classes.User" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
     String username = (String) session.getAttribute("username");
@@ -25,20 +19,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Search Result</title>
+    <title>Searching...</title>
     <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
 <body>
-<div class="dashboard" style="justify-content: flex-start;">
-    <h2>Search Result</h2>
-    <p>User found:
+<div class="search-container">
+    <div class="search-header">
+        <img src="assets/searchicon.webp" alt="Search Icon" class="search-icon">
+        SEARCHING...
+    </div>
+
+    <div class="result-row">
+        <img src="assets/greentick.webp" alt="Found" class="tick-icon">
+        User found:
         <% if (foundUser.equals(username)) { %>
-        <a href="MyProfileServlet" class="link-blue"><%= foundUser %></a>
+        <a href="MyProfileServlet"><%= foundUser %></a>
         <% } else { %>
-        <a href="ProfileServlet?username=<%= foundUser %>" class="link-blue"><%= foundUser %></a>
+        <a href="ProfileServlet?username=<%= foundUser %>"><%= foundUser %></a>
         <% } %>
-    </p>
-    <p><a href="Homepage" class="link-blue">Back to Home</a></p>
+    </div>
+
+    <a href="Homepage" class="back-link">
+        <img src="assets/backtohomepage.webp" alt="Back" class="back-icon">
+        Back to Homepage
+    </a>
 </div>
 </body>
 </html>
