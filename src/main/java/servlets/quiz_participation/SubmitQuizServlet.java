@@ -1,11 +1,13 @@
 package servlets.quiz_participation;
 
 import classes.quiz_utilities.answer.GeneralAnswer;
+import classes.quiz_utilities.answer.MultipleAnswer;
 import classes.quiz_utilities.answer.SingleAnswer;
 import classes.quiz_utilities.checkers.AnswerChecker;
 import classes.quiz_utilities.checkers.QuizChecker;
 import classes.quiz_utilities.checkers.RealQuizChecker;
 import classes.quiz_utilities.questions.Question;
+import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
 
 import javax.servlet.ServletException;
@@ -17,9 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet("/SubmitQuizServlet")
 public class SubmitQuizServlet extends HttpServlet {
@@ -31,7 +31,7 @@ public class SubmitQuizServlet extends HttpServlet {
             // 1. Get required components from session
             QuizChecker quizChecker = (QuizChecker) session.getAttribute("quizChecker");
             List<Question> questions = (List<Question>) session.getAttribute("questionList");
-
+            Quiz quiz = (Quiz)session.getAttribute("quiz");
             // 2. Collect all user answers
             Map<String, GeneralAnswer> userAnswers = new HashMap<>();
             for (Question question : questions) {
@@ -39,6 +39,10 @@ public class SubmitQuizServlet extends HttpServlet {
                 if (answer != null) {
                     GeneralAnswer generalAnswer = new SingleAnswer(question.getID(), answer);
                     userAnswers.put(question.getID(), generalAnswer);
+                    List<String>answers = new ArrayList<>(); answers.add(answer);
+                    if(quiz.getType().equalsIgnoreCase("MultipleChoice")) {
+                        userAnswers.put(question.getID(), new MultipleAnswer(question.getID(), answers));
+                    }
                 }
             }
 

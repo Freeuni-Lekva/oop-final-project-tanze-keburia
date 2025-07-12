@@ -28,7 +28,10 @@ public class TextAnswerChecker implements AnswerChecker {
         }
 
         ArrayList<String> userAns = new ArrayList<>(userAnswer.getAnswers());
-        if (userAns.size() != 1) {
+        if(userAns.isEmpty()) {
+            return 0.0;
+        }
+        if (userAns.size() > 1) {
             throw new RuntimeException("Exactly 1 answer is allowed");
         }
 
@@ -36,7 +39,9 @@ public class TextAnswerChecker implements AnswerChecker {
         if (q == null) {
             return 0.0;
         }
-
+        if(userAns.get(0) == null) {
+            return 0.0;
+        }
         String correctAnswer = q.getAnswer().trim();
         String userSubmitted = userAns.get(0).trim();
 
