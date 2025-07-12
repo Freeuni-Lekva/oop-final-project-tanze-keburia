@@ -16,9 +16,9 @@ public class RealQuizDAO implements QuizDAO {
     @Override
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
-             stmt.executeUpdate("DROP TABLE IF EXISTS quizzes");
+            stmt.executeUpdate("DROP TABLE IF EXISTS quizzes");
 
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS quizzes (" +
+            stmt.executeUpdate("CREATE TABLE quizzes (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
                     "quiz_id VARCHAR(255) NOT NULL UNIQUE, " +
                     "quiz_name VARCHAR(255) NOT NULL, " +
@@ -54,6 +54,8 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setString(8, quiz.getType());
             stmt.setString(9, quiz.getPageFormat());
             stmt.setInt(10, quiz.getPlayCount());
+
+
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to add quiz", e);

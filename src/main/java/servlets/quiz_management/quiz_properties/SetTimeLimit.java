@@ -34,7 +34,9 @@ public class SetTimeLimit extends HttpServlet {
             if(!OwnershipChecker.checkOwnershipByID(quizDAO, request, response, quizId)){
                 return;
             }
-            if(timeLimit == null || timeLimit.isEmpty()){
+            if (timeLimit == null || timeLimit.trim().isEmpty()) {
+                session.setAttribute("errorMessage", "Time limit must not be empty.");
+                response.sendRedirect(request.getHeader("Referer"));
                 return;
             }
             int x = Integer.parseInt(timeLimit);

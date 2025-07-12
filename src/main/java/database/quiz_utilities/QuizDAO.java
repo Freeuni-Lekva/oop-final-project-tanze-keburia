@@ -1,8 +1,8 @@
 package database.quiz_utilities;
 
 import classes.quiz_utilities.quiz.Quiz;
+import java.sql.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface QuizDAO {
@@ -29,7 +29,6 @@ public interface QuizDAO {
 
     String getQuizNameById(String quizId);
 
-
     List<Quiz> getRecentQuizzes(int limit) throws SQLException;
     List<Quiz> getPopularQuizzes(int limit) throws SQLException;
 
@@ -38,5 +37,4 @@ public interface QuizDAO {
     List<Quiz> getRecentlyCreatedQuizzesByUser(String username, int limit) throws SQLException;
 
     int getCreatedQuizCount(String username);
-
 }
