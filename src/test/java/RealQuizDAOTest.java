@@ -226,6 +226,13 @@ public class RealQuizDAOTest {
 
 
 
-
+    @Test
+    public void testGetQuizNameById() throws SQLException {
+        long now = System.currentTimeMillis();
+        quizDAO.addQuiz(new RealQuiz("testUser", new Date(now - 100000), "quizA", "typeX", "Quiz A", "one-pager"));
+        String quizName = quizDAO.getQuizNameById("quizA");
+        assertEquals("Quiz A", quizName);
+        assertEquals(1, quizDAO.getCreatedQuizCount("testUser"));
+    }
 
 }

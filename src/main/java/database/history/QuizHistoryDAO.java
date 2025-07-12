@@ -112,9 +112,7 @@ public class QuizHistoryDAO {
                 if(rs.next()) {
                     return rs.getDouble(1);
                 }
-                else {
-                    return 0;
-                }
+                else {return 0;}
             }
         }
     }

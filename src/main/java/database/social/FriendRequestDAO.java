@@ -33,13 +33,9 @@ public class FriendRequestDAO {
             throw new IllegalArgumentException("Invalid sender or receiver");
         }
 
-        if (areAlreadyFriends(sender, receiver)) {
-            throw new IllegalStateException("Users are already friends");
-        }
+        if (areAlreadyFriends(sender, receiver)) {throw new IllegalStateException("Users are already friends");}
 
-        if (requestExists(sender, receiver)) {
-            throw new IllegalStateException("Friend request already exists");
-        }
+        if (requestExists(sender, receiver)) {throw new IllegalStateException("Friend request already exists");}
 
         try (PreparedStatement ps = conn.prepareStatement(
                 "INSERT INTO requests (sender, receiver) VALUES (?, ?)")) {
@@ -64,9 +60,7 @@ public class FriendRequestDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to check request existence", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to check request existence", e);}
     }
 
     public void removeRequest(String sender, String receiver) {
@@ -79,15 +73,11 @@ public class FriendRequestDAO {
             ps.setString(1, sender);
             ps.setString(2, receiver);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete friend request", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to delete friend request", e);}
     }
 
     public List<String> getRequestList(String username) {
-        if (username == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
+        if (username == null) {throw new IllegalArgumentException("Username cannot be null");}
 
         List<String> requests = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(
@@ -103,9 +93,7 @@ public class FriendRequestDAO {
                     requests.add(rs.getString("sender"));
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to get request list", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to get request list", e);}
         return requests;
     }
 }
