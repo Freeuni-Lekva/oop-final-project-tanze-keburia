@@ -39,6 +39,7 @@ public class FriendRequestDAO {
 
         if (requestExists(sender, receiver)) {
             throw new IllegalStateException("Friend request already exists");
+
         }
 
         try (PreparedStatement ps = conn.prepareStatement(

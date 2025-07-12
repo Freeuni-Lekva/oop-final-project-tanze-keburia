@@ -9,7 +9,7 @@ public class FriendsDAO {
 
     public FriendsDAO(Connection conn) {
         this.conn = conn;
-
+        int pp = 1;
     }
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
