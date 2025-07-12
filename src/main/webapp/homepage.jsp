@@ -127,15 +127,18 @@
         </div>
 
 
+        <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
+            <a href="MyProfileServlet" class="link link-blue" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 500;">
+                <img src="assets/profile.webp" alt="Profile" style="width: 22px; height: 22px;" />
+                My Profile
+            </a>
+        </div>
 
-        <div style="text-align: right; margin-bottom: 20px;">
-        <a href="MyProfileServlet" class="link link-blue" style="font-weight: 500;">My Profile</a>
-    </div>
 
 
 
 
-    <form method="get" action="SearchServlet" class="search-form">
+        <form method="get" action="SearchServlet" class="search-form">
         <input type="text" name="username" placeholder="Enter username" required />
         <input type="submit" value="Search" class="btn btn-blue" />
     </form>
@@ -150,6 +153,39 @@
     </div>
 
     <a href="ViewChallenges?username=<%=username%>" class="link link-purple">View Challenges</a>
+
+        <div class="mail-section" style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; margin-bottom: 20px;">
+            <!-- Inbox & Sent Stack -->
+            <div class="mail-links" style="display: flex; flex-direction: column; font-size: 17px; gap: 10px;">
+                <!-- Inbox -->
+                <div class="inbox-wrapper" style="display: flex; align-items: center;">
+                    <a href="InboxServlet" class="link link-blue inbox-link" style="display: flex; align-items: center; gap: 8px;">
+                        <div class="icon-badge-container">
+                            <img src="assets/message-icon1.webp" alt="Inbox" style="width: 28px; height: 28px;" />
+                            <% Integer unreadCount = (Integer) request.getAttribute("unreadCount");
+                                if (unreadCount != null && unreadCount > 0) { %>
+                            <div class="unread-badge"><%= unreadCount %></div>
+                            <% } %>
+                        </div>
+                        <span>Inbox</span>
+                    </a>
+                </div>
+
+                <!-- Sent -->
+                <div class="sent-wrapper" style="display: flex; align-items: center;">
+                    <a href="SentServlet" class="link link-blue" style="display: flex; align-items: center; gap: 8px;">
+                        <img src="assets/sent-icon1.webp" alt="Sent" style="width: 28px; height: 28px;" />
+                        <span>Sent</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Compose aligned right -->
+            <form action="compose.jsp" method="get">
+                <button type="submit" class="btn btn-blue">Compose</button>
+            </form>
+        </div>
+
 
         <div class="quiz-announcements-container">
             <!-- Recent Messages -->
@@ -221,35 +257,13 @@
                 <div style="text-align: center;">
                     <img src="assets/annoucments.webp" alt="All Announcements" style="max-width: 100px; margin-bottom: 10px;" />
                 </div>
-                <a href="AllAnnouncementsServlet" class="btn btn-blue">View All</a>
-
+                <a href="AllAnnouncementsServlet" class="btn btn-blue" style="border: none; text-decoration: none;">View All</a>
             </div>
         </div>
 
 
 
-        <div class="mail-links mt-20 mb-20">
-    <div class="inbox-wrapper">
-        <a href="InboxServlet" class="link link-blue inbox-link">
-            <div class="icon-badge-container">
-                <img src="assets/message-icon.webp" alt="Inbox" class="inbox-icon" />
-                <% Integer unreadCount = (Integer) request.getAttribute("unreadCount");
-                    if (unreadCount != null && unreadCount > 0) { %>
-                <div class="unread-badge"><%= unreadCount %></div>
-                <% } %>
-            </div>
-            Inbox
-        </a>
-    </div>
-
-
-    <a href="SentServlet" class="link link-blue">
-        <img src="assets/sent-icon.webp" alt="Sent" class="inbox-icon" />
-        Sent
-    </a>
-    </div>
-
-    <div class="quiz-sections-container">
+        <div class="quiz-sections-container">
         <div class="quiz-box">
             <h3>Most Recent Quizzes</h3>
             <% if (recentQuizzes != null && !recentQuizzes.isEmpty()) { %>
@@ -276,30 +290,6 @@
             <% } %>
         </div>
 
-        <div class="quiz-box">
-            <h3>Most Popular Quizzes</h3>
-            <% if (popularQuizzes != null && !popularQuizzes.isEmpty()) { %>
-            <ul class="quiz-list">
-                <% for (Quiz quiz : popularQuizzes) { %>
-                <li class="quiz-card">
-                    <a href="startQuiz?id=<%= quiz.getID() %>" class="link link-blue">
-                        <%= quiz.getName() %>
-                    </a>
-                    <div class="quiz-meta-box">
-                        Played <%= quiz.getPlayCount() %> times
-                    </div>
-                </li>
-                <% } %>
-            </ul>
-            <% } else { %>
-            <div style="text-align: center;">
-                <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
-                    No popular quizzes available.
-                </p>
-            </div>
-
-            <% } %>
-        </div>
 
         <div class="quiz-box">
             <h3>Quizzes You Created Recently</h3>
@@ -327,27 +317,153 @@
         </div>
     </div>
 
-    <div class="bottom-bar mt-30">
-        <a href="logout.jsp" class="link link-red">Log out</a>
-        <form action="compose.jsp" method="get" class="bottom-right">
-            <button type="submit" class="btn btn-blue">Compose</button>
-        </form>
+
+<%--        <div class="quiz-sections-container">--%>
+<%--            <div class="quiz-box">--%>
+<%--                <div class="quiz-box" style="position: relative;">--%>
+<%--                    <img src="assets/achievement.webp"--%>
+<%--                         alt="Achievement Icon"--%>
+<%--                         style="position: absolute; top: 0px; right: 0px; width: 80px; height: auto;--%>
+<%--                         box-shadow: 0 2px 8px rgba(0,0,0,0.15);--%>
+<%--                         border-radius: 8px;" />--%>
+
+
+<%--                    <h3>Your Achievements</h3>--%>
+<%--                    <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");--%>
+<%--                    if (achievements != null && !achievements.isEmpty()) { %>--%>
+<%--                <ul class="quiz-list">--%>
+<%--                    <% for (Achievement ach : achievements) { %>--%>
+<%--                    <li class="quiz-card">--%>
+<%--                        <strong><%= ach.getType() %></strong><br/>--%>
+<%--                        <small>Awarded at: <%= ach.getAwardedAt() %></small>--%>
+<%--                    </li>--%>
+<%--                    <% } %>--%>
+<%--                </ul>--%>
+<%--                <% } else { %>--%>
+<%--                <div style="text-align: center;">--%>
+<%--&lt;%&ndash;                    <img src="assets/noachievements.webp" alt="No Achievements" style="max-width: 100px; margin-bottom: 10px;" />&ndash;%&gt;--%>
+<%--                    <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">--%>
+<%--                        No achievements yet.--%>
+<%--                    </p>--%>
+<%--                </div>--%>
+<%--                <% } %>--%>
+<%--            </div>--%>
+
+<%--            <div class="quiz-box" style="position: relative;">--%>
+<%--                <!-- TOP-RIGHT ICON -->--%>
+<%--                <img src="assets/populars.webp"--%>
+<%--                     alt="Popular Icon"--%>
+<%--                     style="position: absolute; top: 0px; right: 0px; width: 60px; height: auto;--%>
+<%--            box-shadow: 0 2px 8px rgba(0,0,0,0.15);--%>
+<%--            border-radius: 8px;" />--%>
+
+
+
+<%--                <h3>Most Popular Quizzes</h3>--%>
+
+<%--                <% if (popularQuizzes != null && !popularQuizzes.isEmpty()) { %>--%>
+<%--                <ul class="quiz-list">--%>
+<%--                    <% for (Quiz quiz : popularQuizzes) { %>--%>
+<%--                    <li class="quiz-card">--%>
+<%--                        <a href="startQuiz?id=<%= quiz.getID() %>" class="link link-blue">--%>
+<%--                            <%= quiz.getName() %>--%>
+<%--                        </a>--%>
+<%--                        <div class="quiz-meta-box">--%>
+<%--                            Played <%= quiz.getPlayCount() %> times--%>
+<%--                        </div>--%>
+<%--                    </li>--%>
+<%--                    <% } %>--%>
+<%--                </ul>--%>
+<%--                <% } else { %>--%>
+<%--                <div style="text-align: center;">--%>
+<%--                    <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">--%>
+<%--                        No popular quizzes available.--%>
+<%--                    </p>--%>
+<%--                </div>--%>
+<%--                <% } %>--%>
+<%--            </div>--%>
+
+<%--        </div>--%>
+
+        <div class="quiz-sections-container">
+            <!-- Achievements Box -->
+            <div class="quiz-box" style="position: relative;">
+                <img src="assets/achievement.webp"
+                     alt="Achievement Icon"
+                     style="position: absolute; top: 0px; right: 0px; width: 80px; height: auto;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                    border-radius: 8px;" />
+
+                <h3>Your Achievements</h3>
+                <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");
+                    if (achievements != null && !achievements.isEmpty()) { %>
+                <ul class="quiz-list">
+                    <% for (Achievement ach : achievements) { %>
+                    <li class="quiz-card">
+                        <strong><%= ach.getType() %></strong><br/>
+                        <small>Awarded at: <%= ach.getAwardedAt() %></small>
+                    </li>
+                    <% } %>
+                </ul>
+                <% } else { %>
+                <div style="text-align: center;">
+                    <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                        No achievements yet.
+                    </p>
+                </div>
+                <% } %>
+            </div>
+
+            <!-- Most Popular Quizzes Box -->
+            <div class="quiz-box" style="position: relative;">
+                <img src="assets/populars.webp"
+                     alt="Popular Icon"
+                     style="position: absolute; top: 0px; right: 0px; width: 70px; height: auto;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                    border-radius: 8px;" />
+
+                <h3>Most Popular Quizzes</h3>
+                <% if (popularQuizzes != null && !popularQuizzes.isEmpty()) { %>
+                <ul class="quiz-list">
+                    <% for (Quiz quiz : popularQuizzes) { %>
+                    <li class="quiz-card">
+                        <a href="startQuiz?id=<%= quiz.getID() %>" class="link link-blue">
+                            <%= quiz.getName() %>
+                        </a>
+                        <div class="quiz-meta-box">
+                            Played <%= quiz.getPlayCount() %> times
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+                <% } else { %>
+                <div style="text-align: center;">
+                    <p style="font-size: 15px; font-weight: 500; color: #333; margin-top: 10px;">
+                        No popular quizzes available.
+                    </p>
+                </div>
+                <% } %>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Floating Logout at Bottom Left -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+            <!-- Logout Left -->
+            <div>
+                <a href="logout.jsp" class="link link-red" style="display: inline-flex; align-items: center; gap: 6px; font-size: 16px;">
+                    <img src="assets/logout.webp" alt="Logout" style="width: 20px; height: 20px;" />
+                    Log out
+                </a>
+            </div>
+
+        </div>
+
+
     </div>
-    <% List<Achievement> achievements = (List<Achievement>) request.getAttribute("achievements");
-        if (achievements != null && !achievements.isEmpty()) { %>
-    <h3>Achievements</h3>
-    <ul class="achievement-list">
-        <% for (Achievement ach : achievements) { %>
-        <li class="card achievement-card">
-            <strong><%= ach.getType() %></strong><br/>
-            <small>Awarded at: <%= ach.getAwardedAt() %></small>
-        </li>
-        <% } %>
-    </ul>
-    <% } else { %>
-    <p>No achievements yet.</p>
-    <% } %>
-</div>
 
 </body>
 </html>
