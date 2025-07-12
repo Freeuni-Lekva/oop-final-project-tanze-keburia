@@ -543,8 +543,8 @@ select.input-full {
 
 .speech-bubble {
     position: absolute;
-    top: 60px;      /* was 40px → moved DOWN */
-    left: 160px;    /* was 140px → moved RIGHT */
+    top: 60px;
+    left: 160px;
     min-width: 250px;
     max-width: 380px;
     height: auto;
@@ -700,6 +700,191 @@ body {
 .back-icon {
     width: 18px;
     height: 18px;
+}
+
+
+body {
+    background-color: #e6f7ff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-container {
+    max-width: 480px; /* Slightly increased */
+    min-width: 350px;
+    margin: auto; /* Centered vertically */
+    background-color: #f8faff;
+    border-radius: 16px; /* More rounded corners */
+    padding: 35px 30px; /* More vertical padding */
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1); /* Deeper shadow */
+    position: relative;
+    min-height: 380px; /* Slightly taller */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Subtle border */
+}
+
+.profile-image {
+    width: 90px; /* Slightly larger */
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto 15px; /* Centered */
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.profile-username {
+    font-size: 24px; /* Slightly larger */
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #2d3748; /* Darker for better contrast */
+}
+
+.friend-action form {
+    margin-bottom: 25px;
+}
+
+.friend-action .btn {
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.friend-action .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.quiz-history-link {
+    margin: 15px 0 25px;
+    display: inline-block;
+    color: #4a5568;
+    transition: color 0.2s ease;
+}
+
+.quiz-history-link:hover {
+    color: #1a73e8;
+}
+
+.friends-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.friends-list {
+    background-color: #f5fbff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.friends-list h4 {
+    font-size: 18px; /* Slightly larger */
+    margin-bottom: 15px;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.empty-friends {
+    color: #718096;
+    font-style: italic;
+    padding: 15px;
+}
+
+.friends-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.friends-list li {
+    margin-bottom: 8px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.friends-list li:hover {
+    transform: translateX(3px);
+}
+
+.friends-list a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+.friends-list a:hover {
+    color: #0d5bba;
+    text-decoration: underline;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Slightly more spacing */
+    text-decoration: none;
+    font-size: 15px; /* Slightly larger */
+    font-weight: 500;
+    color: #1a73e8;
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 12px 0;
+    transition: all 0.2s ease;
+}
+
+.back-link:hover {
+    color: #0d5bba;
+    transform: translateX(-3px);
+}
+
+.back-link img {
+    width: 20px; /* Slightly larger */
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover img {
+    transform: translateX(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+    .profile-container {
+        margin: 20px auto;
+        padding: 25px 20px;
+        min-width: 300px;
+        border-radius: 12px;
+    }
+
+    .profile-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-username {
+        font-size: 22px;
+    }
+
+    .friends-list {
+        padding: 15px;
+    }
 }
 
 

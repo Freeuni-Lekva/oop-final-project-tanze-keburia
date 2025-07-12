@@ -23,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="dashboardStyle.css">
 </head>
 <body>
-<div class="search-container">
+<div class="profile-container">
     <div class="search-header">
         <img src="assets/searchicon.webp" alt="Search Icon" class="search-icon">
         SEARCHING...
@@ -39,10 +39,12 @@
         <% } %>
     </div>
 
+    <!-- Move this inside the white card -->
     <a href="Homepage" class="back-link">
         <img src="assets/backtohomepage.webp" alt="Back" class="back-icon">
         Back to Homepage
     </a>
 </div>
 </body>
+
 </html>
