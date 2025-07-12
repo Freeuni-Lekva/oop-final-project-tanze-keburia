@@ -28,7 +28,7 @@ public class FriendRequestDAO {
             throw new RuntimeException("Failed to initialize requests database", e);
         }
     }
-    public void createRequest(String sender, String receiver) {
+    public void createRequest(String sender, String receiver) throws SQLException {
         if (sender == null || receiver == null || sender.equals(receiver)) {
             throw new IllegalArgumentException("Invalid sender or receiver");
         }
@@ -51,7 +51,7 @@ public class FriendRequestDAO {
         }
     }
 
-    private boolean areAlreadyFriends(String user1, String user2) {
+    private boolean areAlreadyFriends(String user1, String user2) throws SQLException {
         List<String> user1Friends = friendsDAO.getFriends(user1);
         return user1Friends.contains(user2);
     }

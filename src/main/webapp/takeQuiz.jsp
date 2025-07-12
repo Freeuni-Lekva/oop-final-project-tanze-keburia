@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="classes.quiz_utilities.*" %>
 <%@ page import="mapper.TypePageMapper" %>
 <%@ page import="classes.quiz_utilities.questions.Question" %>
 <%@ page import="classes.quiz_utilities.quiz.Quiz" %>
@@ -15,9 +14,9 @@
 
 <%
   Quiz quiz = (Quiz) request.getAttribute("quiz");
+  System.out.println(quiz.getName());
   List<Question> questions = (List<Question>) request.getAttribute("questions");
 
-  // Check if user is admin
   String username = (String) session.getAttribute("username");
   boolean isAdmin = username != null && Admins.isAdmin(username);
 %>

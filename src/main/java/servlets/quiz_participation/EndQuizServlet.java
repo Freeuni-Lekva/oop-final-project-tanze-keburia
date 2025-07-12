@@ -112,6 +112,7 @@ public class EndQuizServlet extends HttpServlet {
 
             quizDAO.incrementPlayCount(quiz.getID());
 
+
             quizHist.addResult(quizResult);
             AchievementDAO achievementDAO = new AchievementDAO(conn);
             AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizDAO, quizHist);
@@ -123,6 +124,7 @@ public class EndQuizServlet extends HttpServlet {
             request.setAttribute("totalScore", totalScore);
             request.setAttribute("quiz", quiz);
             request.setAttribute("friends", friends);
+            session.removeAttribute("quiz");
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
 
         }catch(SQLException e) {
