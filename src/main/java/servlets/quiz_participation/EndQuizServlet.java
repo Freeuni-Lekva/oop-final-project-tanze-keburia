@@ -111,11 +111,8 @@ public class EndQuizServlet extends HttpServlet {
             Quiz x =  quizDAO.getQuiz(quiz.getID());
 
             quizDAO.incrementPlayCount(quiz.getID());
-            QuizResult quizResult = new QuizResult((String)session.getAttribute("username"), x, totalScore, new Timestamp(System.currentTimeMillis()));
             quizHist.addResult(quizResult);
 
-
-            quizHist.addResult(quizResult);
             AchievementDAO achievementDAO = new AchievementDAO(conn);
             AchievementAwarder awarder = new AchievementAwarder(achievementDAO, quizDAO, quizHist);
             awarder.checkQuizParticipationAchievements(username, quiz.getID(), totalScore);
