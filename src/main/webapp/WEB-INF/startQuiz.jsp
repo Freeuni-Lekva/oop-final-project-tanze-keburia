@@ -10,24 +10,12 @@
 <%@ page import="classes.quiz_result.QuizResult" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
+
 <%
     Quiz quiz = (Quiz) request.getAttribute("quiz");
     int questionCount = ((Integer) request.getAttribute("questionCount")).intValue();
     List<QuizResult> leaderboard = (List<QuizResult>) request.getAttribute("leaderboard");
-%>
 
-
-<html>
-<head>
-    <title><%= quiz.getName() %></title>
-</head>
-<body>
-
-<h2>Quiz: <%= quiz.getName() %></h2>
-
-<p><strong>Type:</strong> <%= quiz.getType() %></p>
-<p><strong>Number of Questions:</strong> <%= questionCount %></p>
-        <%
     int timeLimit = quiz.getTimeLimit();
     String timeDisplay;
     if (timeLimit == 0) {
@@ -41,57 +29,66 @@
     }
 %>
 
-<p><strong>Time Limit:</strong> <%= timeDisplay %></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><%= quiz.getName() %></title>
+    <link rel="stylesheet" href="dashboardStyle.css">
+</head>
+<body>
+<div class="dashboard full-height">
+    <div class="quiz-center-container vertical-align">
+        <div class="quiz-details-container">
+            <h2 class="page-title">Quiz: <%= quiz.getName() %></h2>
 
-</p>
-<p><strong>Topic:</strong> <%= quiz.getTopic() %></p>
+            <p><strong>Type:</strong> <%= quiz.getType() %></p>
+            <p><strong>Number of Questions:</strong> <%= questionCount %></p>
+            <p><strong>Time Limit:</strong> <%= timeDisplay %></p>
+            <p><strong>Topic:</strong> <%= quiz.getTopic() %></p>
 
-<form action="StartActualQuizServlet" method="get">
-    <input type="hidden" name="id" value="<%= quiz.getID() %>">
-    <button type="submit">Start Quiz</button>
-</form>
+            <form action="StartActualQuizServlet" method="get" class="start-quiz-form">
+                <input type="hidden" name="id" value="<%= quiz.getID() %>">
+                <button type="submit" class="btn btn-blue">Start Quiz</button>
+            </form>
 
-<h1>Leaderboard</h1>
-<% if(leaderboard != null && !leaderboard.isEmpty()){%>
-    <table border = "1" cellpadding = "8" cellspacing = "0">
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>Score</th>
-                <th>Submit time</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%
-            int rank = 1;
-
-                for (QuizResult entry : leaderboard) {
-                    String user = entry.getUsername();
-                    Double score = entry.getScore();
-                    Timestamp time = entry.getSubmitTime();
-            %>
+            <h3 class="leaderboard-title">Leaderboard</h3>
+            <% if (leaderboard != null && !leaderboard.isEmpty()) { %>
+            <table class="leaderboard-table">
+                <thead>
                 <tr>
-                    <td><%=rank++%></td>
-                    <td><a href = "ProfileServlet?username=<%=user%>"><%=user%></a></td>
-                    <td><%=score%></td>
-                    <td><%=time%></td>
+                    <th>Rank</th>
+                    <th>User</th>
+                    <th>Score</th>
+                    <th>Submit Time</th>
                 </tr>
+                </thead>
+                <tbody>
+                <%
+                    int rank = 1;
+                    for (QuizResult entry : leaderboard) {
+                        String user = entry.getUsername();
+                        Double score = entry.getScore();
+                        Timestamp time = entry.getSubmitTime();
+                %>
+                <tr>
+                    <td><%= rank++ %></td>
+                    <td><a href="ProfileServlet?username=<%= user %>"><%= user %></a></td>
+                    <td><%= score %></td>
+                    <td><%= time %></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <% } else { %>
+            <p class="no-quizzes-msg">No participants yet.</p>
+            <% } %>
 
-            <%
-            }  %>
-        </tbody>
-    </table>
-    <%} else{%>
-        <p>No participants yet</p>
-    <%}
-    %>
-
-<br>
-<a href="viewAllQuizzes">Back to All Quizzes</a>
-
+            <div class="back-button-container">
+                <a href="viewAllQuizzes" class="btn btn-gray">Back to All Quizzes</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
-
-
-

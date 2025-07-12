@@ -17,7 +17,7 @@ public class FriendRequestDAO {
     }
     public void initialize(){
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS friends");
+            stmt.execute("DROP TABLE IF EXISTS requests");
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (" +
                     "sender VARCHAR(255) NOT NULL, " +
                     "receiver VARCHAR(255) NOT NULL, " +
