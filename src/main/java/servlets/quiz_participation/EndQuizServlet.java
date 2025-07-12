@@ -73,34 +73,9 @@ public class EndQuizServlet extends HttpServlet {
             List<Question> questions = questionDAO.getQuiz(quiz.getID());
             TextAnswerChecker checker = new TextAnswerChecker(questionDAO);
 
-            double totalScore = 0;
+            double totalScore = Double.parseDouble(request.getAttribute("totalScore").toString());
 
             String format = quiz.getPageFormat(); // assume this is "one-pager" or "one-at-a-time"
-
-            if ("All Questions on One Page".equalsIgnoreCase(format)) {
-                for (Question q : questions) {
-                    String paramName = "answer_" + q.getID();
-                    String userInput = request.getParameter(paramName);
-
-                    if (userInput != null && !userInput.trim().isEmpty()) {
-                        GeneralAnswer userAnswer = new SingleAnswer(q.getID(), userInput.trim());
-                        totalScore += checker.getPoints(q.getID(), userAnswer);
-                    }
-                }
-
-            } else if ("One Question at a Time".equalsIgnoreCase(format)) {
-                Map<String, GeneralAnswer> savedAnswers =
-                        (Map<String, GeneralAnswer>) session.getAttribute("savedAnswers");
-
-                if (savedAnswers != null) {
-                    for (Question q : questions) {
-                        GeneralAnswer answer = savedAnswers.get(q.getID());
-                        if (answer != null) {
-                            totalScore += checker.getPoints(q.getID(), answer);
-                        }
-                    }
-                }
-            }
             ChallengeMailSender automaticSender = new ChallengeMailSender(mailDAO);
             automaticSender.sendMail(challenge, totalScore, new Timestamp(System.currentTimeMillis()));
             if(challenge != null){
@@ -124,6 +99,7 @@ public class EndQuizServlet extends HttpServlet {
             request.setAttribute("totalScore", totalScore);
             request.setAttribute("quiz", quiz);
             request.setAttribute("friends", friends);
+            session.removeAttribute("quiz");
             request.getRequestDispatcher("endQuiz.jsp").forward(request, response);
 
         }catch(SQLException e) {
