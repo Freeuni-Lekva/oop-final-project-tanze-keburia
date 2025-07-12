@@ -22,7 +22,7 @@ public class FriendsDAO {
 
     public void initialize() {
         try (Statement stmt = conn.createStatement()) {
-            //    stmt.execute("DROP TABLE IF EXISTS friends");
+                stmt.execute("DROP TABLE IF EXISTS friends");
             stmt.execute("CREATE TABLE IF NOT EXISTS friends (" +
                     "user_a VARCHAR(255), " +
                     "user_b VARCHAR(255), " +
@@ -102,5 +102,20 @@ public class FriendsDAO {
         return friends;
     }
 
+    public void removeUser(String username) throws SQLException{
+        try(PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM friends WHERE user_a = ?"
+        )){
+            ps.setString(1, username);
+            ps.executeUpdate();
+        }
+        try(PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM friends WHERE user_b = ?"
+
+        )){
+            ps.setString(1, username);
+            ps.executeUpdate();
+        }
+    }
 
 }

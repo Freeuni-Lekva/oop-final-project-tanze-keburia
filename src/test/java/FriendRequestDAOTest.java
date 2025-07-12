@@ -68,7 +68,7 @@ public class FriendRequestDAOTest {
     }
 
     @Test
-    public void testCreateFriendRequest() {
+    public void testCreateFriendRequest() throws SQLException {
 
         requestDAO.createRequest("Alice", "Bob");
         requestDAO.createRequest("Charlie", "Bob");
@@ -81,17 +81,17 @@ public class FriendRequestDAOTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateRequestWithNullSender() {
+    public void testCreateRequestWithNullSender() throws SQLException {
         requestDAO.createRequest(null, "Bob");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateRequestWithNullReceiver() {
+    public void testCreateRequestWithNullReceiver() throws SQLException {
         requestDAO.createRequest("Alice", null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateRequestWithSameSenderAndReceiver() {
+    public void testCreateRequestWithSameSenderAndReceiver() throws SQLException {
         requestDAO.createRequest("Alice", "Alice");
     }
 
@@ -125,11 +125,20 @@ public class FriendRequestDAOTest {
     }
 
     @Test
-    public void testRemoveRequest() {
+    public void testRemoveRequest() throws SQLException {
         requestDAO.createRequest("Alice", "Bob");
         assertEquals(1, requestDAO.getRequestList("Bob").size());
         requestDAO.removeRequest("Alice", "Bob");
         assertEquals(0, requestDAO.getRequestList("Alice").size());
+    }
+    @Test
+    public void testRemoveUser() throws SQLException {
+        requestDAO.initialize();
+        requestDAO.createRequest("Alice", "Bob");
+        requestDAO.createRequest("Charlie", "Bob");
+         requestDAO.removeUser("Bob");
+        assertEquals(0, requestDAO.getRequestList("Alice").size());
+        assertEquals(0, requestDAO.getRequestList("Bob").size());
     }
 
 }

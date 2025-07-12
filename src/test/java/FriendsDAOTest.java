@@ -1,6 +1,7 @@
-package database.social;
+
 
 import database.database_connection.DatabaseConnector;
+import database.social.FriendsDAO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -203,5 +204,13 @@ public class FriendsDAOTest {
         } catch (SQLException e) {
             fail("Database query failed: " + e.getMessage());
         }
+    }
+    @Test
+    public void testRemoveUser() throws SQLException {
+        friendsDAO.initialize();
+        friendsDAO.addFriends("Alice", "Bob");
+        friendsDAO.removeUser("Bob");
+        List<String>friends = friendsDAO.getFriends("Alice");
+        assertEquals(0, friends.size());
     }
 }

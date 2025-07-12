@@ -17,7 +17,7 @@ public class FriendRequestDAO {
     }
     public void initialize(){
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS friends");
+            stmt.execute("DROP TABLE IF EXISTS requests");
             stmt.execute("CREATE TABLE IF NOT EXISTS requests (" +
                     "sender VARCHAR(255) NOT NULL, " +
                     "receiver VARCHAR(255) NOT NULL, " +
@@ -95,5 +95,14 @@ public class FriendRequestDAO {
             }
         } catch (SQLException e) {throw new RuntimeException("Failed to get request list", e);}
         return requests;
+    }
+    public void removeUser(String username) throws SQLException {
+        try(PreparedStatement ps = conn.prepareStatement(
+                "DELETE FROM requests WHERE sender = ? OR receiver = ?"
+        )){
+            ps.setString(1, username);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        }
     }
 }
