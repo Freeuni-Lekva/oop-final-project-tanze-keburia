@@ -96,11 +96,12 @@
   <div class="admin-actions">
     <h3>Admin Panel</h3>
     <div class="admin-links">
-      <a href="AdminDashboardServlet" class="link link-purple">Dashboard</a>
+      <a href="AdminDashboardServlet" class="link link-purple">Dashboard
+        <img src="assets/dashboard.webp" alt="Dashboard" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;" />
+      </a>
     </div>
-  </div>
 
-  <form method="get" action="SearchServlet" class="search-form">
+    <form method="get" action="SearchServlet" class="search-form">
     <input type="text" name="username" placeholder="Enter username" required />
     <input type="submit" value="Search" class="btn btn-blue" />
   </form>
