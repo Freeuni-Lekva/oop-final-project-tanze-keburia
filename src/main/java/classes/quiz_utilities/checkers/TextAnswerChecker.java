@@ -3,7 +3,9 @@ package classes.quiz_utilities.checkers;
 import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.questions.Question;
 import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.RealQuestionDAO;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class TextAnswerChecker implements AnswerChecker {
@@ -44,4 +46,5 @@ public class TextAnswerChecker implements AnswerChecker {
 
         return 0.0;
     }
+    public void setDAO(Connection conn){this.questions = new RealQuestionDAO(conn);}
 }

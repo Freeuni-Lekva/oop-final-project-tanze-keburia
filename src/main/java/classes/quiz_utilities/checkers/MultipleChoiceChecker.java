@@ -4,6 +4,7 @@ import classes.quiz_utilities.answer.GeneralAnswer;
 import classes.quiz_utilities.options.Option;
 import database.quiz_utilities.OptionsDAO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,4 +31,5 @@ public class MultipleChoiceChecker implements AnswerChecker {
         }
         return res;
     }
+    public void setDAO(Connection conn){this.options = new OptionsDAO(conn);}
 }
