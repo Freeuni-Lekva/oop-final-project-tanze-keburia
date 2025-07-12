@@ -208,15 +208,6 @@ public class RealQuizDAO implements QuizDAO {
         return 0;
     }
 
-    public void close() {
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-        } catch (SQLException e) {
-            System.err.println("Error closing connection: " + e.getMessage());
-        }
-    }
 
 
     @Override
@@ -245,9 +236,7 @@ public class RealQuizDAO implements QuizDAO {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, quizId);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to increment play count", e);
-        }
+        } catch (SQLException e) {throw new RuntimeException("Failed to increment play count", e);}
     }
 
 
@@ -259,9 +248,7 @@ public class RealQuizDAO implements QuizDAO {
             stmt.setInt(2, limit);
             ResultSet rs = stmt.executeQuery();
             return mapResultSetToQuizzes(rs);
-        } catch(SQLException e) {
-            throw new RuntimeException("Failed to get recently created quizzes", e);
-        }
+        } catch(SQLException e) {throw new RuntimeException("Failed to get recently created quizzes", e);}
     }
 
 
@@ -273,4 +260,5 @@ public class RealQuizDAO implements QuizDAO {
         }
         return quizzes;
     }
+
 }

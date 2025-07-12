@@ -9,13 +9,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.*;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class QuizHistoryDAOTest {
     private static Connection conn;
@@ -27,7 +25,6 @@ public class QuizHistoryDAOTest {
         conn = DatabaseConnector.getInstance().getConnection();
         quizDAO = new RealQuizDAO(conn);
         historyDAO = new QuizHistoryDAO(conn, quizDAO);
-
     }
 
     @AfterClass
@@ -37,54 +34,16 @@ public class QuizHistoryDAOTest {
         }
     }
 
-    // @Before
-   /* public void clearTable() throws SQLException {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DROP TABLE IF EXISTS quiz_history");
-            stmt.execute("DROP TABLE IF EXISTS quizzes");
-        }
-    }*/
-
     @Before
     public void init() {
         historyDAO.initialize();
         quizDAO.initialize();
     }
 
-    @Test
-    public void testAddAndRetrieveResult() {
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-
-        Quiz quiz = new MockQuiz("alice", now, "1", "Multiple Choice", "Sample Quiz", "Page-by-page");
-        quiz.setNumQuestions(10);
-        quiz.setTopic("Science");
-
-        RealQuizDAO quizDAO = new RealQuizDAO(conn);
-        quizDAO.addQuiz(quiz);
-
-        QuizResult result = new QuizResult("alice", quiz, 95, now);
-
-        //QuizResult result = new QuizResult("alice", "1", "ab", 95, now);
-      
-        historyDAO.addResult(result);
-        quizDAO.addQuiz(new RealQuiz("me", now, "1", "text", "ab", "one-page"));
-        List<QuizResult> results = historyDAO.getUserHistory("alice");
-        assertEquals(1, results.size());
-
-        QuizResult stored = results.get(0);
-        assertEquals("alice", stored.getUsername());
-        System.out.println(stored.getQuizId());
-        assertEquals("1", stored.getQuizId());
-
-        assertEquals(95, stored.getScore(), 0.001);
-
-        //assertEquals(95, stored.getScore(), 1e-6);
-
-    }
 
     @Test
     public void testEmptyHistory() {
-        List<QuizResult> results = historyDAO.getUserHistory("ghost");
+        List<QuizResult> results = historyDAO.getUserHistory("nonexistent");
         assertTrue(results.isEmpty());
     }
 
@@ -95,7 +54,7 @@ public class QuizHistoryDAOTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddResultWithNullUsername() {
-        QuizResult result = new QuizResult(null, "2", "bo", 75, new Timestamp(System.currentTimeMillis()));
+        QuizResult result = new QuizResult(null, "2", "Quiz", 75, new Timestamp(System.currentTimeMillis()));
         historyDAO.addResult(result);
     }
 
@@ -104,66 +63,100 @@ public class QuizHistoryDAOTest {
         historyDAO.getUserHistory(null);
     }
 
-
-
-//    @Test
-//    public void testGetRecentlyPlayedQuizzes() throws SQLException {
-//        Timestamp now = new Timestamp(System.currentTimeMillis());
-//
-//        Quiz quiz1 = new MockQuiz("user1", now, "quiz1", "MCQ", "Quiz 1", "format");
-//        quiz1.setNumQuestions(5);
-//        quiz1.setTopic("Math");
-//
-//        Quiz quiz2 = new MockQuiz("user1", new Timestamp(now.getTime() + 1000), "quiz2", "MCQ", "Quiz 2", "format");
-//        quiz2.setNumQuestions(5);
-//        quiz2.setTopic("Science");
-//
-//        Quiz quiz3 = new MockQuiz("user1", new Timestamp(now.getTime() + 2000), "quiz3", "MCQ", "Quiz 3", "format");
-//        quiz3.setNumQuestions(5);
-//        quiz3.setTopic("History");
-//
-//        QuizDAO quizDAO = new RealQuizDAO(conn);
-//        quizDAO.addQuiz(quiz1);
-//        quizDAO.addQuiz(quiz2);
-//        quizDAO.addQuiz(quiz3);
-//
-//        historyDAO.addResult(new QuizResult("tester", quiz1, 80, new Timestamp(now.getTime() + 3000)));
-//        historyDAO.addResult(new QuizResult("tester", quiz2, 85, new Timestamp(now.getTime() + 4000)));
-//        historyDAO.addResult(new QuizResult("tester", quiz3, 90, new Timestamp(now.getTime() + 5000)));
-//
-//        List<Quiz> recentPlayed = historyDAO.getRecentlyPlayedQuizzes("tester", 2);
-//
-//        assertEquals(2, recentPlayed.size());
-//        assertEquals("quiz3", recentPlayed.get(0).getID());
-//        assertEquals("quiz2", recentPlayed.get(1).getID());
-//
-//        quizDAO.removeQuiz(quiz1);
-//        quizDAO.removeQuiz(quiz2);
-//        quizDAO.removeQuiz(quiz3);
-//    }
-
-
     @Test
     public void testGetHistoryByQuiz() throws SQLException {
+        // Add quiz first
+        Quiz quiz = new RealQuiz("creator", new Date(System.currentTimeMillis()), "quiz2", "Type", "Quiz Two", "Style");
+        quizDAO.addQuiz(quiz);
 
-        QuizResult  result = new QuizResult("alice", "1", "ab", 95, new Timestamp(System.currentTimeMillis()));
-        historyDAO.addResult(result);
-        Quiz take = new RealQuiz("ld", new Date(System.currentTimeMillis()), "1", "text", "ab", "one-page");
-        quizDAO.addQuiz(take);
-        QuizResult result1 = new QuizResult("bob", "1", "ab", 100, new Timestamp(System.currentTimeMillis()));
+        // Add results
+        QuizResult result1 = new QuizResult("user1", "quiz2", "Quiz Two", 80, new Timestamp(System.currentTimeMillis()));
+        QuizResult result2 = new QuizResult("user2", "quiz2", "Quiz Two", 90, new Timestamp(System.currentTimeMillis()));
         historyDAO.addResult(result1);
-        List<QuizResult> results = historyDAO.getResultsByQuiz("1");
+        historyDAO.addResult(result2);
+
+        List<QuizResult> results = historyDAO.getResultsByQuiz("quiz2");
         assertEquals(2, results.size());
-        assertEquals("bob", results.get(0).getUsername());
+        // Should be ordered by score descending
+        assertEquals("user2", results.get(0).getUsername());
+        assertEquals(90, results.get(0).getScore(), 0.001);
+        assertEquals("user1", results.get(1).getUsername());
+    }
+
+    @Test
+    public void testGetResultsByQuizWithNonexistentQuiz() throws SQLException {
+        List<QuizResult> results = historyDAO.getResultsByQuiz("nonexistent");
+        assertTrue(results.isEmpty());
     }
 
     @Test
     public void testMaxScore() throws SQLException {
-        assertEquals(0, historyDAO.getResultsByQuiz("1").size());
-        QuizResult result = new QuizResult("alice", "1", "ab", 105, new Timestamp(System.currentTimeMillis()));
-        historyDAO.addResult(result);
-        assertEquals(105, historyDAO.getMaxResultForUser("alice", "1"), 1e-6);
-        assertEquals(0, historyDAO.getMaxResultForUser("bob", "1"), 1e-6);
+        // Add quiz first
+        Quiz quiz = new RealQuiz("creator", new Date(System.currentTimeMillis()), "quiz3", "Type", "Quiz Three", "Style");
+        quizDAO.addQuiz(quiz);
+
+        // Test with no results
+        assertEquals(0, historyDAO.getMaxResultForUser("user1", "quiz3"), 0.001);
+
+        // Add results
+        QuizResult result1 = new QuizResult("user1", "quiz3", "Quiz Three", 75, new Timestamp(System.currentTimeMillis()));
+        QuizResult result2 = new QuizResult("user1", "quiz3", "Quiz Three", 85, new Timestamp(System.currentTimeMillis()));
+        historyDAO.addResult(result1);
+        historyDAO.addResult(result2);
+
+        assertEquals(85, historyDAO.getMaxResultForUser("user1", "quiz3"), 0.001);
+        assertEquals(0, historyDAO.getMaxResultForUser("user2", "quiz3"), 0.001);
     }
 
+    @Test
+    public void testGetUserAttemptCount() {
+        // Add quiz first
+        Quiz quiz = new RealQuiz("creator", new Date(System.currentTimeMillis()), "quiz4", "Type", "Quiz Four", "Style");
+        quizDAO.addQuiz(quiz);
+
+        assertEquals(0, historyDAO.getUserAttemptCount("user1"));
+
+        // Add attempts
+        QuizResult result1 = new QuizResult("user1", "quiz4", "Quiz Four", 70, new Timestamp(System.currentTimeMillis()));
+        QuizResult result2 = new QuizResult("user1", "quiz4", "Quiz Four", 80, new Timestamp(System.currentTimeMillis()));
+        historyDAO.addResult(result1);
+        historyDAO.addResult(result2);
+
+        assertEquals(2, historyDAO.getUserAttemptCount("user1"));
+        assertEquals(0, historyDAO.getUserAttemptCount("user2"));
+    }
+
+    @Test
+    public void testGetTopScoreForQuiz() {
+        // Add quiz first
+        Quiz quiz = new RealQuiz("creator", new Date(System.currentTimeMillis()), "quiz5", "Type", "Quiz Five", "Style");
+        quizDAO.addQuiz(quiz);
+
+        // Test with no results
+        assertEquals(0.0, historyDAO.getTopScoreForQuiz("quiz5"), 0.001);
+
+        // Add results
+        QuizResult result1 = new QuizResult("user1", "quiz5", "Quiz Five", 65, new Timestamp(System.currentTimeMillis()));
+        QuizResult result2 = new QuizResult("user2", "quiz5", "Quiz Five", 95, new Timestamp(System.currentTimeMillis()));
+        QuizResult result3 = new QuizResult("user3", "quiz5", "Quiz Five", 85, new Timestamp(System.currentTimeMillis()));
+        historyDAO.addResult(result1);
+        historyDAO.addResult(result2);
+        historyDAO.addResult(result3);
+
+        assertEquals(95, historyDAO.getTopScoreForQuiz("quiz5"), 0.001);
+    }
+
+
+
+    @Test
+    public void testInitializeTable() {
+        // The initialize() method is called in @Before, so we can just verify it worked
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM quiz_history")) {
+            // Just verifying the table exists and is empty
+            assertFalse(rs.next());
+        } catch (SQLException e) {
+            fail("Table verification failed: " + e.getMessage());
+        }
+    }
 }

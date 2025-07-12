@@ -1,4 +1,3 @@
-import classes.mail.ChallengeMail;
 import classes.mail.ChallengeMailSender;
 import classes.mail.Mail;
 import classes.social.Challenge;

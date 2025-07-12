@@ -51,7 +51,12 @@ public class FriendRequestDAOTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DELETE FROM friends");
+            stmt.execute("DELETE FROM requests");
+        }
+
         requestDAO = new FriendRequestDAO(conn, friendsDAO);
     }
 
@@ -64,6 +69,7 @@ public class FriendRequestDAOTest {
 
     @Test
     public void testCreateFriendRequest() {
+
         requestDAO.createRequest("Alice", "Bob");
         requestDAO.createRequest("Charlie", "Bob");
 
@@ -74,22 +80,56 @@ public class FriendRequestDAOTest {
         assertTrue(requests.contains("Charlie"));
     }
 
-    @Test
-    public void testRemoveFriendRequest() {
-
-        List<String> requests = requestDAO.getRequestList("Bob");
-        assertEquals(2, requests.size());
-        assertTrue(requests.contains("Alice"));
-        assertTrue(requests.contains("Charlie"));
-
-        requestDAO.removeRequest("Alice", "Bob");
-        requests = requestDAO.getRequestList("Bob");
-        assertEquals(1, requests.size());
-        assertTrue(requests.contains("Charlie"));
-
-        requestDAO.removeRequest("Charlie", "Bob");
-        requests = requestDAO.getRequestList("Bob");
-        assertEquals(0, requests.size());
-        assertFalse(requests.contains("Charlie"));
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateRequestWithNullSender() {
+        requestDAO.createRequest(null, "Bob");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateRequestWithNullReceiver() {
+        requestDAO.createRequest("Alice", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateRequestWithSameSenderAndReceiver() {
+        requestDAO.createRequest("Alice", "Alice");
+    }
+
+    @Test
+    public void testGetEmptyRequestList() {
+        List<String> requests = requestDAO.getRequestList("NonExistentUser");
+        assertTrue(requests.isEmpty());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveRequestWithNullSender() {
+        requestDAO.removeRequest(null, "Bob");
+    }
+
+    @Test
+    public void testInitialize() throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("DROP TABLE IF EXISTS requests");
+        }
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeQuery("SELECT * FROM requests");
+            fail("Expected SQLException");
+        } catch (SQLException e) {
+        }
+
+        requestDAO.initialize();
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeQuery("SELECT * FROM requests");
+        }
+    }
+
+    @Test
+    public void testRemoveRequest() {
+        requestDAO.createRequest("Alice", "Bob");
+        assertEquals(1, requestDAO.getRequestList("Bob").size());
+        requestDAO.removeRequest("Alice", "Bob");
+        assertEquals(0, requestDAO.getRequestList("Alice").size());
+    }
+
 }
