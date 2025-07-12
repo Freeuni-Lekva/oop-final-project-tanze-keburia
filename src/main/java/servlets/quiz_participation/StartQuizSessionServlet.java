@@ -3,9 +3,12 @@ package servlets.quiz_participation;
 
 
 import classes.quiz_utilities.questions.Question;
+import classes.quiz_utilities.quiz.Quiz;
 import database.database_connection.DatabaseConnector;
 import database.quiz_utilities.QuestionDAO;
+import database.quiz_utilities.QuizDAO;
 import database.quiz_utilities.RealQuestionDAO;
+import database.quiz_utilities.RealQuizDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -31,15 +34,22 @@ public class StartQuizSessionServlet extends HttpServlet {
         try(Connection conn =  DatabaseConnector.getInstance().getConnection()){
 
             QuestionDAO questionDAO = new RealQuestionDAO(conn);
-
+            QuizDAO quizDAO = new RealQuizDAO(conn); // Add this line
             List<Question> questions = questionDAO.getQuiz(quizID);
+            Quiz quiz = quizDAO.getQuiz(quizID); // Get the quiz object
 
             HttpSession session = request.getSession();
             session.setAttribute("quizID", quizID);
             session.setAttribute("questions", questions);
             session.setAttribute("currentIndex", 0);
+            session.setAttribute("quiz", quiz); // Store quiz in session
 
-            response.sendRedirect("questionPage.jsp");
+            // Redirect based on quiz type
+            if(quiz != null && "FillBlank".equals(quiz.getType())) {
+                response.sendRedirect("takeFillBlankPerPage.jsp");
+            } else {
+                response.sendRedirect("questionPage.jsp");
+            }
         }catch(SQLException e) {
             throw new RuntimeException(e);
         }
